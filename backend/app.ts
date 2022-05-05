@@ -1,29 +1,24 @@
-var createError = require('http-errors');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
-//express
+import path from 'path';
 import express from 'express';
+import { router } from "./routers";
+import morgan from 'morgan';
 
-const app = express();
-const port = 3150;
+import * as MySQLConnector from './database/MapDB';
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+const app: express.Application = express();
+const port:number = 3150;
 
-app.use(logger('dev'));
+MySQLConnector.init();
+
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var apiRouter = require('./routes/api');
+for (const route of router) {
+  app.use(route.getRouter());
+}
 
-app.use('/api',apiRouter)
-
-app.set('view engine', 'ejs');
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
