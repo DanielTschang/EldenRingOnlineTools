@@ -1,295 +1,308 @@
-import {Request, Response} from "express";
+import {Request, Response, RequestHandler} from "express";
 
+import * as MarkerAPIService from "./APIqueries";
 
 class ApiController {
-  all(req: Request, res: Response) {
-    let data:object = [];
-    res.json({
-      "data": data,
-      "type": 'all'
-    })
+  protected async response(type:string){
+    
   }
-  siteofgrace(req: Request, res: Response) {
+
+  public async all(req: Request, res: Response) {
+    try{
+      const markers = await MarkerAPIService.getAllData();
+      res.status(200).json({
+        "data": markers,
+        "type": 'all'
+      })
+    }
+    catch(error){
+      console.error('[api.controller][getAlldata][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
+      res.status(500).json({
+        message: 'There was an error when fetching markerdata'
+      });
+    }
+  }
+  public async siteofgrace(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": "siteofgrace"
     })
   }
-  shortpath(req: Request, res: Response) {
+  public async shortpath(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": "shortpath"
     })
   }
-  waygates(req: Request, res: Response) {
+  public async waygates(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": "waygates"
     })
   }
-  runefarm(req: Request, res: Response) {
+  public async runefarm(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": "runefarm"
     })
   }
-  shop(req: Request, res: Response) {
+  public async shop(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": "shop"
     })
   }
-  npc(req: Request, res: Response) {
+  public async npc(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": "npc"
     })
   }
-  location(req: Request, res: Response) {
+  public async location(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": "location"
     })
   }
-  summoningpool(req: Request, res: Response) {
+  public async summoningpool(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": "summoningpool"
     })
   }
-  cave(req: Request, res: Response) {
+  public async cave(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": "cave"
     })
   }
-  horsetorrent(req: Request, res: Response) {
+  public async horsetorrent(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": "horsetorrent"
     })
   }
-  walkingmausoleum(req: Request, res: Response) {
+  public async walkingmausoleum(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": "walkingmausoleum"
     })
   }
-  bigboss(req: Request, res: Response) {
+  public async bigboss(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": "bigboss"
     })
   }
-  boss(req: Request, res: Response) {
+  public async boss(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": "boss"
    })
   }
-  littleboss(req: Request, res: Response) {
+  public async littleboss(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'littleboss'
     })
   }
-  npcinvaders(req: Request, res: Response) {
+  public async npcinvaders(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'npcinvader'
     })
   }
-  greatenemy(req: Request, res: Response) {
+  public async greatenemy(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'greatenemy'
     })
   }
-  item(req: Request, res: Response) {
+  public async item(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'item'
     })
   }
-  cartacombs(req: Request, res: Response) {
+  public async cartacombs(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'cartacombs'
     })
   }
-  evergaol(req: Request, res: Response) {
+  public async evergaol(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'evergaol'
     })
   }
-  goldenseed(req: Request, res: Response) {
+  public async goldenseed(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'goldenseed'
     })
   }
-  crystaltears(req: Request, res: Response) {
+  public async crystaltears(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'crystaltears'
     })
   }
-  keyitems(req: Request, res: Response) {
+  public async keyitems(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'keyitems'
     })
   }
-  stonewordkey(req: Request, res: Response) {
+  public async stonewordkey(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'stonewordkey'
     })
   }
-  deathroot(req: Request, res: Response) {
+  public async deathroot(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'deathroot'
     })
   }
-  dragonheart(req: Request, res: Response) {
+  public async dragonheart(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'dragonheart'
     })
   }
-  larvaltear(req: Request, res: Response) {
+  public async larvaltear(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'larvaltear'
     })
   }
-  pickersbellbearing(req: Request, res: Response) {
+  public async pickersbellbearing(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'pickersbellbearing'
     })
   }
-  sacredtear(req: Request, res: Response) {
+  public async sacredtear(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'sacredtear'
     })
   }
-  minersbellbearing(req: Request, res: Response) {
+  public async minersbellbearing(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'minersbellbearing'
     })
   }
-  painting(req: Request, res: Response) {
+  public async painting(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'painting'
     })
   }
-  gesture(req: Request, res: Response) {
+  public async gesture(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'gesture'
     })
   }
-  material(req: Request, res: Response) {
+  public async material(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'material'
     })
   }
-  sorceries(req: Request, res: Response) {
+  public async sorceries(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'sorceries'
     })
   }
-  weapon(req: Request, res: Response) {
+  public async weapon(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'weapon'
     })
   }
-  cookbook(req: Request, res: Response) {
+  public async cookbook(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'cookbook'
     })
   }
-  whetblade(req: Request, res: Response) {
+  public async whetblade(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'whetblade'
     })
   }
-  incantation(req: Request, res: Response) {
+  public async incantation(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'incantation'
     })
   }
-  tailsman(req: Request, res: Response) {
+  public async tailsman(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'tailsman'
     })
   }
-  ashofwar(req: Request, res: Response) {
+  public async ashofwar(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'ashofwar'
     })
   }
-  spiritash(req: Request, res: Response) {
+  public async spiritash(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,
       "type": 'spiritash'
     })
   }
-  armor(req: Request, res: Response) {
+  public async armor(req: Request, res: Response) {
     let data:object = [];
     res.json({
       "data": data,

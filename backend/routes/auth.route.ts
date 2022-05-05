@@ -9,9 +9,15 @@ class AuthRoute extends Route{
         this.setRoutes();
     }
 
+    protected setMiddleWare() {
+        // this.router.use()
+    }
+
     protected setRoutes() {
         this.router.get('/login', this.authController.echo);
     }
+
+
 }
 
 export default AuthRoute;

@@ -1,0 +1,18 @@
+#Linux
+.directory
+*~
+
+# npm
+node_modules
+package-lock.json
+*.log
+*.gz
+
+# Coveralls
+coverage
+
+#benchmarking
+benchmarks/graphs
+
+private.key
+public.key

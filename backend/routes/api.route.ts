@@ -1,12 +1,18 @@
 import ApiController from "../controllers/ApiController"
 import Route from "./route";
+import * as Auth from "./../api/middlewares/auth.middleware";
 
 class ApiRoute extends Route{
     private apiController = new ApiController();
 
     constructor() {
         super();
+        this.setMiddleWare();
         this.setRoutes();
+    }
+
+    protected setMiddleWare(): void {
+        this.router.use(Auth.authorize(['getAlldata']))
     }
 
     protected setRoutes() {
