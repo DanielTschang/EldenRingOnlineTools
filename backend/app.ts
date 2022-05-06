@@ -50,7 +50,9 @@ app.get('/error', (req, res) => {
   res.send("Custom error landing page.")
 })
 
+//custom error handler
 app.use(handleError);
+//e.g => throw new CustomError('forgot something?', 400, 'you can do better than that');
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

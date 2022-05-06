@@ -1,6 +1,6 @@
 import Route from "./routes/route";
 import AuthRoute from  "./routes/auth.route";
-import ApiRoute from  "./routes/api.route";
+import ApiRoute from  "./routes/marker-api.route";
 
 export const router: Array<Route> = [
     new AuthRoute(),

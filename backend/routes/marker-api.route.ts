@@ -1,6 +1,6 @@
-import ApiController from "../controllers/ApiController"
+import ApiController from "../controllers/api.controller"
 import Route from "./route";
-import * as Auth from "./../api/middlewares/auth.middleware";
+import * as Auth from "../api/middlewares/auth.middleware";
 
 class ApiRoute extends Route{
     private apiController = new ApiController();
@@ -21,7 +21,11 @@ class ApiRoute extends Route{
 
     protected setRoutes() {
         this.router.get('/all', this.apiController.all); //全部
-        this.router.get('/:markertype', this.apiController.getSpecificData)
+        this.router.get('/:type', this.apiController.getMarkerByType);
+        this.router.get('/id/:id', this.apiController.getMarkerById);
+        this.router.post('/add', this.apiController.addMarker);
+        this.router.patch('/:id', this.apiController.updateMarkerById);
+        this.router.delete('/:id',this.apiController.deleteMarkerById);
         // this.router.get('/siteofgrace', this.apiController.siteofgrace); //賜福
         // this.router.get('/shortpath', this.apiController.shortpath); //捷徑
         // this.router.get('/waygates', this.apiController.waygates); //傳送門
