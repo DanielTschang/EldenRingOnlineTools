@@ -10,7 +10,7 @@ import { generateToken } from './api/utils/jwt.utils';
 import logger from './api/middlewares/logger.middleware';
 import fsPromises from "fs/promises"
 
-import * as MySQLConnector from './database/MapDB';
+import * as MySQLConnector from './database/map.database';
 
 import errorHandler from "./api/middlewares/error-handler.middleware";
 import handleError from './api/middlewares/error-handler.middleware';

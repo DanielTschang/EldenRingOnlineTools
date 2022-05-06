@@ -8,6 +8,8 @@ export interface IMarker {
     lat: string;
     lng: string;
     is_undergound:number;
+    ip:string;
+    
   };
 
 export interface IGetMarkerReq extends Request<{id:IMarker['id'], type:IMarker['type']}>{}

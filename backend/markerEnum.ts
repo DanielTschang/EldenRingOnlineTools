@@ -1,5 +1,5 @@
 export enum MarkerType {
-    other = 'other',
+    Other = 'other',
     SiteOfGrace = 'siteofgrace',
     shortPath = 'shortpath',
     wayGates = 'waygates',
@@ -14,29 +14,24 @@ export enum MarkerType {
     BigBoss = 'bigboss',
     Boss = 'boss',
     LittleBoss = 'littboss',
-
     NPCInvaders = 'npcinvaders',
     GreatEnemy = 'greatenemy',
-  
     Item = 'item',
     Keyitems = 'keyitems',
     Cartacombs = 'cartacombs',
     GoldenSeed = 'goldenseed',
     Evergaol = 'evergaol',
     CrystalTears = 'crystaltears',
-
     StoneSwordKey = 'stoneswordkey',
     DeathRoot = 'deathroot',
     DragonHeart = 'dragonheart',
     LarvalTear = 'larvaltear',
     Material = 'material',
     PickersBellBearing = 'pickersbellbearing',
-  
     SacredTear = 'sacredtear',
     MinersBellBearing = 'minersbellbearing',
     Gesture = 'gesture',
     Painting = 'painting',
-
     Sorceries  = 'sorceries',
     Weapon = 'weapon',
     Cookbook = 'cookbook',

@@ -75,7 +75,13 @@ class ApiController {
   }
 
 
-
+  /**
+   * Add Marker
+   * req.body -> 
+   * 
+   * @param req express request
+   * @param res 
+   */
   public async addMarker(req: IAddMarkerReq, res: Response){
     try{
       let data = req.body
