@@ -1,3 +1,3 @@
-# zh-TW.EldenRing
+# zh-TW.EldenRing - In process
 
-- In process
+
