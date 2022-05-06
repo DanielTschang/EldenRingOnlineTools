@@ -18,3 +18,5 @@ private.key
 public.key
 
 *.py
+
+.env
