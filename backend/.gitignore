@@ -16,3 +16,5 @@ benchmarks/graphs
 
 private.key
 public.key
+
+*.py
