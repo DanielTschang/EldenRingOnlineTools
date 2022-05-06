@@ -19,7 +19,6 @@ export const authorize = (allowedAccessTypes: string[]) => async (req: Request, 
     if (jwt.toLowerCase().startsWith('bearer')) {
       jwt = jwt.slice('bearer'.length).trim();
     }
-    console.log(jwt)
 
     // verify token hasn't expired yet
     const decodedToken = await validateToken(jwt);

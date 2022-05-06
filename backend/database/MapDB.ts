@@ -32,11 +32,11 @@ export const init = () => {
  * @param {string[] | Object} params - provide the parameterized values used
  * in the query
  */
-export const execute = <T>(query: string, params: string[] | Object): Promise<T> => {
+export const execute = (query: string, params: string[] | Object): Promise<any> => {
   try {
     if (!pool) throw new Error('Pool was not created. Ensure pool is created when running the app.');
 
-    return new Promise<T>((resolve, reject) => {
+    return new Promise<any>((resolve, reject) => {
       pool.query(query, params, (error:any, results:any) => {
         if (error) reject(error);
         else resolve(results);

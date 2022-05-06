@@ -1,7 +1,6 @@
-import path from 'path';
 import express from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { router } from "./routers";
-import morgan from 'morgan';
 import compression from 'compression';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
@@ -9,8 +8,12 @@ import cors from 'cors';
 import { generateToken } from './api/utils/jwt.utils';
 
 import logger from './api/middlewares/logger.middleware';
+import fsPromises from "fs/promises"
 
 import * as MySQLConnector from './database/MapDB';
+
+import errorHandler from "./api/middlewares/error-handler.middleware";
+import handleError from './api/middlewares/error-handler.middleware';
 
 const app: express.Application = express();
 const port:number = 3150;
@@ -30,19 +33,24 @@ app.use(cors());
 //add logger middleware
 app.use(logger);
 
+
+console.log(process.env.NODE_ENV)
+console.log(process.env.MY_SQL_DB_HOST)
+
 if (process.env.NODE_ENV !== 'production'){
   console.log('JWT', generateToken())
 }
 
-
-
-app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, 'public')));
-
 for (const route of router) {
-  app.use(route.getRouter());
+  app.use(route.getPrefix(),route.getRouter());
 }
 
+
+app.get('/error', (req, res) => {
+  res.send("Custom error landing page.")
+})
+
+app.use(handleError);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

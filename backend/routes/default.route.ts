@@ -1,8 +1,8 @@
-import AuthController from "../controllers/AuthController"
+import DefaultController from "../controllers/Default.Controller";
 import Route from "./route";
 
-class AuthRoute extends Route{
-    private authController = new AuthController();
+class DefaultRoute extends Route{
+    private authController = new DefaultController();
 
     constructor() {
         super();
@@ -12,15 +12,15 @@ class AuthRoute extends Route{
     }
 
     protected setPrefix(): void {
-        this.prefix = "/auth"
+        this.prefix = "/"
     }
 
     protected setMiddleWare() {
         // this.router.use()
     }
     protected setRoutes() {
-        this.router.get('/login', this.authController.echo);
+        this.router.get('/', this.authController.echo);
     }
 }
 
-export default AuthRoute;
+export default DefaultRoute;
