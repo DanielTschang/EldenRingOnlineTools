@@ -1,9 +1,19 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
 #Linux
 .directory
 *~
 
 # npm
-node_modules
 package-lock.json
 *.log
 *.gz
@@ -19,8 +29,7 @@ public.key
 
 *.py
 
-.env
-
+# misc
 .DS_Store
 .env
 .env.local
@@ -31,5 +40,3 @@ public.key
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-package-lock.json
