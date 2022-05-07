@@ -2,14 +2,13 @@ import { Request } from 'express';
 
 export interface IMarker {
     id: number;
-    name:string;
-    type:string;
-    desc:string;
+    name: string;
+    type: string;
+    desc: string;
     lat: string;
     lng: string;
     is_undergound:number;
-    ip:string;
-    
+    ip: string;
   };
 
 export interface IGetMarkerReq extends Request<{id:IMarker['id'], type:IMarker['type']}>{}
