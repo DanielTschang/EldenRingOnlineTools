@@ -25,7 +25,7 @@ export function generateToken() {
         // to generate the JWT. The client gets a public key to validate the
         // signature
         algorithm: 'RS256',
-        expiresIn: '1h'
+        expiresIn: '10d'
     };
 
     // generate JWT

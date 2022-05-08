@@ -1,10 +1,10 @@
 
 export const MarkerQueries = {
     GetAllMarker:`
-        SELECT * FROM map LIMIT 3000
+        SELECT * FROM map WHERE is_underground=0 AND is_deleted=0 LIMIT 1000
     `,
     GetMarkerByType:`
-        SELECT * FROM map Where type = ?
+        SELECT * FROM map Where is_underground=0 AND type = ? AND is_deleted=0
     `,
     GetMarkerById:`
         SELECT * FROM map Where id = ?
