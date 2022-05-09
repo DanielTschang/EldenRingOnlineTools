@@ -1,10 +1,5 @@
 <template>
-    <div>
-    <div>
-        <button @click="layerIndex = 0">地面</button> <button @click="layerIndex = 1">地底</button>
-        <button @click="openpop">pop</button>
-        <h3>{{zoom}}, {{center}}</h3>
-    </div>
+
     <div class="row map">
         <LMap ref="MyMap" :zoom="zoom" :options="{attributionControl: false, zoomControl: false, preferCanvas:true}"  :maxZoom="maxZoom" :minZoom="minZoom" :center="center" :maxBounds="maxBounds"
             @ready="initMap()"
@@ -15,22 +10,14 @@
             <LTileLayer :url="layer.url" :attribution="layer.attribution" :tileSize="tileSize" />
                 <LMarker :key="marker.id" v-for="marker in markers" :lat-lng="latLng(marker.lat, marker.lng)" >
                     <LPopup>{{marker.name}} {{marker.type}}</LPopup>
-                    <LIcon
-                        :icon-size="iconSize"
-                        class-name="iconName"
-                        :shadow-url="shadowUrl"
-                        :shadow-size="shadowSize"
-                        :icon-url="getIconUrl(marker.type)"
-                        :shadow-anchor="shadowAnchor"
-                    >
-                        <CanvasMarker :name="marker.name" :imgurl="haha" />
-                    <!-- <div
-                        style="width: 50px; height: 50px; border: 1px solid blue; background-color:red"
-                    >
-                        <canvas id="myCanvas" width="50" height="50"></canvas>
-                        <img style="width:2vw" src="https://eldenring.wiki.fextralife.com/file/Elden-Ring/morgotts-great-rune-key-item-elden-ring-wiki-guide.png">
-                        <h style="">{{marker.name}}</h> 
-                    </div> -->
+                    <LIcon>
+                        <!-- <canvas-marker /> -->
+                        <!-- <IconMarker :name="marker.name" :url="getIconUrl(marker.type)" :show="showText(zoom)" /> -->
+                        <div class="map-label">
+                            <img class="map-label-image" :src="getIconUrl(marker.type)">
+                            <h4 ref="maptext" class="map-label-text">{{marker.name}}</h4>
+                            
+                        </div>
                     </LIcon>
                 </LMarker>
 
@@ -38,14 +25,13 @@
             <LControlZoom position="bottomright" > </LControlZoom>
         </LMap>
     </div>
-    </div>
+
 </template>
 
 <script>
 import L, {latLngBounds} from 'leaflet';
 import { LMap, LTileLayer, LControlAttribution, LControlZoom, LPopup, LMarker, LIcon } from 'vue2-leaflet';
 import iconurl from './IconUrl.json'
-import CanvasMarker from './CanvasMarker.vue'
 
 
 export default {
@@ -58,15 +44,11 @@ export default {
         LMarker,
         LPopup,
         LIcon,
-        CanvasMarker
-        // LTooltip
+ 
     },
     props:{
         markers:Array
     },
-    // mounted: function(){
-    //     this.iconUrl = iconurl
-    // },
     data() {
         return {
             map:null,
@@ -74,7 +56,7 @@ export default {
             iconSize:[35, 35],
             shadowSize:[35,35],
             zoom:6,
-            center: L.latLng(-17.659488, -76.80542),
+            center: L.latLng(-30.505484, -73.344727),
             layerIndex: 0,
             maxZoom:7,
             minZoom:2,
@@ -106,7 +88,24 @@ export default {
         },
         zoomUpdated (zoom) {
             this.zoom = zoom;
+            let hi = this.$refs.maptext
+            console.log(hi)
+            //幹為啥改不了啊
+            if( this.zoom <5){
+                hi.forEach(each=>{
+                    if(!each.classList.value.includes("hideText")){
+                        each.classList.value = each.classList.value + ' hideText'
+                    }
+                }) 
+            }else{
+                hi.forEach(each=>{
+                    if(each.classList.value.includes("hideText")){
+                        each.classList.value = each.classList.value.replace(' hideText','')
+                    }
+                }) 
+            }
         },
+
         centerUpdated (center) {
             this.center = center;
         },
@@ -124,6 +123,13 @@ export default {
         },
         getIconUrl(type){
             return this.iconUrl[type]
+        },
+        hideClass(){
+            if (this.zoom > 5){
+                this.$refs.classList.value
+            }else{
+                this.$
+            }
         }
     },
     computed: {
@@ -137,8 +143,10 @@ export default {
 
 <style scoped>
     .map {
-        height: 75vh;
-        width: 90vw;
+        margin:10px 10px;
+        padding:10px 10px;
+        height: 85vh;
+        width: 100vw;
     }
     .someExtraClass {
         text-align: left;
@@ -158,4 +166,41 @@ export default {
         height: auto !important;
         margin: 0 !important;
     }
+    .leaflet-div-icon {
+        width:300px;
+        height:0;
+        border: 0;
+        padding: 0;
+    }
+    *{
+        margin:0;
+        padding:0;
+    }
+    .map-label {
+        position: relative;
+        bottom: 0;
+        left: -50%;
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        width:3vw;
+        height:3vh;
+        
+    }
+    .map-label-image{
+        position: relative; 
+    }
+
+    .map-label-text {
+        position: relative; 
+        padding: 3px;
+        white-space: nowrap;
+
+    }
+
+    .hideText{
+        visibility:hidden;
+    }
+
+
 </style>

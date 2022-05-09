@@ -1,29 +1,22 @@
 <template>
-    <div class="container">
+    <div >
         <div>
             <h1>Elden Ring Online Map</h1>
         </div>
-        <div class="row">
-            
-            <!-- <div class="col-3 brew-list">
-                <MarkerList :markers="markers"/>
-            </div> -->
-            <div class="col-10">
-                <MarkerMap :markers="markers"/>
-            </div>
+        <div>
+            <MarkerMap :markers="markers"/>
+
         </div>
     </div>
 </template>
 
 <script>
-    // import MarkerList from './MarkerList.vue'
     import MarkerMap from './MarkerMap.vue'
 
-    const url = "http://localhost:3150/api/siteofgrace"
+    const url = "http://localhost:3150/api/all"
     export default {
         name: 'MarkerListContainer',
         components:{
-            // MarkerList,
             MarkerMap
         },
         props: {
@@ -48,7 +41,6 @@
                 .then(response => response.json())
                 .then(result => {
                     this.markers = result.data
-                    console.log(this.markers)
                     })
                 .catch(error => console.log('error', error));
 

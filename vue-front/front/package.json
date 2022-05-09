@@ -13,6 +13,7 @@
     "eslint-plugin-vue": "^8.7.1",
     "leaflet": "^1.8.0",
     "leaflet-canvas-marker-xrr2021": "^1.0.2",
+    "leaflet-canvas-markers": "^1.0.7",
     "node-sass": "^7.0.1",
     "rbush": "^3.0.1",
     "sass-loader": "^12.6.0",
