@@ -1,6 +1,6 @@
-function createArray<T>(items: T[]): T[] {
-  console.log(T);
-  return new Array<T>().concat(items);
-}
+import * as MySQLConnector from './database/map.database';
+import * as AuthRegister from './controllers/utils/auth.register'
 
-createArray<number>([1,2,3])
+MySQLConnector.init()
+
+AuthRegister.Register("test","dan","12345")

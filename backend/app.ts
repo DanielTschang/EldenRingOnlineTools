@@ -1,18 +1,26 @@
 import express from 'express';
-import { Request, Response, NextFunction } from 'express';
 import { router } from "./routers";
 import compression from 'compression';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+
+//generateToken for dev
 import { generateToken } from './api/utils/jwt.utils';
 
+//log out the logger
 import logger from './api/middlewares/logger.middleware';
-
+//mySQL
 import * as MySQLConnector from './database/map.database';
-
+//custom error handler
 import handleError from './api/middlewares/error-handler.middleware';
 
+//testing
+import { payload } from './test.objects';
+
+
+
+//init express
 const app:express.Application = express();
 const port:number = 3150;
 
@@ -32,21 +40,16 @@ app.use(cors());
 app.use(logger);
 
 
-console.log(process.env.NODE_ENV)
-console.log(process.env.MY_SQL_DB_HOST)
+console.log('NODE_ENV_TYPE :',process.env.NODE_ENV)
 
 if (process.env.NODE_ENV !== 'production'){
-  console.log('JWT', generateToken())
+  console.log('JWT :', generateToken(payload))
 }
 
+//get routers
 for (const route of router) {
   app.use(route.getPrefix(),route.getRouter());
 }
-
-
-app.get('/error', (req, res) => {
-  res.send("Custom error landing page.")
-})
 
 //custom error handler
 app.use(handleError);

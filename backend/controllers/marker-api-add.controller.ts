@@ -1,5 +1,5 @@
 import {Request, Response, RequestHandler} from "express";
-import { IAddMarkerReq, IDeleteMarkerReq, IGetMarkerReq, IUpdateMarkerReq } from "../api/marker/marker.model";
+import { IAddMarkerReq, IDeleteMarkerReq, IGetMarkerReq, IUpdateMarkerReq } from "../api/models/marker.model";
 
 import * as MarkerAPIService from "./utils/api.queries";
 
