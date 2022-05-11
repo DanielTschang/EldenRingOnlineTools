@@ -6,18 +6,22 @@ import * as path from 'path';
 /**
  * generates JWT used for local testing
  */
-export function generateToken() {
+interface UserInfoPayload {
+    name:string,
+    userId: number,
+    accessTypes: Array<string>,
+}
+
+interface JWTokenPayload {
+    exp: number;
+    accessTypes: string[];
+    name: string;
+    userId: number;
+}
+
+export function generateToken(payload:UserInfoPayload): string {
     // information to be encoded in the JWT
-    const payload = {
-        name: 'daniel',
-        userId: 123,
-        accessTypes: [
-        'getMarker',
-        'updateMarker',
-        'addMarker',
-        'deleteMarker'
-        ]
-    };
+
     // read private key value
     const privateKey = fs.readFileSync(path.join(__dirname, "./../../private.key"));
     const signInOptions: SignOptions = {
@@ -33,20 +37,12 @@ export function generateToken() {
 };
 
 
-interface TokenPayload {
-    exp: number;
-    accessTypes: string[];
-    name: string;
-    userId: number;
-}
-
-
 /**
  * checks if JWT token is valid
  *
  * @param token the expected token payload
  */
- export function validateToken(token: string): Promise<TokenPayload> {
+ export function validateToken(token: string): Promise<JWTokenPayload> {
     const publicKey = fs.readFileSync(path.join(__dirname, './../../public.key'));
   
     const verifyOptions: VerifyOptions = {
