@@ -19,9 +19,6 @@
         components:{
             MarkerMap
         },
-        props: {
-            msg: String
-        },
         data: function (){
             return {
                 markers:[]
@@ -29,7 +26,7 @@
         },
         mounted:function(){
             var myHeaders = new Headers();
-            myHeaders.append("Authorization", "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGFuaWVsIiwidXNlcklkIjoxMjMsImFjY2Vzc1R5cGVzIjpbImdldE1hcmtlciIsInVwZGF0ZU1hcmtlciIsImFkZE1hcmtlciIsImRlbGV0ZU1hcmtlciJdLCJpYXQiOjE2NTE5OTI4NTMsImV4cCI6MTY1Mjg1Njg1M30.ccTMUe0UvqLCAnoqKL9rBetyxOabqHQsS9bhEPw8VP8Kv1vHjjtyFt5qggeKZKVFPj0sja-948jHVm-xn3Z16CJKCiBQBYH08w0qldlm8Gyzqf8PsQBe0SnY-eM1-wP3cgfLUbNfRvqsu5QzWgRTFyjH2nqR2zQiwQ77l6q3fyyLyrTQKonkl-b2UyUMSmQPzx_se2sGfUQny8ene1ox2WCzcmJRvl21liQ33xyBLvJj53J1_lKMWd90TFLF9lO3jLmrHMtOHZGG-qaWCH8WU-CpZJ-N2nih01qdZQ8EG7dlQhWRL3FjcN9At6v8xD2CClMJGnJVKjke99a75oy39g");
+            myHeaders.append("Authorization", "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGFuaWVsIiwidXNlcklkIjoxMjMsImFjY2Vzc1R5cGVzIjpbImdldE1hcmtlciIsInVwZGF0ZU1hcmtlciIsImFkZE1hcmtlciIsImRlbGV0ZU1hcmtlciJdLCJpYXQiOjE2NTIyNjY1MDMsImV4cCI6MTY1MzEzMDUwM30.ZP3NGxE1TGIWHVtzWB-L6YAJVRt69rSTDCRMXmCMwUo0C_alDpRcOBqv8t3vaBX32ug8cVhullFqFFCYl93ybTJKglac5RR5WUqLOSqxfn46vAuVf2CpAeGRRb0aCVKY70RKsq48YAPOyRsMWeCDc_mQmDf0j6KTXg-eGoJ1N5bHzr6rVtITi1gIRJilm-kNLpg2hwuJNy60N4BTiG3VG2gCj8JbuWxSdVrK-5Dn0eiROoRBF0WmXx5FX4a5xytm4_BjZog3lfAwbaQqPup-DGWkbqbtSXF_j2jZbPLWJni4P_aFHeOnWDt_8gsoZB5J5iVvE31kls2kzYKM4J_eOg");
 
             var requestOptions = {
                 method: 'GET',

@@ -4,7 +4,6 @@
   <div id="app">
 
     <MarkerListContainer/>
-    <!-- <HahaYoyo msggg="gg"/> -->
   </div>
 </template>
 
