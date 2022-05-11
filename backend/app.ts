@@ -1,5 +1,4 @@
 import express from 'express';
-import { Request, Response, NextFunction } from 'express';
 import { router } from "./routers";
 import compression from 'compression';
 import helmet from 'helmet';
@@ -18,6 +17,8 @@ import handleError from './api/middlewares/error-handler.middleware';
 
 //testing
 import { payload } from './test.objects';
+
+
 
 //init express
 const app:express.Application = express();
@@ -38,6 +39,10 @@ app.use(cors());
 //add logger middleware
 app.use(logger);
 
+import * as AuthRegister from "./controllers/utils/auth.register"
+import * as AuthLogin from "./controllers/utils/auth.login"
+
+
 
 console.log('NODE_ENV_TYPE :',process.env.NODE_ENV)
 
@@ -49,6 +54,10 @@ if (process.env.NODE_ENV !== 'production'){
 for (const route of router) {
   app.use(route.getPrefix(),route.getRouter());
 }
+
+app.get('/posts', (req, res)=>{
+  res.json({'hi':'hi'})
+})
 
 //custom error handler
 app.use(handleError);
