@@ -1,29 +1,36 @@
 <template>
+    <div>
+        <div>
+            <button @click="layerIndex = 0">地面</button> <button @click="layerIndex = 1">地底</button>
+            <button @click="openpop">pop</button>
+            <h3>{{zoom}}, {{center}}</h3>
+        </div>
 
-    <div class="row map">
-        <LMap ref="MyMap" :zoom="zoom" :options="{attributionControl: false, zoomControl: false, preferCanvas:true}"  :maxZoom="maxZoom" :minZoom="minZoom" :center="center" :maxBounds="maxBounds"
-            @ready="initMap()"
-            @update:zoom="zoomUpdated"
-            @update:center="centerUpdated"
-            @update:bounds="boundsUpdated"
-        >
-            <LTileLayer :url="layer.url" :attribution="layer.attribution" :tileSize="tileSize" />
-                <LMarker :key="marker.id" v-for="marker in markers" :lat-lng="latLng(marker.lat, marker.lng)" >
-                    <LPopup>{{marker.name}} {{marker.type}}</LPopup>
-                    <LIcon>
-                        <!-- <canvas-marker /> -->
-                        <!-- <IconMarker :name="marker.name" :url="getIconUrl(marker.type)" :show="showText(zoom)" /> -->
-                        <div class="map-label">
-                            <img class="map-label-image" :src="getIconUrl(marker.type)">
-                            <h4 ref="maptext" class="map-label-text">{{marker.name}}</h4>
-                            
-                        </div>
-                    </LIcon>
-                </LMarker>
+        <div class="row map">
+            <LMap ref="MyMap" :zoom="zoom" :options="{attributionControl: false, zoomControl: false, preferCanvas:true}"  :maxZoom="maxZoom" :minZoom="minZoom" :center="center" :maxBounds="maxBounds"
+                @ready="initMap()"
+                @update:zoom="zoomUpdated"
+                @update:center="centerUpdated"
+                @update:bounds="boundsUpdated"
+            >
+                <LTileLayer :url="layer.url" :attribution="attribution" :tileSize="tileSize" />
+                    <LMarker :key="marker.id" v-for="marker in markers" :lat-lng="latLng(marker.lat, marker.lng)" >
+                        <LPopup>{{marker.name}} {{marker.type}}</LPopup>
+                        <LIcon>
+                            <!-- <canvas-marker /> -->
+                            <!-- <IconMarker :name="marker.name" :url="getIconUrl(marker.type)" :show="showText(zoom)" /> -->
+                            <div class="map-label">
+                                <img class="map-label-image" :src="getIconUrl(marker.type)">
+                                <h4 ref="maptext" class="map-label-text">{{marker.name}}</h4>
+                                
+                            </div>
+                        </LIcon>
+                    </LMarker>
 
-            <LControlAttribution position="topright" prefix="" />
-            <LControlZoom position="bottomright" > </LControlZoom>
-        </LMap>
+                <LControlAttribution position="topright" prefix="" />
+                <LControlZoom position="bottomright" > </LControlZoom>
+            </LMap>
+        </div>
     </div>
 
 </template>
@@ -66,18 +73,15 @@ export default {
                 [-200, 200],
                 [200, -200]
             ]),
-            shadowUrl:require("../../node_modules/leaflet/dist/images/marker-shadow.png")
-            ,
-            shadowAnchor: [5,10]
-            ,
+            shadowUrl:require("../../node_modules/leaflet/dist/images/marker-shadow.png"), 
+            shadowAnchor: [5,10],
+            attribution:'&copy; <a target="_blank" href="https://danieltschang.github.io/">danchang11</a> contributors',
             layers:[
                 {
                     url:'https://imgs.ali213.net/picfile/eldenring/{z}/{x}/{y}.jpg',
-                    attribution:'&copy; <a target="_blank" href="https://danieltschang.github.io/">danchang11</a> contributors',
                 },
                 {
                     url:'https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png',
-                    attribution:'&copy; <a target="_blank" href="https://danieltschang.github.io/">danchang11</a> contributors',
                 }
             ]
         }

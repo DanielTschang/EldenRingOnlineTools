@@ -18,11 +18,11 @@ export default {
         this.vueCanvas = ctx;
         this.updateCanvas()
         
-        // imageObj.onload = function(){
-        //     context.drawImage(imageObj,10,10);
+        imageObj.onload = function(){
+            context.drawImage(imageObj,10,10);
 
-        // };
-        // imageObj.src = "https://eldenring.wiki.fextralife.com/file/Elden-Ring/morgotts-great-rune-key-item-elden-ring-wiki-guide.png"
+        };
+        imageObj.src = "https://eldenring.wiki.fextralife.com/file/Elden-Ring/morgotts-great-rune-key-item-elden-ring-wiki-guide.png"
         
 
     },
