@@ -27,6 +27,8 @@ const port:number = 3150;
 MySQLConnector.init();
 
 //MIDDLEWARES
+//public
+app.use(express.static('public'));
 //compress all the responses
 app.use(compression());
 // adding set of security middlewares

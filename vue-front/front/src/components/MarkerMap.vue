@@ -199,6 +199,7 @@ export default {
         position: relative; 
         padding: 3px;
         white-space: nowrap;
+        font-size: 5px;
 
     }
 

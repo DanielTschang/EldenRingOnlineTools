@@ -41,7 +41,6 @@ export enum MarkerType {
     AshOfWar = 'ashofwar',//戰灰
     SpiritAsh = 'spiritash',//骨灰
     Armor = 'armor',//裝備
-
     Text = 'text',
     Warn = 'warn',
     Question = 'question',
