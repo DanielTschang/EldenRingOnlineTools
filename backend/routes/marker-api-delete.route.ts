@@ -12,7 +12,7 @@ export default class ApiRoute extends Route{
         this.setRoutes();
     }
     protected setPrefix(): void {
-        this.prefix = "/api"
+        this.prefix = "/api/marker"
     }
 
     protected setMiddleWare(): void {

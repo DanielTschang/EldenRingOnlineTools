@@ -12,11 +12,11 @@ export default class TestApiRoute extends Route{
         this.setRoutes();
     }
     protected setPrefix(): void {
-        this.prefix = "/test"
+        this.prefix = "/test/api"
     }
 
     protected setMiddleWare(): void {
-        this.router.use(Auth.authorize(['updateMarker']))
+        this.router.use(Auth.authorize(['getMarker']))
     }
 
     protected setRoutes() {
