@@ -3,8 +3,7 @@ export const AuthLogin = {
     LoginWithEmail:`
         SELECT * FROM user 
         WHERE 
-            email = ? AND
-            password = ?
+            email = ?
     `,
     LoginWithUsername:`
         SELECT * FROM user 

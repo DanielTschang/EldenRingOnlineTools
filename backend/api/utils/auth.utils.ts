@@ -11,7 +11,7 @@ export function validateLogin(data: object, type?:string): Joi.ValidationResult 
     return schema.validate(data);
 }
 
-export function validateRegister(data: object, type?:string): Joi.ValidationResult {
+export function validateAuth(data: object, type?:string): Joi.ValidationResult {
     const schema = Joi.object({
         username:Joi.string().required().label("username"),
         email:Joi.string().required().label("email"),

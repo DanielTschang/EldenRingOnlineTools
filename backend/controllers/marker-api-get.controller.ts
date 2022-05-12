@@ -59,7 +59,6 @@ export default class addApiController {
     public async getMarkerByType(req: IGetMarkerReq, res: Response):Promise<void> {
         try{
             let markerType:string = req.params.type
-            console.log(markerType)
             const markers = await MarkerAPIService.getMarkerByType(markerType);
             res.status(200).json({
                 "type": markerType,

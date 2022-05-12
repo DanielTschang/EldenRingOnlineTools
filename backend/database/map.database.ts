@@ -1,4 +1,4 @@
-import { createPool, Pool } from 'mysql2';
+import { createPool, Pool } from 'mysql';
 import { DATA_SOURCES } from '../config/mysql.config';
 const dataSource = DATA_SOURCES.mySqlDataSource;
 
