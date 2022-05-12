@@ -12,7 +12,7 @@ class AuthController {
     try{
       const {error}:any = validateAuth(req.body);
       if (error){
-        res.status(400).send({ message : error.details[0].message});
+        res.status(400).send({ message : error.details[0].message,status:400});
         return
       }
 
@@ -47,11 +47,11 @@ class AuthController {
       }
 
       const token = generateToken(payload)
-      res.status(200).send({data:token, message:"Logged in successfully"})
+      res.status(200).send({token:token, message:"Logged in successfully"})
 
     }catch(error){
       console.error('[AuthController][login][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
-      res.status(500).send({message:"Internal Server Error"})
+      res.status(500).send({message:"Internal Server Error",status:500})
     }
   }
   async register(req: IUserRegisterReq , res: Response){
