@@ -3,7 +3,7 @@
         <div>
             <button @click="layerIndex = 0">地面</button> <button @click="layerIndex = 1">地底</button>
             <button @click="openpop">pop</button>
-            <h3>{{zoom}}, {{center}}</h3>
+            <h3>{{this.zoom}}, {{this.center}}</h3>
         </div>
 
         <div class="row map">
@@ -17,12 +17,11 @@
                     <LMarker :key="marker.id" v-for="marker in markers" :lat-lng="latLng(marker.lat, marker.lng)" >
                         <LPopup>{{marker.name}} {{marker.type}}</LPopup>
                         <LIcon>
-                            <!-- <canvas-marker /> -->
-                            <!-- <IconMarker :name="marker.name" :url="getIconUrl(marker.type)" :show="showText(zoom)" /> -->
                             <div class="map-label">
                                 <img class="map-label-image" :src="getIconUrl(marker.type)">
-                                <h4 ref="maptext" class="map-label-text">{{marker.name}}</h4>
-                                
+                                <div class="map-label-text-container">
+                                    <h4 v-show="showText"  class="map-label-text">{{marker.name}}</h4>
+                                </div>
                             </div>
                         </LIcon>
                     </LMarker>
@@ -69,6 +68,7 @@ export default {
             minZoom:2,
             tileSize:200,
             zoomOffset:0,
+            showText:true,
             maxBounds: latLngBounds([
                 [-200, 200],
                 [200, -200]
@@ -92,22 +92,24 @@ export default {
         },
         zoomUpdated (zoom) {
             this.zoom = zoom;
-            let hi = this.$refs.maptext
-            console.log(hi)
-            //幹為啥改不了啊
-            if( this.zoom <5){
-                hi.forEach(each=>{
-                    if(!each.classList.value.includes("hideText")){
-                        each.classList.value = each.classList.value + ' hideText'
-                    }
-                }) 
-            }else{
-                hi.forEach(each=>{
-                    if(each.classList.value.includes("hideText")){
-                        each.classList.value = each.classList.value.replace(' hideText','')
-                    }
-                }) 
-            }
+            console.log(this.zoom)
+            this.showText = this.zoom < 5 ? false : true;
+            // let markerText = this.$refs.maptext
+            // console.log(markerText)
+            // //幹為啥改不了啊
+            // if( this.zoom <5){
+            //     markerText.forEach(each=>{
+            //         if(!each.classList.value.includes("hideText")){
+            //             each.classList.value = each.classList.value + ' hideText'
+            //         }
+            //     }) 
+            // }else{
+            //     markerText.forEach(each=>{
+            //         if(each.classList.value.includes("hideText")){
+            //             each.classList.value = each.classList.value.replace(' hideText','')
+            //         }
+            //     }) 
+            // }
         },
 
         centerUpdated (center) {
@@ -129,11 +131,7 @@ export default {
             return this.iconUrl[type]
         },
         hideClass(){
-            if (this.zoom > 5){
-                this.$refs.classList.value
-            }else{
-                this.$
-            }
+            return this.zoom>5 ? true : false
         }
     },
     computed: {
@@ -149,7 +147,7 @@ export default {
     .map {
         margin:10px 10px;
         padding:10px 10px;
-        height: 85vh;
+        height: 70vh;
         width: 100vw;
     }
     .someExtraClass {
@@ -191,16 +189,20 @@ export default {
         height:3vh;
         
     }
-    .map-label-image{
-        position: relative; 
+
+    .map-label-image-container{
+        /* position: relative;  */
     }
 
-    .map-label-text {
-        position: relative; 
+    .map-label-text-container{
+        /* position: relative;  */
+    }
+
+    .map-label-text {  
+        /* position: relative;  */
         padding: 3px;
         white-space: nowrap;
         font-size: 5px;
-
     }
 
     .hideText{

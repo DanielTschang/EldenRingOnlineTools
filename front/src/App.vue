@@ -6,6 +6,7 @@
     <b-dropdown-item><router-link to="/login">Login</router-link></b-dropdown-item>
     <b-dropdown-item><router-link to="/register">Register</router-link></b-dropdown-item>
     <b-dropdown-item><router-link to="/logout">Logout</router-link></b-dropdown-item>
+    <b-dropdown-item><router-link to="/map">Map</router-link></b-dropdown-item>
   </b-nav-item-dropdown>
   <router-view></router-view>
 </div>

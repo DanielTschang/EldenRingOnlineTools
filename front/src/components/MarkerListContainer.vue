@@ -13,7 +13,7 @@
 <script>
     import MarkerMap from './MarkerMap.vue'
 
-    const url = "http://localhost:3150/api/all"
+    const url = "http://localhost:3150/api/marker/all"
     export default {
         name: 'MarkerListContainer',
         components:{
@@ -26,7 +26,7 @@
         },
         mounted:function(){
             var myHeaders = new Headers();
-            myHeaders.append("Authorization", "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGFuaWVsIiwidXNlcklkIjoxMjMsImFjY2Vzc1R5cGVzIjpbImdldE1hcmtlciIsInVwZGF0ZU1hcmtlciIsImFkZE1hcmtlciIsImRlbGV0ZU1hcmtlciJdLCJpYXQiOjE2NTIyNjY1MDMsImV4cCI6MTY1MzEzMDUwM30.ZP3NGxE1TGIWHVtzWB-L6YAJVRt69rSTDCRMXmCMwUo0C_alDpRcOBqv8t3vaBX32ug8cVhullFqFFCYl93ybTJKglac5RR5WUqLOSqxfn46vAuVf2CpAeGRRb0aCVKY70RKsq48YAPOyRsMWeCDc_mQmDf0j6KTXg-eGoJ1N5bHzr6rVtITi1gIRJilm-kNLpg2hwuJNy60N4BTiG3VG2gCj8JbuWxSdVrK-5Dn0eiROoRBF0WmXx5FX4a5xytm4_BjZog3lfAwbaQqPup-DGWkbqbtSXF_j2jZbPLWJni4P_aFHeOnWDt_8gsoZB5J5iVvE31kls2kzYKM4J_eOg");
+            myHeaders.append("Authorization", "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGFuaWVsIiwidXNlcklkIjoxMjMsImFjY2Vzc1R5cGVzIjpbImdldE1hcmtlciIsInVwZGF0ZU1hcmtlciIsImFkZE1hcmtlciIsImRlbGV0ZU1hcmtlciJdLCJpYXQiOjE2NTI2ODE5NjQsImV4cCI6MTY1MzU0NTk2NH0.k01esUSbMWfvS0EIa2q91AZ5_ngX8l_BAlfVEscCLCFHuhUnw2qMrGammPv4jZzhfCIXt4qfD-NxrGNCzDdlW642-1s0dbiAw82jp6n-_41IP2u8tFSWLwX8q_OEbeLARlgz-dOrpGlTjldkNldS26vuV3TLaye_K8O3x8IUK3hqTwMo-H-4voQ22kbvXa1JIwR_bzrWj2UBQm44a1pFn4c3BbBhL0VVzK_vTgOyESbK4sA32BkZCe6fT9Z1yeuEJ5vZktBPfnoZuCSJ2wxiCJ7DcVMyWoje131TmTChXaZAo3iJk9ulDMacU_M5ilF2jSJ4E2dRggWol5XoMKxSuA");
 
             var requestOptions = {
                 method: 'GET',
