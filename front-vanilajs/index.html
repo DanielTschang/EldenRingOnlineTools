@@ -1,0 +1,94 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Tutorial</title>
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+
+    <style>
+        body{
+            margin:5px;
+            padding:5px;
+        }
+        #map{
+            width: 100%;
+            height: 97vh;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+</body>
+</html>
+
+<script src="leaflet/leaflet.js"></script>
+
+<script>
+    async function rendermarker(){
+        var SiteOfGraceIcons = L.icon({
+            iconUrl: 'https://eldenring.wiki.fextralife.com/file/Elden-Ring/map-d8dc59f2-67df-452e-a9ea-d2c00ddc3a2b/maps-icons/grace.png',
+            iconSize:[25,25],
+        })
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGFuaWVsIiwidXNlcklkIjoxMjMsImFjY2Vzc1R5cGVzIjpbImdldE1hcmtlciIsInVwZGF0ZU1hcmtlciIsImFkZE1hcmtlciIsImRlbGV0ZU1hcmtlciJdLCJpYXQiOjE2NTE5OTI4NTMsImV4cCI6MTY1Mjg1Njg1M30.ccTMUe0UvqLCAnoqKL9rBetyxOabqHQsS9bhEPw8VP8Kv1vHjjtyFt5qggeKZKVFPj0sja-948jHVm-xn3Z16CJKCiBQBYH08w0qldlm8Gyzqf8PsQBe0SnY-eM1-wP3cgfLUbNfRvqsu5QzWgRTFyjH2nqR2zQiwQ77l6q3fyyLyrTQKonkl-b2UyUMSmQPzx_se2sGfUQny8ene1ox2WCzcmJRvl21liQ33xyBLvJj53J1_lKMWd90TFLF9lO3jLmrHMtOHZGG-qaWCH8WU-CpZJ-N2nih01qdZQ8EG7dlQhWRL3FjcN9At6v8xD2CClMJGnJVKjke99a75oy39g");
+
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow'
+        };
+
+        await fetch("http://localhost:3150/api/marker/siteofgrace", requestOptions)
+          .then(response => response.json())
+          .then(results => {
+            results = results.data
+            results.forEach(res=>{
+                x = res.lat
+                y = res.lng
+                L.marker([x,y],{
+                    icon:SiteOfGraceIcons, 
+                    zIndexOffset:0,
+                    opacity:0.7,
+                    riseOnHover:true,
+                    riseOffset:400
+                }).addTo(map)}
+        )
+        }).catch(error => console.log('error', error));
+
+
+    }
+    
+
+    //map init
+    //左右180
+    const bound = 180
+    var SiteOfGraceIcons = L.icon({
+            iconUrl: 'https://eldenring.wiki.fextralife.com/file/Elden-Ring/map-d8dc59f2-67df-452e-a9ea-d2c00ddc3a2b/maps-icons/grace.png',
+            iconSize:[25,25],
+        })
+
+
+
+    var map = L.map('map',{preferCanvas=true }).setView([0,0],2,);
+    var boundss = [
+        [-bound, -bound],
+        [bound, bound]
+    ];
+    map.attributionControl.addAttribution('Designed by <a href= "www.danchang11.link">danchang11</a> | Elden ring &copy;</a>');
+    //Initialize each base layer
+    L.tileLayer('https://imgs.ali213.net/picfile/eldenring/{z}/{x}/{y}.jpg',{
+        maxZoom: 7,
+        minZoom:2,
+        tileSize: 200,
+        zoomOffset: 0
+    }).addTo(map);
+    map.fitBounds(boundss);
+    map.setMaxBounds(boundss)
+
+    rendermarker()
+
+
+</script>
