@@ -75,12 +75,13 @@
 // @ is an alias to /src
 import * as L from "leaflet";
 import "leaflet-sidebar-v2";
-import "@/utils/leaflet-sidebar.css"
-import { setCookie } from '@/utils/Cookies';
+import "@/css/leaflet-sidebar.css"
+import { getCookie, setCookie } from '@/utils/Cookies';
+import prefix from '@/utils/control-prefix'
 
 
 export default {
-    name: 'HomeView',
+    name: 'MapView',
 
     data(){
         return {
@@ -99,17 +100,12 @@ export default {
             undergroundMapUrl:'https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png'
         }
     },
+    created(){
+        this.zoom = getCookie('zoom');
+        this.initCenterLat = getCookie('centerlat');
+        this.initCenterLng = getCookie('centerlng');
+    },
     mounted(){
-        //
-        window.addEventListener('resize', () => {
-            this.mapWidth = window.innerWidth;
-            this.mapHeight = window.innerHeight;
-            console.log('resize')
-            setCookie('mapWidth',this.mapWidth)
-            setCookie('mapHeight',this.mapHeight)
-        });
-        
-
         //地底地圖
         let underground = L.tileLayer(this.undergroundMapUrl, {
             attribution: '',
@@ -129,7 +125,7 @@ export default {
         })
 
         //init Map
-        var mymap = L.map("mymap", {
+        var MainMap = L.map("mymap", {
             maxZoom:this.maxZoom,
             minZoom:this.minZoom,
             attributionControl: false, 
@@ -139,6 +135,23 @@ export default {
             preferCanvas: true,
             layers: [ground,underground]
         }).setView([this.initCenterLat,this.initCenterLng],this.zoom);
+
+        //change map size when resizing and set cookies
+        window.addEventListener('resize', () => {
+            this.mapWidth = window.innerWidth;
+            this.mapHeight = window.innerHeight;
+        });
+
+        //Map Listeners
+        //zoom end
+        MainMap.on('zoomend', () => {
+            setCookie('zoom', MainMap.getZoom());
+        })
+        //move end
+        MainMap.on('moveend',()=>{
+            setCookie('centerlat', MainMap.getCenter().lat);
+            setCookie('centerlng', MainMap.getCenter().lng);
+        })
 
         var littleton = L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.'),
             denver    = L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.'),
@@ -152,27 +165,18 @@ export default {
         };
         
         //control panel setting
-        L.control.zoom({ position: 'topright' }).addTo(mymap);
+        L.control.zoom({ position: 'topright' }).addTo(MainMap);
         L.control.attribution({
             position: 'bottomright',
-            prefix: `
-                <a href="https://github.com/danieltschang" target="_blank">danchang11</a>
-                |
-                <a href="https://github.com/DanielTschang/zh-TW.EldenRingMap">
-                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
-                    <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
-                </svg>
-                </a>
-                `,
-            })
-        .addTo(mymap);
+            prefix: prefix,
+        }).addTo(MainMap);
 
         var baseMaps = {
             "UnderGround": underground,
             "Ground": ground
         };
 
-        var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(mymap);
+        var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(MainMap);
 
         var crownHill = L.marker([39.75, -105.09]).bindPopup('This is Crown Hill Park.'),
             rubyHill = L.marker([39.68, -105.00]).bindPopup('This is Ruby Hill Park.');
@@ -180,6 +184,7 @@ export default {
         var parks = L.layerGroup([crownHill, rubyHill]);
         
         layerControl.addOverlay(parks, "Parks");
+        // layerControl.removeLayer(parks);
 
         //add side bar
         L.control.sidebar({
@@ -188,7 +193,7 @@ export default {
             container: "sidebar", // the DOM container or #ID of a predefined sidebar container that should be used
             position: "left" // left or right
             })
-        .addTo(mymap);
+        .addTo(MainMap);
 
 
     }
