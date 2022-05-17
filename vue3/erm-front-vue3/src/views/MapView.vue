@@ -101,9 +101,13 @@ export default {
         }
     },
     created(){
-        this.zoom = getCookie('zoom');
-        this.initCenterLat = getCookie('centerlat');
-        this.initCenterLng = getCookie('centerlng');
+        let zoomCookie = getCookie('zoom');
+        let latCookie = getCookie('centerlat');
+        let lngCookie = getCookie('centerlng');
+
+        this.zoom = zoomCookie == "" ? this.zoom : zoomCookie ;
+        this.initCenterLat = latCookie == "" ? this.initCenterLat : latCookie;
+        this.initCenterLng = lngCookie == "" ? this.initCenterLng : lngCookie;
     },
     mounted(){
         //地底地圖
@@ -146,6 +150,7 @@ export default {
         //zoom end
         MainMap.on('zoomend', () => {
             setCookie('zoom', MainMap.getZoom());
+            console.log(window.location.host)
         })
         //move end
         MainMap.on('moveend',()=>{
