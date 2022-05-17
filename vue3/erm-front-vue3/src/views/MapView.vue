@@ -10,6 +10,7 @@
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa fa-bars active"></i></a></li>
                 <li><a href="#autopan" role="tab"><i class="fa fa-arrows"></i></a></li>
+                <li><a href="#autopan" role="tab"><i class="fa fa-arrows"></i></a></li>
             </ul>
 
             <!-- bottom aligned tabs -->
@@ -39,9 +40,7 @@
                 </ul>
 
                 <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+        
             </div>
 
             <div class="leaflet-sidebar-pane" id="autopan">
@@ -64,8 +63,7 @@
             </div>
         </div>
     </div>
-
-        <div id="mymap" class="h-full z-10">
+        <div id="mymap" :style="{width: mapWidth + 'vw', height: mapHeight+'vh'}">
         </div>
     </div>
 </template>
@@ -76,7 +74,8 @@
 // @ is an alias to /src
 import * as L from "leaflet";
 import "leaflet-sidebar-v2";
-import "leaflet-sidebar-v2/css/leaflet-sidebar.css";
+import "@/utils/leaflet-sidebar.css"
+
 
 
 export default {
@@ -92,30 +91,41 @@ export default {
             zoomOffset:0,
             initCenterLat:40,
             initCenterLng:-40,
-            maxBounds:L.latLngBounds(L.latLng(-200, 200), L.latLng(200, -200)),
+            mapWidth:100,
+            mapHeight:100,
+            maxBounds:L.latLngBounds(L.latLng(-100, -200), L.latLng(100, 100)),
+            groundMapUrl:'https://imgs.ali213.net/picfile/eldenring/{z}/{x}/{y}.jpg',
+            undergroundMapUrl:'https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png'
         }
     },
     mounted(){
-        
-        let underground = L.tileLayer('https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png', {
+        //
+        window.addEventListener('resize', () => {
+            this.mapWidth = window.innerWidth;
+            this.mapHeight = window.innerHeight;
+        });
+
+
+        //地底地圖
+        let underground = L.tileLayer(this.undergroundMapUrl, {
             attribution: '',
             maxZoom: this.maxZoom,
             id: 'underground',
             tileSize: this.tileSize,
-            zoomOffset:this.zoomOffset
+            zoomOffset: this.zoomOffset
         })
-
-        let ground = L.tileLayer('https://imgs.ali213.net/picfile/eldenring/{z}/{x}/{y}.jpg', {
+        //地上地圖
+        let ground = L.tileLayer(this.groundMapUrl, {
             attribution: 'Elden Ring Map',
             maxZoom: this.maxZoom,
             id: 'ground',
             tileSize: this.tileSize,
-            zoomOffset:this.zoomOffset,
+            zoomOffset: this.zoomOffset,
             
         })
 
-
-        let mymap = L.map("mymap", {
+        //init Map
+        var mymap = L.map("mymap", {
             maxZoom:this.maxZoom,
             minZoom:this.minZoom,
             attributionControl: false, 
@@ -137,6 +147,7 @@ export default {
             "Cities": cities
         };
         
+        //control panel setting
         L.control.zoom({ position: 'topright' }).addTo(mymap);
         L.control.attribution({
             position: 'bottomright',
@@ -165,6 +176,8 @@ export default {
         var parks = L.layerGroup([crownHill, rubyHill]);
         
         layerControl.addOverlay(parks, "Parks");
+
+        //add side bar
         L.control.sidebar({
             autopan: false, // whether to maintain the centered map point when opening the sidebar
             closeButton: true, // whether t add a close button to the panes
@@ -188,7 +201,8 @@ export default {
         background:#222222;
     }
     #map {
-        height: 100%;
+        height: 1000px;
+        width:1000px;
         font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
     }
     
@@ -199,6 +213,6 @@ export default {
     .lorem {
         font-style: italic;
         text-align: justify;
-        color: #AAA;
+        color: pink;
     }
 </style>
