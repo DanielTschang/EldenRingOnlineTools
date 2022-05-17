@@ -70,12 +70,13 @@
 
 
 
+
 <script>
 // @ is an alias to /src
 import * as L from "leaflet";
 import "leaflet-sidebar-v2";
 import "@/utils/leaflet-sidebar.css"
-
+import { setCookie } from '@/utils/Cookies';
 
 
 export default {
@@ -103,8 +104,11 @@ export default {
         window.addEventListener('resize', () => {
             this.mapWidth = window.innerWidth;
             this.mapHeight = window.innerHeight;
+            console.log('resize')
+            setCookie('mapWidth',this.mapWidth)
+            setCookie('mapHeight',this.mapHeight)
         });
-
+        
 
         //地底地圖
         let underground = L.tileLayer(this.undergroundMapUrl, {
