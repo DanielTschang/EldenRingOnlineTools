@@ -87,6 +87,7 @@ export default {
 
     data(){
         return {
+            groundLayer:true,
             zoom:3,
             markers:[],
             maxZoom:7,
@@ -99,7 +100,63 @@ export default {
             mapHeight:100,
             maxBounds:L.latLngBounds(L.latLng(-100, -200), L.latLng(100, 100)),
             groundMapUrl:'https://imgs.ali213.net/picfile/eldenring/{z}/{x}/{y}.jpg',
-            undergroundMapUrl:'https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png'
+            undergroundMapUrl:'https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png',
+            SiteOfGrace : [],
+            shortPath : [],
+            Waygates : [],
+            RuneFarm : [],
+            Shop : [],
+            NPC : [],
+            Location : [],
+            SummoningPool : [],
+            Cave : [],
+            HorseTorrent : [],
+            WalkingMausoleum : [],
+            BigBoss : [],
+            Boss : [],
+            LittleBoss : [],
+            NPCInvaders : [],
+            GreatEnemy : [],
+            Item : [],
+            Cartacombs : [],
+            Evergaol : [],
+            GoldenSeed : [],
+            CrystalTears : [],
+            KeyItems : [],
+            StoneSwordKey : [],
+            DeathRoot : [],
+            DragonHeart : [],
+            LarvalTear : [],
+            PickersBellBearing : [],
+            SacredTear : [],
+            MinersBellBearing : [],
+            Painting : [],
+            Gesture : [],
+            Material : [],
+            Sorceries : [],
+            Weapon : [],
+            Cookbook : [],
+            Whetblade : [],
+            Other : [],
+            Incantation : [],
+            Tailsman : [],
+            AshOfWar : [],
+            SpiritAsh : [],
+            Armor : [],
+            SomberSmithingStone  : [],
+            MAP : [],
+            Text : [],
+            Warn : [],
+            SmithingStone : [],
+            Taoke : [],
+            Question : [],
+            BellBearing : [],
+            SmithingBellBearing : [],
+            SomberBellBearing : [],
+            GraveGlovewort : [],
+            GravePickerBellBearing : [],
+            GhostGlovewort : [],
+            GhostPickerBellBearing : [],
         }
     },
     async created(){
@@ -110,13 +167,11 @@ export default {
         this.zoom = zoomCookie == "" ? this.zoom : zoomCookie ;
         this.initCenterLat = latCookie == "" ? this.initCenterLat : latCookie;
         this.initCenterLng = lngCookie == "" ? this.initCenterLng : lngCookie;
-
-        
     },
     async mounted(){
-        // async function renderMarker(){
-        //     return 
-        // }
+        /*
+            Map Init Section [Start]
+        */
         //地底地圖
         let underground = L.tileLayer(this.undergroundMapUrl, {
             attribution: '',
@@ -147,13 +202,14 @@ export default {
             layers: [ground,underground]
         }).setView([this.initCenterLat,this.initCenterLng],this.zoom);
 
-        //change map size when resizing and set cookies
-        window.addEventListener('resize', () => {
-            this.mapWidth = window.innerWidth;
-            this.mapHeight = window.innerHeight;
-        });
+        /*
+            Map Init Section [End]
+        */
 
-        //Map Listeners
+        /*
+            Map Listeners Section [Start]
+        */
+
         //zoom end
         MainMap.on('zoomend', () => {
             setCookie('zoom', MainMap.getZoom());
@@ -163,20 +219,99 @@ export default {
             setCookie('centerlat', MainMap.getCenter().lat);
             setCookie('centerlng', MainMap.getCenter().lng);
         })
-
-        this.markers = await getMarkerByType("SiteOfGrace")
-        let tmpArray = []
-        this.markers.forEach(marker=>{
-            tmpArray.push(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SiteOfGrace']}).bindPopup(marker.name))
+        //baselayerchange
+        MainMap.on('baselayerchange',(e)=>{
+            console.log(e)
+            this.groundLayer = !this.groundLayer
+            console.log(this.groundLayer)
         })
-        console.log(tmpArray)
-        var cities = L.layerGroup(tmpArray);
+
+        /*
+            Map Listeners Section [End]
+        */
+
+
+        /*
+            Map marker Section [Start]
+        */
+
+        this.markers = await getMarkerByType("all")
+        this.markers.forEach(marker=>{
+            
+            switch (marker.type) {
+                case "SiteOfGrace":
+                    this.SiteOfGrace.push(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SiteOfGrace']}).bindPopup(marker.name))
+                    break;
+                case "shortPath":
+                    this.shortPath.push(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['shortPath']}).bindPopup(marker.name))
+                    break
+                case "Waygates":
+                    this.Waygates.push(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Waygates']}).bindPopup(marker.name))
+                    break    
+                case "RuneFarm":
+                    this.RuneFarm.push(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['RuneFarm']}).bindPopup(marker.name))
+                    break  
+                case "Shop":
+                    this.Shop.push(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Shop']}).bindPopup(marker.name))
+                    break
+                case "NPC":
+                    this.NPC.push(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['NPC']}).bindPopup(marker.name))
+                    break
+                case "Location":
+                    this.Location.push(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Location']}).bindPopup(marker.name))
+                    break
+                // case "shortPath":
+                //     this.shortPath
+                //     break
+                // case "shortPath":
+                //     this.shortPath
+                //     break
+                // case "shortPath":
+                //     this.shortPath
+                //     break
+                // case "shortPath":
+                //     this.shortPath
+                //     break
+                // case "shortPath":
+                //     this.shortPath
+                //     break
+                // case "shortPath":
+                //     this.shortPath
+                //     break
+                // case "shortPath":
+                //     this.shortPath
+                //     break
+                // case "shortPath":
+                //     this.shortPath
+                //     break
+                // case "shortPath":
+                //     this.shortPath
+                //     break
+                // case "shortPath":
+                //     this.shortPath
+                //     break
+                // default:
+                //     break;
+            }
+        })
 
         var overlayMaps = {
-            "Cities": cities
+            "Site Of Grace 賜福點": L.layerGroup(this.SiteOfGrace),
+            "Short Path 捷徑": L.layerGroup(this.shortPath),
+            "Way Gates 傳送點": L.layerGroup(this.Waygates),
+            "Rune Farm 刷魂點": L.layerGroup(this.RuneFarm),
+            "Shop 商店" : L.layerGroup(this.Shop),
+            "NPC": L.layerGroup(this.NPC),
+            "Location 地點":L.layerGroup(this.Location), 
         };
+
+        /*
+            Map marker Section [End]
+        */
         
-        //control panel setting
+        /*
+            Control Panel Setting Section [Start]
+        */
         L.control.zoom({ position: 'topright' }).addTo(MainMap);
         L.control.attribution({
             position: 'bottomright',
@@ -184,19 +319,12 @@ export default {
         }).addTo(MainMap);
 
         var baseMaps = {
-            "UnderGround": underground,
-            "Ground": ground
+            "UnderGround 地底世界": underground,
+            "Ground 地上世界": ground
         };
 
+        // eslint-disable-next-line
         var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(MainMap);
-
-        var crownHill = L.marker([39.75, -105.09]).bindPopup('This is Crown Hill Park.'),
-            rubyHill = L.marker([39.68, -105.00]).bindPopup('This is Ruby Hill Park.');
-
-        var parks = L.layerGroup([crownHill, rubyHill]);
-        
-        layerControl.addOverlay(parks, "Parks");
-        // layerControl.removeLayer(parks);
 
         //add side bar
         L.control.sidebar({
@@ -206,6 +334,10 @@ export default {
             position: "left" // left or right
             })
         .addTo(MainMap);
+
+        /*
+            Control Panel Setting Section [End]
+        */
     },
 
 }
