@@ -78,6 +78,8 @@ import "leaflet-sidebar-v2";
 import "@/css/leaflet-sidebar.css"
 import { getCookie, setCookie } from '@/utils/Cookies';
 import prefix from '@/utils/control-prefix'
+import getMarkerByType from "@/utils/getMarker"
+import MarkerIcon from "@/utils/markerIcon"
 
 
 export default {
@@ -100,7 +102,7 @@ export default {
             undergroundMapUrl:'https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png'
         }
     },
-    created(){
+    async created(){
         let zoomCookie = getCookie('zoom');
         let latCookie = getCookie('centerlat');
         let lngCookie = getCookie('centerlng');
@@ -108,8 +110,13 @@ export default {
         this.zoom = zoomCookie == "" ? this.zoom : zoomCookie ;
         this.initCenterLat = latCookie == "" ? this.initCenterLat : latCookie;
         this.initCenterLng = lngCookie == "" ? this.initCenterLng : lngCookie;
+
+        
     },
-    mounted(){
+    async mounted(){
+        // async function renderMarker(){
+        //     return 
+        // }
         //地底地圖
         let underground = L.tileLayer(this.undergroundMapUrl, {
             attribution: '',
@@ -150,7 +157,6 @@ export default {
         //zoom end
         MainMap.on('zoomend', () => {
             setCookie('zoom', MainMap.getZoom());
-            console.log(window.location.host)
         })
         //move end
         MainMap.on('moveend',()=>{
@@ -158,12 +164,13 @@ export default {
             setCookie('centerlng', MainMap.getCenter().lng);
         })
 
-        var littleton = L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.'),
-            denver    = L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.'),
-            aurora    = L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.'),
-            golden    = L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.');
-
-        var cities = L.layerGroup([littleton, denver, aurora, golden]);
+        this.markers = await getMarkerByType("SiteOfGrace")
+        let tmpArray = []
+        this.markers.forEach(marker=>{
+            tmpArray.push(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SiteOfGrace']}).bindPopup(marker.name))
+        })
+        console.log(tmpArray)
+        var cities = L.layerGroup(tmpArray);
 
         var overlayMaps = {
             "Cities": cities
@@ -199,9 +206,8 @@ export default {
             position: "left" // left or right
             })
         .addTo(MainMap);
+    },
 
-
-    }
 }
 </script>
 
