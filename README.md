@@ -17,7 +17,7 @@
 <hr/>
 
 ## APIs for Frontend Testing
-### Markers - 都是GET （先用.json充當db）
+### Markers - 都是GET （測試階段先用.json充當db）
 ##### 取得所有markers
 ```
 127.0.0.1:3150/test/api/all
