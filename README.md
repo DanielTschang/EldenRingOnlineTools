@@ -3,6 +3,14 @@
 - MySQL Schema 在 databaseSchema.sql
 - eldenringMarker_en2zhtw.xlsx 可以找到marker type中英對照表
 
+
+## Tech Stack
+- Front : Vue3 + leaflet.js
+- Backend : Express (via Typescript) + MySQL
+- Infra : Nginx
+
+<hr/>
+
 ## APIs for Frontend Testing
 ### Markers - 都是GET （先用.json充當db）
 ##### 取得所有markers
