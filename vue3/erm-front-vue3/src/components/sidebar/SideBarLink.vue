@@ -30,12 +30,11 @@ export default {
     align-items: center;
     
 
-    cursor: pointer;
     position: relative;
     font-weight: 400;
     user-select: none;
-
-    margin:0.1em 0;
+    cursor:url("../../../public/cursor_resized.png"),auto;
+    margin:0.1em 0.1em;
     padding: 0.4em;
     border-radius:0.25em;
     height:1.5em;

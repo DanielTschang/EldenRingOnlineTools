@@ -27,8 +27,8 @@ export default {
 <style >
   :root{
     --sidebar-bg-color:black;
-    --sidebar-bg-item-hover:white;
-    --sidebar-bg-item-active:green;
+    --sidebar-item-hover:grey;
+    --sidebar-item-active:green;
   }
 
 </style>

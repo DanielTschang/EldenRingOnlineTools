@@ -2,6 +2,7 @@
     <div class="sidebar" :style="{width:sidebarWidth}">
         <span
             class="collapse-icon"
+            :class="{'rotate-180':collapsed}"
             @click="toggleSidebar"
         >
             <i class="fa fa-angle-double-left"></i>
@@ -22,14 +23,6 @@ export default {
   
 </script>
 
-<style >
-  :root{
-    --sidebar-bg-color:black;
-    --sidebar-item-hover:white;
-    --sidebar-item-active:green;
-  }
-
-</style>
 
 <style scoped>
   .sidebar {
@@ -50,5 +43,8 @@ export default {
 
     display: flex;
     flex-direction: column
+ }
+ .rotate-180{
+     transition: 0.2s linear;
  }
 </style>
