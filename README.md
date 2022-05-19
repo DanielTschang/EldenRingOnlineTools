@@ -6,7 +6,7 @@
 
 ## Tech Stack
 - Front : Vue3 + leaflet.js
-- Backend : Express (via Typescript) + MySQL
+- Backend : Express.js (via Typescript) + MySQL
 - Infra : Nginx
 
 <hr/>
