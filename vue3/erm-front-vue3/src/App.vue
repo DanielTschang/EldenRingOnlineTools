@@ -39,7 +39,7 @@ export default {
     
   }
   *{
-    cursor: url('../public/cursor_resized.png'),pointer;
+    cursor: url('../public/cursor_resized.png') 5 5 ,pointer;
   }
   .MainContainer{
     display: flex;
