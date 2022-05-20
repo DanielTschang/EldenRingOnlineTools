@@ -7,25 +7,42 @@
         >
             <i class="fa fa-angle-double-left"></i>
         </span>
-        <transition name="checkbox">
-            <div v-if="!collapsed" class="checkbox-container">
-                    <input type="checkbox" id="cbox1" value="first_checkbox">
-                    <label for="cbox1">賜福</label>
-                    <input type="checkbox" id="cbox1" value="first_checkbox">
-                    <label for="cbox1">賜福</label>
-            </div>
-        </transition>
+        <div v-if="!collapsed" class="checkbox-container">
+            <transition name="checkbox">     
+                    <MapSideBarCheckbox :title="title"/>
+            </transition>
+        </div>
   </div>
 </template>
 
 <script>
 import { collapsed, toggleSidebar, sidebarWidth } from "@/utils/SidebarState";
+import MapSideBarCheckbox from '@/components/sidebar/MapSideBarCheckbox.vue';
 
-export default {
+export default {  
     name:"MapSideBar",
+    components:{
+        MapSideBarCheckbox
+    },
     props:{},
+    data(){
+        return{
+            title:"hi",
+            checkedNames:[]
+        }
+    },
     setup(){
         return { collapsed, toggleSidebar, sidebarWidth }
+    },
+    methods:{
+        removeValue(arr, value){
+            return arr.filter((ele)=>{
+                return ele != value;
+            })
+        },
+        updateChecked(value){
+            this.checkedNames = this.removeValue(this.checkedNames,value);
+        }
     }
 }
   
@@ -34,10 +51,10 @@ export default {
 
 <style scoped>
     .checkbox-enter-active{
-        transition: opacity 0.6s;
+        transition: opacity 0.4s;
     }
     .checkbox-leave-active{
-        transition: opacity 0.2s;
+        transition: opacity 0.1s;
     }
     .checkbox-enter-from,
     .checkbox-leave-to{
@@ -48,7 +65,7 @@ export default {
   .sidebar {
     color:white;
     background-color: black;
-    opacity: 0.5;
+    opacity: 0.7;
 
     float:right;
     position:fixed;

@@ -36,7 +36,10 @@ export default {
     --sidebar-bg-color:green;
     --sidebar-bg-item-hover:white;
     --sidebar-bg-item-active:black;
-    cursor: url('../public/cursor_resized.png'),auto;
+    
+  }
+  *{
+    cursor: url('../public/cursor_resized.png'),pointer;
   }
   .MainContainer{
     display: flex;
