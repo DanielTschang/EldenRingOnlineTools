@@ -42,9 +42,12 @@ export default {
     height: 90%;
     color:white;
     text-decoration: none;
+    opacity: 1;
+    transition: 0.3s ease;
 }
 .link:hover{
     background-color:var(--sidebar-item-hover);
+    opacity: 0.7;
 }
 .link.active{
     background-color: var(--sidebar-item-active);

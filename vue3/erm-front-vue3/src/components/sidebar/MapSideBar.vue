@@ -13,14 +13,7 @@
 
                 <div v-if="collapsed" class="checkbox-container">
                     <transition-group name="checkbox" appear>
-                    
-                            <!-- <MapSideBarCheckbox key="a" :title="'titlea'"/>
-                            <MapSideBarCheckbox key="b" :title="'titleb'"/>
-                            <MapSideBarCheckbox key="c" :title="'titlec'"/>
-                            <MapSideBarCheckbox key="d" :title="'titled'"/>
-                            <MapSideBarCheckbox key="e" :title="'titlee'"/> -->
                             <div class="checkbox-item" :key="type.id" v-for="type in MarkerType">    
-                                <!-- <button type="button">{{ type.zhname}}</button> -->
                                 <input type="checkbox" :id="type.id" :value="type.zhname" v-model="checkedNames">
                                 <label :for="type.zhname">{{ type.zhname}}</label>
                             </div>
@@ -35,9 +28,10 @@
 </template>
 
 <script>
-// import { sidebarWidth } from "@/utils/SidebarState";
+// import {collapsed, toggleSidebar ,sidebarWidth } from "@/utils/SidebarState";
 // import MapSideBarCheckbox from '@/components/sidebar/MapSideBarCheckbox.vue';
 import MarkerType from "@/utils/markerType"
+import { setCookie, getCookie } from '@/utils/Cookies'
 
 export default {  
     name:"MapSideBar",
@@ -48,12 +42,17 @@ export default {
     data(){
         return{
             title:"hi",
-            collapsed : true,
+            collapsed:null,
             checkedNames:[]
         }
     },
     setup(){
-        return {MarkerType }
+
+        return { MarkerType }
+    },
+    created(){
+        let sidebarToggled = getCookie('sidebar');
+        this.collapsed = sidebarToggled == "false" ? false : true;
     },
     methods:{
         removeValue(arr, value){
@@ -66,11 +65,12 @@ export default {
         },
         toggleSidebar(){
             this.collapsed = !this.collapsed
+            setCookie('sidebar',this.collapsed)
         }
     },
     computed:{
         sidebarWidth(){
-            return `${this.collapsed ? 180 : 30}px`
+            return `${this.collapsed ? 200 : 30}px`
         }
     }
 }
