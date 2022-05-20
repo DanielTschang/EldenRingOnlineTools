@@ -7,6 +7,14 @@
         >
             <i class="fa fa-angle-double-left"></i>
         </span>
+        <transition name="checkbox">
+            <div v-if="!collapsed" class="checkbox-container">
+                    <input type="checkbox" id="cbox1" value="first_checkbox">
+                    <label for="cbox1">賜福</label>
+                    <input type="checkbox" id="cbox1" value="first_checkbox">
+                    <label for="cbox1">賜福</label>
+            </div>
+        </transition>
   </div>
 </template>
 
@@ -25,9 +33,22 @@ export default {
 
 
 <style scoped>
+    .checkbox-enter-active{
+        transition: opacity 0.6s;
+    }
+    .checkbox-leave-active{
+        transition: opacity 0.2s;
+    }
+    .checkbox-enter-from,
+    .checkbox-leave-to{
+        opacity: 0;
+    }
+
+
   .sidebar {
     color:white;
     background-color: black;
+    opacity: 0.5;
 
     float:right;
     position:fixed;
