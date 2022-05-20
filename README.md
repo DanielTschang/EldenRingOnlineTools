@@ -6,13 +6,18 @@
 
 ## Tech Stack
 - Front : Vue3 + leaflet.js
-- Backend : Express.js (via Typescript) + MySQL
+- Backend : Express.js (via Typescript) + MySQL + redis(for rate limiting)
 - Infra : Nginx
+
+## 預計開發內容
+1. 艾爾登法環地圖 登入可標記已收集（非互動式）
+2. 裝備配點計算機 (AR Calculator)
+3. 中英對照的資訊網 （可查裝備 戰灰等等）
 
 <hr/>
 
 ## APIs for Frontend Testing
-### Markers - 都是GET （先用.json充當db）
+### Markers - 都是GET （測試階段先用.json充當db）
 ##### 取得所有markers
 ```
 127.0.0.1:3150/test/api/all
