@@ -1,9 +1,5 @@
-export default [
-    {
-        id:1,
-        enname:'Other',
-        zhname:'其他'
-    },
+
+const Locations = [
     {
         id:2,
         enname:'SiteOfGrace',
@@ -25,6 +21,16 @@ export default [
         zhname:'刷魂點'
     },
     {
+        id:17,
+        enname:'Cartacombs',
+        zhname:'地下墓地'
+    },
+    {
+        id:18,
+        enname:'Evergaol',
+        zhname:'封印監牢'
+    },
+    {
         id:6,
         enname:'Shop',
         zhname:'商店'
@@ -40,15 +46,17 @@ export default [
         zhname:'連線點'
     },
     {
-        id:9,
-        enname:'HorseTorrent',
-        zhname:'靈魂氣流'
-    },
-    {
         id:10,
         enname:'WalkingMausoleum',
         zhname:'漫步靈廟'
     },
+    {
+        id:9,
+        enname:'HorseTorrent',
+        zhname:'靈魂氣流'
+    },
+ ]
+ const Enemy = [
     {
         id:11,
         enname:'BigBoss',
@@ -74,20 +82,23 @@ export default [
         enname:'GreatEnemy',
         zhname:'菁英怪'
     },
+ ]
+
+ const Items = [
     {
         id:16,
         enname:'Item',
         zhname:'物品'
     },
     {
-        id:17,
-        enname:'Cartacombs',
-        zhname:'地下墓地'
+        id:34,
+        enname:'Cookbook',
+        zhname:'製作筆記'
     },
     {
-        id:18,
-        enname:'Evergaol',
-        zhname:'封印監牢'
+        id:35,
+        enname:'Whetblade',
+        zhname:'砥石刀'
     },
     {
         id:19,
@@ -125,6 +136,11 @@ export default [
         zhname:'淚滴幼體'
     },
     {
+        id:30,
+        enname:'Painting',
+        zhname:'畫'
+    },
+    {
         id:26,
         enname:'PickersBellBearing',
         zhname:'墓地鈴蘭'
@@ -145,34 +161,26 @@ export default [
         zhname:'動作'
     },
     {
-        id:30,
-        enname:'Painting',
-        zhname:'畫'
-    },
-    {
         id:31,
         enname:'Material',
         zhname:'資源'
     },
-    {
-        id:32,
-        enname:'Sorceries',
-        zhname:'魔法'
-    },
+ ]
+ const Equipments = [
     {
         id:33,
         enname:'Weapon',
         zhname:'武器'
     },
     {
-        id:34,
-        enname:'Cookbook',
-        zhname:'製作筆記'
+        id:40,
+        enname:'Armor',
+        zhname:'防具'
     },
     {
-        id:35,
-        enname:'Whetblade',
-        zhname:'砥石刀'
+        id:37,
+        enname:'Tailsman',
+        zhname:'護符'
     },
     {
         id:36,
@@ -180,9 +188,9 @@ export default [
         zhname:'禱告'
     },
     {
-        id:37,
-        enname:'Tailsman',
-        zhname:'護符'
+        id:32,
+        enname:'Sorceries',
+        zhname:'魔法'
     },
     {
         id:38,
@@ -194,14 +202,14 @@ export default [
         enname:'SpiritAsh',
         zhname:'骨灰'
     },
+ ]
+ const Other = [
     {
-        id:40,
-        enname:'Armor',
-        zhname:'裝備'
+        id:1,
+        enname:'Other',
+        zhname:'其他'
     },
-    {
-        id:41,
-        enname:'Incantation',
-        zhname:'禱告'
-    }
+
 ]
+
+export { Locations, Enemy, Items, Equipments, Other }
