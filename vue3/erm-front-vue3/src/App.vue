@@ -2,9 +2,13 @@
 <template>
   <div class="MainContainer">
     <div class="routerview" style="margin-bottom: 7vh">
-      <router-view/>
+      <router-view @LogInTrigger="LogInTrigger"/>
     </div>
+    <transition name="login">
+      <log-in v-if="LogInTriggered" @LogInTrigger="LogInTrigger"/>
+    </transition>
     <SideBar/>
+
   </div>
 </template>
 
@@ -12,18 +16,49 @@
 
 <script>
 import SideBar from "@/components/sidebar/SideBar.vue"
+import LogIn from './components/auth/LogIn.vue'
+
+
 export default {
-  components:{
-    SideBar
-  },
-  setup() {
-    
-  },
+    components:{
+        SideBar,
+        LogIn,
+    },
+    setup() {
+    },
+    methods:{
+      LogInTrigger(){
+        this.LogInTriggered = !this.LogInTriggered
+      }
+    },
+    data(){
+        return {
+            userName: null,
+            LogInTriggered: false
+            
+        }
+    }
 }
 </script>
 
 
 <style lang="scss">
+
+
+  .login-enter-active{
+    transition: opacity 0.15s 
+  }
+  .login-leave-active{
+    transition: opacity 0.15s;
+  }
+  .login-enter-from,
+  .login-leave-to{
+    opacity: 0;
+  }
+
+  .test{
+    position: absolute;
+  }
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -33,10 +68,9 @@ export default {
   
   }
   :root{
-    --sidebar-bg-color:green;
-    --sidebar-bg-item-hover:white;
-    --sidebar-bg-item-active:black;
-    
+    --sidebar-bg-color:black;
+    --sidebar-item-hover:grey;
+    --sidebar-item-active:green;
   }
   *{
     cursor: url('../public/cursor_resized.png') 5 5 ,pointer;
