@@ -1,0 +1,6 @@
+.popupCustom .leaflet-popup-tip,
+.popupCustom .leaflet-popup-content-wrapper {
+    background: #222222;
+    color: #234c5e;
+    border-radius: 5px;
+}

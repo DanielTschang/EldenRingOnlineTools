@@ -15,13 +15,15 @@
 <script>
 // @ is an alias to /src
 import * as L from "leaflet";
-import "leaflet-sidebar-v2";
+// import "leaflet-sidebar-v2";
 // import "@/css/leaflet-sidebar.css"
 import { getCookie, setCookie } from '@/utils/Cookies';
 import prefix from '@/utils/control-prefix'
 import getMarkerByType from "@/utils/getMarker"
 import MarkerIcon from "@/utils/markerIcon"
 import MapSideBar from "@/components/sidebar/MapSideBar.vue"
+import "leaflet/dist/leaflet.css"
+import "@/css/customstyle.css"
 
 
 export default {
@@ -33,7 +35,7 @@ export default {
     data(){
         return {
             groundLayer:true,
-            zoom:3,
+            zoom:4,
             markers:[],
             maxZoom:7,
             minZoom:2,
@@ -117,7 +119,7 @@ export default {
         /*
             Map Init Section [Start]
         */
-        //地底地圖
+        //地底地圖 Underground map layer
         let underground = L.tileLayer(this.undergroundMapUrl, {
             attribution: '',
             maxZoom: this.maxZoom,
@@ -125,7 +127,7 @@ export default {
             tileSize: this.tileSize,
             zoomOffset: this.zoomOffset
         })
-        //地上地圖
+        //地上地圖 Ground map layer
         let ground = L.tileLayer(this.groundMapUrl, {
             attribution: 'Elden Ring Map',
             maxZoom: this.maxZoom,
@@ -165,11 +167,11 @@ export default {
             setCookie('centerlng', MainMap.getCenter().lng);
         })
         //baselayerchange
-        MainMap.on('baselayerchange',(e)=>{
-            console.log(e)
-            this.groundLayer = !this.groundLayer
-            console.log(this.groundLayer)
-        })
+        // MainMap.on('baselayerchange',(e)=>{
+        //     console.log(e)
+        //     this.groundLayer = !this.groundLayer
+        //     console.log(this.groundLayer)
+        // })
 
         /*
             Map Listeners Section [End]
@@ -182,10 +184,17 @@ export default {
 
         this.markers = await getMarkerByType("all")
         this.markers.forEach(marker=>{
+            let customPopup = marker.type + " : " + marker.name + "<input type='checkbox' id={title} value='title' v-model='checkedNames'> <label for='title'>{{title}}</label>";
+            let customOptions =
+                {
+                    'maxWidth': '400',
+                    'width': '200',
+                    'className' : 'popupCustom'
+                }
             
             switch (marker.type) {
                 case "SiteOfGrace":
-                    this.SiteOfGrace.push(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SiteOfGrace']}).bindPopup(marker.name))
+                    this.SiteOfGrace.push(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SiteOfGrace']}).bindPopup(customPopup,customOptions));
                     break;
                 case "shortPath":
                     this.shortPath.push(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['shortPath']}).bindPopup(marker.name))
@@ -271,15 +280,6 @@ export default {
         // eslint-disable-next-line
         var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(MainMap);
 
-        //add side bar
-        L.control.sidebar({
-            autopan: false, // whether to maintain the centered map point when opening the sidebar
-            closeButton: true, // whether t add a close button to the panes
-            container: "sidebar", // the DOM container or #ID of a predefined sidebar container that should be used
-            position: "left" // left or right
-            })
-        .addTo(MainMap);
-
         /*
             Control Panel Setting Section [End]
         */
@@ -312,4 +312,5 @@ export default {
         text-align: justify;
         color: pink;
     }
+
 </style>
