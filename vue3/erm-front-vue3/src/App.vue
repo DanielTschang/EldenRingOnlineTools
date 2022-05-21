@@ -2,7 +2,7 @@
 <template>
   <div class="MainContainer">
     <div class="routerview" style="margin-bottom: 7vh">
-      <router-view @LogInTrigger="LogInTrigger"/>
+      <router-view  @LogInTrigger="LogInTrigger"/>
     </div>
     <transition name="login">
       <log-in v-if="LogInTriggered" @LogInTrigger="LogInTrigger"/>

@@ -13,13 +13,13 @@
 
 
                 <div v-if="collapsed" class="checkbox-container">
-
+                    
                     <transition-group name="checkbox" appear>
                         <div :key="'location'">
                             <h>-地點-</h>
                         </div>
                         <div class="checkbox-item" :key="type.id" v-for="type in Locations">    
-                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedNames">
+                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
 
@@ -27,7 +27,7 @@
                             <h>-物品-</h>
                         </div>
                         <div class="checkbox-item" :key="type.id" v-for="type in Items">    
-                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedNames">
+                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
                         <div :key="'enemy'">
@@ -35,7 +35,7 @@
                         </div>
 
                         <div class="checkbox-item" :key="type.id" v-for="type in Enemy">    
-                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedNames">
+                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
 
@@ -43,7 +43,7 @@
                             <h>-裝備-</h>
                         </div>
                         <div class="checkbox-item" :key="type.id" v-for="type in Equipments">    
-                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedNames">
+                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
 
@@ -52,7 +52,7 @@
                             <h>-其他-</h>
                         </div>
                         <div class="checkbox-item" :key="type.id" v-for="type in Other">    
-                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedNames">
+                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
                         
@@ -76,12 +76,12 @@ export default {
     // components:{
     //     MapSideBarCheckbox
     // },
-    props:{},
+
     data(){
         return{
             title:"hi",
+            checkedTypes:[],
             collapsed:null,
-            checkedNames:[],
             collapedWidth:30,
             openWidth:200,
         }
@@ -95,18 +95,14 @@ export default {
         this.collapsed = sidebarToggled == "false" ? false : true;
     },
     methods:{
-        removeValue(arr, value){
-            return arr.filter((ele)=>{
-                return ele != value;
-            })
-        },
-        updateChecked(value){
-            this.checkedNames = this.removeValue(this.checkedNames,value);
-        },
         toggleSidebar(){
             this.collapsed = !this.collapsed
             setCookie('sidebar',this.collapsed)
+        },
+        changeTypes(){
+            this.$emit("changeTypes",this.checkedTypes)
         }
+        
     },
     computed:{
         sidebarWidth(){
