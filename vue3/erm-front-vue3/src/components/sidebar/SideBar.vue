@@ -24,14 +24,6 @@ export default {
   
 </script>
 
-<style >
-  :root{
-    --sidebar-bg-color:black;
-    --sidebar-item-hover:grey;
-    --sidebar-item-active:green;
-  }
-
-</style>
 
 <style scoped>
   .sidebar {
