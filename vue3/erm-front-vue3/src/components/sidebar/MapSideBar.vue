@@ -4,19 +4,57 @@
             
                 <span
                     class="collapse-icon"
-                    :class="{'rotate-180':collapsed}"
+                    :class="{'rotate-180':!collapsed}"
                     @click="toggleSidebar"
                 >
                     <i class="fa fa-angle-double-left"></i>
                 </span>
 
 
+
                 <div v-if="collapsed" class="checkbox-container">
+
                     <transition-group name="checkbox" appear>
-                            <div class="checkbox-item" :key="type.id" v-for="type in MarkerType">    
-                                <input type="checkbox" :id="type.id" :value="type.zhname" v-model="checkedNames">
-                                <label :for="type.zhname">{{ type.zhname}}</label>
-                            </div>
+                        <div :key="'location'">
+                            <h>-地點-</h>
+                        </div>
+                        <div class="checkbox-item" :key="type.id" v-for="type in Locations">    
+                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedNames">
+                            <label :for="type.zhname">{{ type.zhname }}</label>
+                        </div>
+
+                        <div :key="'items'">
+                            <h>-物品-</h>
+                        </div>
+                        <div class="checkbox-item" :key="type.id" v-for="type in Items">    
+                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedNames">
+                            <label :for="type.zhname">{{ type.zhname }}</label>
+                        </div>
+                        <div :key="'enemy'">
+                            <h>-敵人-</h>
+                        </div>
+
+                        <div class="checkbox-item" :key="type.id" v-for="type in Enemy">    
+                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedNames">
+                            <label :for="type.zhname">{{ type.zhname }}</label>
+                        </div>
+
+                        <div :key="'equipment'">
+                            <h>-裝備-</h>
+                        </div>
+                        <div class="checkbox-item" :key="type.id" v-for="type in Equipments">    
+                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedNames">
+                            <label :for="type.zhname">{{ type.zhname }}</label>
+                        </div>
+
+
+                        <div :key="'other'">
+                            <h>-其他-</h>
+                        </div>
+                        <div class="checkbox-item" :key="type.id" v-for="type in Other">    
+                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedNames">
+                            <label :for="type.zhname">{{ type.zhname }}</label>
+                        </div>
                         
                     
                     </transition-group>
@@ -30,7 +68,7 @@
 <script>
 // import {collapsed, toggleSidebar ,sidebarWidth } from "@/utils/SidebarState";
 // import MapSideBarCheckbox from '@/components/sidebar/MapSideBarCheckbox.vue';
-import MarkerType from "@/utils/markerType"
+import { Locations, Enemy, Items, Equipments, Other} from "@/utils/markerType"
 import { setCookie, getCookie } from '@/utils/Cookies'
 
 export default {  
@@ -43,12 +81,14 @@ export default {
         return{
             title:"hi",
             collapsed:null,
-            checkedNames:[]
+            checkedNames:[],
+            collapedWidth:30,
+            openWidth:200,
         }
     },
     setup(){
 
-        return { MarkerType }
+        return { Locations, Enemy, Items, Equipments, Other}
     },
     created(){
         let sidebarToggled = getCookie('sidebar');
@@ -70,7 +110,7 @@ export default {
     },
     computed:{
         sidebarWidth(){
-            return `${this.collapsed ? 200 : 30}px`
+            return `${this.collapsed ? this.openWidth : this.collapedWidth}px`
         }
     }
 }
@@ -80,7 +120,7 @@ export default {
 
 <style scoped>
     .checkbox-enter-active{
-        transition: opacity 0.8s 
+        transition: opacity 1s 
     }
     .checkbox-leave-active{
         transition: opacity 0.2s;
@@ -111,7 +151,7 @@ export default {
     flex-direction: column
  }
  .rotate-180{
-     transition: 0.2s linear;
+     transition: 0.3s linear;
  }
  .checkbox-container{
      /* transition: 0s linear; */
