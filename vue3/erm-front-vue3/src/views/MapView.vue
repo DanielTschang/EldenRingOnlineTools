@@ -24,6 +24,7 @@ import MarkerIcon from "@/utils/markerIcon"
 import MapSideBar from "@/components/sidebar/MapSideBar.vue"
 import "leaflet/dist/leaflet.css"
 import "@/css/customstyle.css"
+import axios from 'axios';
 
 
 export default {
@@ -52,6 +53,10 @@ export default {
     },
     data(){
         return {
+            userIP:null,
+            userRegion:null,
+            userCity:null,
+            userCountry:null,
             MainMap:null,
             groundLayer:true,
             zoom:4,
@@ -70,7 +75,7 @@ export default {
             filterType: [],
             MarkerTypes: {
                 "SiteOfGrace" : L.layerGroup(),
-                "shortPath" : L.layerGroup(),
+                "ShortPath" : L.layerGroup(),
                 "Waygates" : L.layerGroup(),
                 "RuneFarm" : L.layerGroup(),
                 "Shop" : L.layerGroup(),
@@ -205,7 +210,15 @@ export default {
             Map marker Section [Start]
         */
 
-        this.markers = await getMarkerByType("all")
+        axios.get("https://ipinfo.io/json")
+            .then(res=>{
+                this.ip = res.ip
+                this.city = res.city
+                this.region = res.region
+                this.country = res.country
+            })
+        // this.ip = ipinfo.ip
+        this.markers = await getMarkerByType("all",this.userIP, this.userCity, this.userRegion, this.userCountry)
         this.markers.forEach(marker=>{
             let customPopup = marker.type + " : " + marker.name + "<input type='checkbox' id={title} value='title' v-model='checkedNames'> <label for='title'>{{title}}</label>";
             let customOptions =
@@ -220,222 +233,222 @@ export default {
                     this.MarkerTypes["SiteOfGrace"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SiteOfGrace']}).bindPopup(customPopup,customOptions));
                     break;
                 case "shortPath":
-                    this.MarkerTypes["shortPath"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['shortPath']}).bindPopup(marker.name))
+                    this.MarkerTypes["ShortPath"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['ShortPath']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Waygates":
-                    this.MarkerTypes["Waygates"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Waygates']}).bindPopup(marker.name))
+                    this.MarkerTypes["Waygates"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Waygates']}).bindPopup(marker.type +" "+marker.name))
                     break    
                 case "RuneFarm":
-                    this.MarkerTypes["RuneFarm"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['RuneFarm']}).bindPopup(marker.name))
+                    this.MarkerTypes["RuneFarm"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['RuneFarm']}).bindPopup(marker.type +" "+marker.name))
                     break  
                 case "Shop":
-                    this.MarkerTypes["Shop"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Shop']}).bindPopup(marker.name))
+                    this.MarkerTypes["Shop"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Shop']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "NPC":
-                    this.MarkerTypes["NPC"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['NPC']}).bindPopup(marker.name))
+                    this.MarkerTypes["NPC"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['NPC']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Location":
-                    this.MarkerTypes["Location"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Location']}).bindPopup(marker.name))
+                    this.MarkerTypes["Location"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Location']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "SummoningPool":
-                    this.MarkerTypes["SummoningPool"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SummoningPool']}).bindPopup(marker.name))
+                    this.MarkerTypes["SummoningPool"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SummoningPool']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Cave":
-                    this.MarkerTypes["Cave"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Cave']}).bindPopup(marker.name))
+                    this.MarkerTypes["Cave"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Cave']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "HorseTorrent":
-                    this.MarkerTypes["HorseTorrent"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['HorseTorrent']}).bindPopup(marker.name))
+                    this.MarkerTypes["HorseTorrent"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['HorseTorrent']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "WalkingMausoleum":
-                    this.MarkerTypes["WalkingMausoleum"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['WalkingMausoleum']}).bindPopup(marker.name))
+                    this.MarkerTypes["WalkingMausoleum"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['WalkingMausoleum']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "BigBoss":
-                    this.MarkerTypes["BigBoss"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['BigBoss']}).bindPopup(marker.name))
+                    this.MarkerTypes["BigBoss"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['BigBoss']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Boss":
-                    this.MarkerTypes["Boss"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Boss']}).bindPopup(marker.name))
+                    this.MarkerTypes["Boss"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Boss']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "LittleBoss":
-                    this.MarkerTypes["LittleBoss"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['LittleBoss']}).bindPopup(marker.name))
+                    this.MarkerTypes["LittleBoss"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['LittleBoss']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "NPCInvaders":
-                    this.MarkerTypes["NPCInvaders"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['NPCInvaders']}).bindPopup(marker.name))
+                    this.MarkerTypes["NPCInvaders"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['NPCInvaders']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "GreatEnemy":
-                    this.MarkerTypes["GreatEnemy"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['GreatEnemy']}).bindPopup(marker.name))
+                    this.MarkerTypes["GreatEnemy"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['GreatEnemy']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Item":
-                    this.MarkerTypes["Item"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Item']}).bindPopup(marker.name))
+                    this.MarkerTypes["Item"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Item']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Cartacombs":
-                    this.MarkerTypes["Cartacombs"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Cartacombs']}).bindPopup(marker.name))
+                    this.MarkerTypes["Cartacombs"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Cartacombs']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Evergaol":
-                    this.MarkerTypes["Evergaol"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Evergaol']}).bindPopup(marker.name))
+                    this.MarkerTypes["Evergaol"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Evergaol']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "GoldenSeed":
-                    this.MarkerTypes["GoldenSeed"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['GoldenSeed']}).bindPopup(marker.name))
+                    this.MarkerTypes["GoldenSeed"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['GoldenSeed']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "CrystalTears":
-                    this.MarkerTypes["CrystalTears"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['CrystalTears']}).bindPopup(marker.name))
+                    this.MarkerTypes["CrystalTears"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['CrystalTears']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "KeyItems":
-                    this.MarkerTypes["KeyItems"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['KeyItems']}).bindPopup(marker.name))
+                    this.MarkerTypes["KeyItems"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['KeyItems']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "StoneSwordKey":
-                    this.MarkerTypes["StoneSwordKey"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['StoneSwordKey']}).bindPopup(marker.name))
+                    this.MarkerTypes["StoneSwordKey"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['StoneSwordKey']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "DeathRoot":
-                    this.MarkerTypes["DeathRoot"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['DeathRoot']}).bindPopup(marker.name))
+                    this.MarkerTypes["DeathRoot"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['DeathRoot']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "DragonHeart":
-                    this.MarkerTypes["DragonHeart"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['DragonHeart']}).bindPopup(marker.name))
+                    this.MarkerTypes["DragonHeart"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['DragonHeart']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "LarvalTear":
-                    this.MarkerTypes["LarvalTear"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['LarvalTear']}).bindPopup(marker.name))
-                    break
-                case "PickersBellBearing":
-                    this.MarkerTypes["PickersBellBearing"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['PickersBellBearing']}).bindPopup(marker.name))
+                    this.MarkerTypes["LarvalTear"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['LarvalTear']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "SacredTear":
-                    this.MarkerTypes["SacredTear"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SacredTear']}).bindPopup(marker.name))
-                    break
-                case "MinersBellBearing":
-                    this.MarkerTypes["MinersBellBearing"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['MinersBellBearing']}).bindPopup(marker.name))
+                    this.MarkerTypes["SacredTear"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SacredTear']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Painting":
-                    this.MarkerTypes["Painting"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Painting']}).bindPopup(marker.name))
+                    this.MarkerTypes["Painting"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Painting']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Gesture":
-                    this.MarkerTypes["Gesture"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Gesture']}).bindPopup(marker.name))
+                    this.MarkerTypes["Gesture"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Gesture']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Material":
-                    this.MarkerTypes["Material"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Material']}).bindPopup(marker.name))
+                    this.MarkerTypes["Material"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Material']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Sorceries":
-                    this.MarkerTypes["Sorceries"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Sorceries']}).bindPopup(marker.name))
+                    this.MarkerTypes["Sorceries"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Sorceries']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Weapon":
-                    this.MarkerTypes["Weapon"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Weapon']}).bindPopup(marker.name))
+                    this.MarkerTypes["Weapon"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Weapon']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Cookbook":
-                    this.MarkerTypes["Cookbook"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Cookbook']}).bindPopup(marker.name))
+                    this.MarkerTypes["Cookbook"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Cookbook']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Whetblade":
-                    this.MarkerTypes["Whetblade"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Whetblade']}).bindPopup(marker.name))
+                    this.MarkerTypes["Whetblade"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Whetblade']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Incantation":
-                    this.MarkerTypes["Incantation"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Incantation']}).bindPopup(marker.name))
+                    this.MarkerTypes["Incantation"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Incantation']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Tailsman":
-                    this.MarkerTypes["Tailsman"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Tailsman']}).bindPopup(marker.name))
+                    this.MarkerTypes["Tailsman"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Tailsman']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "AshOfWar":
-                    this.MarkerTypes["AshOfWar"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['AshOfWar']}).bindPopup(marker.name))
+                    this.MarkerTypes["AshOfWar"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['AshOfWar']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "SpiritAsh":
-                    this.MarkerTypes["SpiritAsh"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SpiritAsh']}).bindPopup(marker.name))
+                    this.MarkerTypes["SpiritAsh"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SpiritAsh']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Armor":
-                    this.MarkerTypes["Armor"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Armor']}).bindPopup(marker.name))
+                    this.MarkerTypes["Armor"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Armor']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Warn":
-                    this.MarkerTypes["Warn"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Warn']}).bindPopup(marker.name))
+                    this.MarkerTypes["Warn"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Warn']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Taoke":
-                    this.MarkerTypes["Taoke"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Taoke']}).bindPopup(marker.name))
+                    this.MarkerTypes["Taoke"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Taoke']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "SmithingStone":
-                    this.MarkerTypes["SmithingStone"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SmithingStone']}).bindPopup(marker.name))
+                    this.MarkerTypes["SmithingStone"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SmithingStone']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "SomberSmithingStone":
-                    this.MarkerTypes["SomberSmithingStone"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SomberSmithingStone']}).bindPopup(marker.name))
+                    this.MarkerTypes["SomberSmithingStone"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SomberSmithingStone']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Question":
-                    this.MarkerTypes["Question"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Question']}).bindPopup(marker.name))
+                    this.MarkerTypes["Question"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Question']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "MAP":
-                    this.MarkerTypes["MAP"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['MAP']}).bindPopup(marker.name))
+                    this.MarkerTypes["MAP"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['MAP']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "GravePickerBellBearing":
-                    this.MarkerTypes["GravePickerBellBearing"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['GravePickerBellBearing']}).bindPopup(marker.name))
+                    this.MarkerTypes["GravePickerBellBearing"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['GravePickerBellBearing']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "GhostPickerBellBearing":
-                    this.MarkerTypes["GhostPickerBellBearing"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['GhostPickerBellBearing']}).bindPopup(marker.name))
+                    this.MarkerTypes["GhostPickerBellBearing"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['GhostPickerBellBearing']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "BellBearing":
-                    this.MarkerTypes["BellBearing"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['BellBearing']}).bindPopup(marker.name))
+                    this.MarkerTypes["BellBearing"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['BellBearing']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "SmithingBellBearing":
-                    this.MarkerTypes["SmithingBellBearing"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SmithingBellBearing']}).bindPopup(marker.name))
+                    this.MarkerTypes["SmithingBellBearing"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SmithingBellBearing']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "SomberBellBearing":
-                    this.MarkerTypes["SomberBellBearing"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SomberBellBearing']}).bindPopup(marker.name))
+                    this.MarkerTypes["SomberBellBearing"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SomberBellBearing']}).bindPopup(marker.type +" "+marker.name))
+                    break
+                case "GhostGlovewort":
+                    this.MarkerTypes["GhostGlovewort"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['GhostGlovewort']}).bindPopup(marker.type +" "+marker.name))
+                    break
+                case "GraveGlovewort":
+                    this.MarkerTypes["GraveGlovewort"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['GraveGlovewort']}).bindPopup(marker.type +" "+marker.name))
                     break
                 default:
-                    this.MarkerTypes["Other"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Taoke']}).bindPopup(marker.name))
+                    this.MarkerTypes["Other"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Taoke']}).bindPopup(marker.type +" "+marker.name))
                     break;
             }
         })
 
-        var overlayMaps = {
-            "Site Of Grace 賜福點": this.MarkerTypes["SiteOfGrace"],
-            "Short Path 捷徑": this.MarkerTypes["shortPath"],
-            "Way Gates 傳送點": this.MarkerTypes["Waygates"],
-            "Rune Farm 刷魂點": this.MarkerTypes["RuneFarm"],
-            "Shop 商店" : this.MarkerTypes["Shop"],
-            "NPC": this.MarkerTypes["NPC"],
-            "Location 地點":this.MarkerTypes["Location"], 
-            "SummoningPool":this.MarkerTypes["SummoningPool"],
-            "Cave":this.MarkerTypes["Cave"],
-            "HorseTorrent":this.MarkerTypes["HorseTorrent"],
-            "WalkingMausoleum":this.MarkerTypes["WalkingMausoleum"],
-            "BigBoss":this.MarkerTypes["BigBoss"],
-            "Boss":this.MarkerTypes["Boss"],
-            "LittleBoss":this.MarkerTypes["LittleBoss"],
-            "NPCInvaders":this.MarkerTypes["NPCInvaders"],
-            "GreatEnemy":this.MarkerTypes["GreatEnemy"],
-            "Item":this.MarkerTypes["Item"],
-            "Cartacombs":this.MarkerTypes["Cartacombs"],
-            "Evergaol":this.MarkerTypes["Evergaol"],
-            "GoldenSeed":this.MarkerTypes["GoldenSeed"],
-            "CrystalTears":this.MarkerTypes["CrystalTears"],
-            "KeyItems":this.MarkerTypes["KeyItems"],
-            "StoneSwordKey":this.MarkerTypes["StoneSwordKey"],
-            "DeathRoot":this.MarkerTypes["DeathRoot"],
-            "DragonHeart":this.MarkerTypes["DragonHeart"],
-            "LarvalTear":this.MarkerTypes["LarvalTear"],
-            "PickersBellBearing":this.MarkerTypes["PickersBellBearing"],
-            "SacredTear":this.MarkerTypes["SacredTear"],
-            "MinersBellBearing":this.MarkerTypes["MinersBellBearing"],
-            "Painting":this.MarkerTypes["Painting"],
-            "Gesture":this.MarkerTypes["Gesture"],
-            "Material":this.MarkerTypes["Material"],
-            "Sorceries":this.MarkerTypes["Sorceries"],
-            "Weapon":this.MarkerTypes["Weapon"],
-            "Cookbook":this.MarkerTypes["Cookbook"],
-            "Whetblade":this.MarkerTypes["Whetblade"],
-            "Other":this.MarkerTypes["Other"],
-            "Incantation":this.MarkerTypes["Incantation"],
-            "Tailsman":this.MarkerTypes["Tailsman"],
-            "AshOfWar":this.MarkerTypes["AshOfWar"],
-            "SpiritAsh":this.MarkerTypes["SpiritAsh"],
-            "Armor":this.MarkerTypes["Armor"],
-            "SomberSmithingStone":this.MarkerTypes["SomberSmithingStone"],
-            "MAP":this.MarkerTypes["MAP"],
-            "Text":this.MarkerTypes["Text"],
-            "Warn":this.MarkerTypes["Warn"],
-            "SmithingStone":this.MarkerTypes["SmithingStone"],
-            "Taoke":this.MarkerTypes["Taoke"],
-            "BellBearing":this.MarkerTypes["BellBearing"],
-            "SmithingBellBearing":this.MarkerTypes["SmithingBellBearing"],
-            "SomberBellBearing":this.MarkerTypes["SomberBellBearing"],
-            "GraveGlovewort":this.MarkerTypes["GraveGlovewort"],
-            "GravePickerBellBearing":this.MarkerTypes["GravePickerBellBearing"],
-            "GhostGlovewort":this.MarkerTypes["GhostGlovewort"],
-            "GhostPickerBellBearing":this.MarkerTypes["GhostPickerBellBearing"],
+        // var overlayMaps = {
+        //     "Site Of Grace 賜福點": this.MarkerTypes["SiteOfGrace"],
+        //     "Short Path 捷徑": this.MarkerTypes["ShortPath"],
+        //     "Way Gates 傳送點": this.MarkerTypes["Waygates"],
+        //     "Rune Farm 刷魂點": this.MarkerTypes["RuneFarm"],
+        //     "Shop 商店" : this.MarkerTypes["Shop"],
+        //     "NPC": this.MarkerTypes["NPC"],
+        //     "Location 地點":this.MarkerTypes["Location"], 
+        //     "SummoningPool":this.MarkerTypes["SummoningPool"],
+        //     "Cave":this.MarkerTypes["Cave"],
+        //     "HorseTorrent":this.MarkerTypes["HorseTorrent"],
+        //     "WalkingMausoleum":this.MarkerTypes["WalkingMausoleum"],
+        //     "BigBoss":this.MarkerTypes["BigBoss"],
+        //     "Boss":this.MarkerTypes["Boss"],
+        //     "LittleBoss":this.MarkerTypes["LittleBoss"],
+        //     "NPCInvaders":this.MarkerTypes["NPCInvaders"],
+        //     "GreatEnemy":this.MarkerTypes["GreatEnemy"],
+        //     "Item":this.MarkerTypes["Item"],
+        //     "Cartacombs":this.MarkerTypes["Cartacombs"],
+        //     "Evergaol":this.MarkerTypes["Evergaol"],
+        //     "GoldenSeed":this.MarkerTypes["GoldenSeed"],
+        //     "CrystalTears":this.MarkerTypes["CrystalTears"],
+        //     "KeyItems":this.MarkerTypes["KeyItems"],
+        //     "StoneSwordKey":this.MarkerTypes["StoneSwordKey"],
+        //     "DeathRoot":this.MarkerTypes["DeathRoot"],
+        //     "DragonHeart":this.MarkerTypes["DragonHeart"],
+        //     "LarvalTear":this.MarkerTypes["LarvalTear"],
+        //     "PickersBellBearing":this.MarkerTypes["PickersBellBearing"],
+        //     "SacredTear":this.MarkerTypes["SacredTear"],
+        //     "MinersBellBearing":this.MarkerTypes["MinersBellBearing"],
+        //     "Painting":this.MarkerTypes["Painting"],
+        //     "Gesture":this.MarkerTypes["Gesture"],
+        //     "Material":this.MarkerTypes["Material"],
+        //     "Sorceries":this.MarkerTypes["Sorceries"],
+        //     "Weapon":this.MarkerTypes["Weapon"],
+        //     "Cookbook":this.MarkerTypes["Cookbook"],
+        //     "Whetblade":this.MarkerTypes["Whetblade"],
+        //     "Other":this.MarkerTypes["Other"],
+        //     "Incantation":this.MarkerTypes["Incantation"],
+        //     "Tailsman":this.MarkerTypes["Tailsman"],
+        //     "AshOfWar":this.MarkerTypes["AshOfWar"],
+        //     "SpiritAsh":this.MarkerTypes["SpiritAsh"],
+        //     "Armor":this.MarkerTypes["Armor"],
+        //     "SomberSmithingStone":this.MarkerTypes["SomberSmithingStone"],
+        //     "MAP":this.MarkerTypes["MAP"],
+        //     "Text":this.MarkerTypes["Text"],
+        //     "Warn":this.MarkerTypes["Warn"],
+        //     "SmithingStone":this.MarkerTypes["SmithingStone"],
+        //     "Taoke":this.MarkerTypes["Taoke"],
+        //     "BellBearing":this.MarkerTypes["BellBearing"],
+        //     "SmithingBellBearing":this.MarkerTypes["SmithingBellBearing"],
+        //     "SomberBellBearing":this.MarkerTypes["SomberBellBearing"],
+        //     "GraveGlovewort":this.MarkerTypes["GraveGlovewort"],
+        //     "GravePickerBellBearing":this.MarkerTypes["GravePickerBellBearing"],
+        //     "GhostGlovewort":this.MarkerTypes["GhostGlovewort"],
+        //     "GhostPickerBellBearing":this.MarkerTypes["GhostPickerBellBearing"],
             
-        };
+        // };
 
         /*
             Map marker Section [End]
@@ -456,7 +469,7 @@ export default {
         };
 
         // eslint-disable-next-line
-        var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(this.MainMap);
+        var layerControl = L.control.layers(baseMaps).addTo(this.MainMap);
 
         /*
             Control Panel Setting Section [End]
