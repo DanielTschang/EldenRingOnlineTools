@@ -1,14 +1,14 @@
 
 import * as L from "leaflet";
 import iconurl from './IconUrl.json'
-const IconsSize = [35,35]
+const IconsSize = [30,30]
 export default {
     "SiteOfGrace":L.icon({
         iconUrl: iconurl.SiteOfGrace,
         iconSize:     IconsSize, // size of the icon
     }),
-    "shortPath":L.icon({
-        iconUrl: iconurl.shortPath,
+    "ShortPath":L.icon({
+        iconUrl: iconurl.ShortPath,
         iconSize:     IconsSize,
     }),
     "Waygates":L.icon({
@@ -96,7 +96,7 @@ export default {
         iconSize:     IconsSize,
     }),
     "DeathRoot":L.icon({
-        iconUrl: iconurl.DeathRoot,
+        iconUrl: require("@/assets/markerIcon/DeathRoot.png"),
         iconSize:     IconsSize,
     }),
     "DragonHeart":L.icon({
@@ -115,8 +115,8 @@ export default {
         iconUrl: iconurl.SacredTear,
         iconSize:     IconsSize,
     }),
-    "MinersBellBearing":L.icon({
-        iconUrl: iconurl.MinersBellBearing,
+    "SmithingBellBearing":L.icon({
+        iconUrl: iconurl.SmithingBellBearing,
         iconSize:     IconsSize,
     }),
     "Painting":L.icon({
@@ -124,7 +124,7 @@ export default {
         iconSize:     IconsSize,
     }),
     "Gesture":L.icon({
-        iconUrl: iconurl.Gesture,
+        iconUrl: require("@/assets/markerIcon/Gesture2.png"),
         iconSize:     IconsSize,
     }),
     "Material":L.icon({
@@ -140,15 +140,15 @@ export default {
         iconSize:     IconsSize,
     }),
     "Cookbook":L.icon({
-        iconUrl: iconurl.Cookbook,
+        iconUrl: require("@/assets/markerIcon/CookBookStroke.png"),
         iconSize:     IconsSize,
     }),
     "Whetblade":L.icon({
-        iconUrl: iconurl.Whetblade,
+        iconUrl: require("@/assets/markerIcon/whetstoneStroke.png"),
         iconSize:     IconsSize,
     }),
     "Incantation":L.icon({
-        iconUrl: iconurl.Incantation,
+        iconUrl: require("@/assets/markerIcon/incantationStroke.png"),
         iconSize:     IconsSize,
     }),
     "Tailsman":L.icon({
@@ -176,11 +176,11 @@ export default {
         iconSize:     IconsSize,
     }),
     "SmithingStone":L.icon({
-        iconUrl: iconurl.SmithingStone,
+        iconUrl: require("@/assets/markerIcon/smithing_stone_5Stroke.png"),
         iconSize:     IconsSize,
     }),
     "SomberSmithingStone":L.icon({
-        iconUrl: iconurl.SomberSmithingStone,
+        iconUrl: require("@/assets/markerIcon/somber_smithing_stone_5Stroke.png"),
         iconSize:     IconsSize,
     }),
     "Question":L.icon({
@@ -188,7 +188,7 @@ export default {
         iconSize:     IconsSize,
     }),
     "MAP":L.icon({
-        iconUrl: iconurl.MAP,
+        iconUrl: require("@/assets/markerIcon/MapStroke.png"),
         iconSize:     IconsSize,
     }),
     "Text":L.icon({
@@ -207,13 +207,19 @@ export default {
         iconUrl: iconurl.BellBearing,
         iconSize:     IconsSize,
     }),
-    "SmithingBellBearing":L.icon({
-        iconUrl: iconurl.SmithingBellBearing,
-        iconSize:     IconsSize,
-    }),
     "SomberBellBearing":L.icon({
         iconUrl: iconurl.SomberBellBearing,
         iconSize:     IconsSize,
     }),
+    "GraveGlovewort":L.icon({
+        iconUrl: require("@/assets/markerIcon/grave_glovewort_5Stroke.png"),
+        iconSize:     IconsSize,
+    }),
+    "GhostGlovewort":L.icon({
+        iconUrl: require("@/assets/markerIcon/ghost_glovewort_5Stroke.png"),
+        iconSize:     IconsSize,
+    }),
+
+    
 
 }
