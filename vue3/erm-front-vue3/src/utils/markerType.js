@@ -91,6 +91,11 @@ const Locations = [
         zhname:'物品'
     },
     {
+        id:52,
+        enname:'MAP',
+        zhname:'地圖碎片'
+    },
+    {
         id:34,
         enname:'Cookbook',
         zhname:'製作筆記'
@@ -112,7 +117,7 @@ const Locations = [
     },
     {
         id:21,
-        enname:'Keyitems',
+        enname:'KeyItems',
         zhname:'重要物品'
     },
     {
@@ -140,20 +145,15 @@ const Locations = [
         enname:'Painting',
         zhname:'畫'
     },
-    {
-        id:26,
-        enname:'PickersBellBearing',
-        zhname:'墓地鈴蘭'
-    },
+    // {
+    //     id:26,
+    //     enname:'PickersBellBearing',
+    //     zhname:'墓地鈴蘭'
+    // },
     {
         id:27,
         enname:'SacredTear',
         zhname:'聖杯露滴'
-    },
-    {
-        id:28,
-        enname:'MinersBellBearing',
-        zhname:'礦工玲珠'
     },
     {
         id:29,
@@ -165,6 +165,52 @@ const Locations = [
         enname:'Material',
         zhname:'資源'
     },
+    //---------------
+    {
+        id:28,
+        enname:'BellBearing',
+        zhname:'鈴珠'
+    },
+    {
+        id:51,
+        enname:'GraveGlovewort',
+        zhname:'墓地鈴蘭'
+    },
+    {
+        id:46,
+        enname:'GravePickerBellBearing',
+        zhname:'鈴蘭鈴珠'
+    },
+    {
+        id:47,
+        enname:'GhostGlovewort',
+        zhname:'靈依鈴蘭'
+    },
+    {
+        id:48,
+        enname:'GhostPickerBellBearing',
+        zhname:'靈依鈴珠'
+    },
+    {
+        id:51,
+        enname:'SmithingStone',
+        zhname:'鍛造石'
+    },
+    {
+        id:49,
+        enname:'SmithingBellBearing',
+        zhname:'鍛造石鈴珠'
+    },
+    {
+        id:50,
+        enname:'SomberBellBearing',
+        zhname:'失色石鈴珠'
+    },
+    {
+        id:52,
+        enname:'SomberSmithingStone',
+        zhname:'失色石'
+    }
  ]
  const Equipments = [
     {
