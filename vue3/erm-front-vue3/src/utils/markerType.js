@@ -1,6 +1,11 @@
 
 const Locations = [
     {
+        id:54,
+        enname:'Location',
+        zhname:'地點'
+    },
+    {
         id:2,
         enname:'SiteOfGrace',
         zhname:'賜福點'
@@ -140,11 +145,7 @@ const Locations = [
         enname:'LarvalTear',
         zhname:'淚滴幼體'
     },
-    {
-        id:30,
-        enname:'Painting',
-        zhname:'畫'
-    },
+
     // {
     //     id:26,
     //     enname:'PickersBellBearing',
@@ -155,11 +156,7 @@ const Locations = [
         enname:'SacredTear',
         zhname:'聖杯露滴'
     },
-    {
-        id:29,
-        enname:'Gesture',
-        zhname:'動作'
-    },
+
     {
         id:31,
         enname:'Material',
@@ -202,15 +199,16 @@ const Locations = [
         zhname:'鍛造石鈴珠'
     },
     {
+        id:52,
+        enname:'SomberSmithingStone',
+        zhname:'失色石'
+    },
+    {
         id:50,
         enname:'SomberBellBearing',
         zhname:'失色石鈴珠'
     },
-    {
-        id:52,
-        enname:'SomberSmithingStone',
-        zhname:'失色石'
-    }
+
  ]
  const Equipments = [
     {
@@ -254,6 +252,16 @@ const Locations = [
         id:1,
         enname:'Other',
         zhname:'其他'
+    },
+    {
+        id:30,
+        enname:'Painting',
+        zhname:'畫'
+    },
+    {
+        id:29,
+        enname:'Gesture',
+        zhname:'動作'
     },
 
 ]

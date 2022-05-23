@@ -16,7 +16,7 @@ export default {
         iconSize:     IconsSize,
     }),
     "RuneFarm":L.icon({
-        iconUrl: iconurl.RuneFarm,
+        iconUrl: require("@/assets/markerIcon/runefarmStroke.png"),
         iconSize:     IconsSize,
     }),
     "Shop":L.icon({
@@ -40,7 +40,7 @@ export default {
         iconSize:     IconsSize,
     }),
     "HorseTorrent":L.icon({
-        iconUrl: iconurl.HorseTorrent,
+        iconUrl: require("@/assets/markerIcon/horsetorrentStroke.png"),
         iconSize:     IconsSize,
     }),
     "WalkingMausoleum":L.icon({
@@ -68,7 +68,7 @@ export default {
         iconSize:     IconsSize,
     }),
     "Item":L.icon({
-        iconUrl: iconurl.Item,
+        iconUrl: require("@/assets/markerIcon/other.png"),
         iconSize:     IconsSize,
     }),
     "Cartacombs":L.icon({
@@ -80,19 +80,19 @@ export default {
         iconSize:     IconsSize,
     }),
     "GoldenSeed":L.icon({
-        iconUrl: iconurl.GoldenSeed,
+        iconUrl: require("@/assets/markerIcon/GoldenSeedStroke.png"),
         iconSize:     IconsSize,
     }),
     "CrystalTears":L.icon({
-        iconUrl: iconurl.CrystalTears,
+        iconUrl: require("@/assets/markerIcon/crystaltearsStroke.png"),
         iconSize:     IconsSize,
     }),
     "KeyItems":L.icon({
-        iconUrl: iconurl.KeyItems,
+        iconUrl: require("@/assets/markerIcon/keyitemsStroke.png"),
         iconSize:     IconsSize,
     }),
     "StoneSwordKey":L.icon({
-        iconUrl: iconurl.StoneSwordKey,
+        iconUrl: require("@/assets/markerIcon/stoneswordkeyStroke.png"),
         iconSize:     IconsSize,
     }),
     "DeathRoot":L.icon({
@@ -104,23 +104,20 @@ export default {
         iconSize:     IconsSize,
     }),
     "LarvalTear":L.icon({
-        iconUrl: iconurl.LarvalTear,
+        iconUrl: require("@/assets/markerIcon/larvaltearStroke.png"),
         iconSize:     IconsSize,
     }),
-    "PickersBellBearing":L.icon({
-        iconUrl: iconurl.PickersBellBearing,
-        iconSize:     IconsSize,
-    }),
+
     "SacredTear":L.icon({
-        iconUrl: iconurl.SacredTear,
+        iconUrl: require("@/assets/markerIcon/SacredTearStroke.png"),
         iconSize:     IconsSize,
     }),
     "SmithingBellBearing":L.icon({
-        iconUrl: iconurl.SmithingBellBearing,
+        iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
         iconSize:     IconsSize,
     }),
     "Painting":L.icon({
-        iconUrl: iconurl.Painting,
+        iconUrl: require("@/assets/markerIcon/painting.png"),
         iconSize:     IconsSize,
     }),
     "Gesture":L.icon({
@@ -132,11 +129,11 @@ export default {
         iconSize:     IconsSize,
     }),
     "Sorceries":L.icon({
-        iconUrl: iconurl.Sorceries,
+        iconUrl: require("@/assets/markerIcon/sorceryStroke.png"),
         iconSize:     IconsSize,
     }),
     "Weapon":L.icon({
-        iconUrl: iconurl.Weapon,
+        iconUrl: require("@/assets/markerIcon/weaponStroke.png"),
         iconSize:     IconsSize,
     }),
     "Cookbook":L.icon({
@@ -152,19 +149,19 @@ export default {
         iconSize:     IconsSize,
     }),
     "Tailsman":L.icon({
-        iconUrl: iconurl.Tailsman,
+        iconUrl: require("@/assets/markerIcon/talismanStroke.png"),
         iconSize:     IconsSize,
     }),
     "AshOfWar":L.icon({
-        iconUrl: iconurl.AshOfWar,
+        iconUrl: require("@/assets/markerIcon/ash_of_warStroke.png"),
         iconSize:     IconsSize,
     }),
     "SpiritAsh":L.icon({
-        iconUrl: iconurl.SpiritAsh,
+        iconUrl: require("@/assets/markerIcon/spiritashStroke.png"),
         iconSize:     IconsSize,
     }),
     "Armor":L.icon({
-        iconUrl: iconurl.Armor,
+        iconUrl: require("@/assets/markerIcon/armorStroke.png"),
         iconSize:     IconsSize,
     }),
     "Warn":L.icon({
@@ -196,19 +193,19 @@ export default {
         iconSize:     IconsSize,
     }),
     "GravePickerBellBearing":L.icon({
-        iconUrl: iconurl.GravePickerBellBearing,
+        iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
         iconSize:     IconsSize,
     }),
     "GhostPickerBellBearing":L.icon({
-        iconUrl: iconurl.GhostPickerBellBearing,
+        iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
         iconSize:     IconsSize,
     }),
     "BellBearing":L.icon({
-        iconUrl: iconurl.BellBearing,
+        iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
         iconSize:     IconsSize,
     }),
     "SomberBellBearing":L.icon({
-        iconUrl: iconurl.SomberBellBearing,
+        iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
         iconSize:     IconsSize,
     }),
     "GraveGlovewort":L.icon({
@@ -217,6 +214,10 @@ export default {
     }),
     "GhostGlovewort":L.icon({
         iconUrl: require("@/assets/markerIcon/ghost_glovewort_5Stroke.png"),
+        iconSize:     IconsSize,
+    }),
+    "Other":L.icon({
+        iconUrl: require("@/assets/markerIcon/other.png"),
         iconSize:     IconsSize,
     }),
 
