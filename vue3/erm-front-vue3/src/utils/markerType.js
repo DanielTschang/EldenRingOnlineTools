@@ -26,6 +26,11 @@ const Locations = [
         zhname:'刷魂點'
     },
     {
+        id:60,
+        enname:'Cave',
+        zhname:'洞窟'
+    },
+    {
         id:17,
         enname:'Cartacombs',
         zhname:'地下墓地'
