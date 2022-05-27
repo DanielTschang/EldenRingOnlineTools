@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { validateToken } from './../utils/jwt.utils';
 import chalk from 'chalk';
 
+
 /**
  * middleware to check whether user has access to a specific endpoint
  *

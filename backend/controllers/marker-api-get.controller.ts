@@ -1,5 +1,7 @@
 import {Request, Response, RequestHandler} from "express";
 import { IAddMarkerReq, IDeleteMarkerReq, IGetMarkerReq, IUpdateMarkerReq } from "../api/models/marker.model";
+// import requestIp from "request-ip"
+
 
 import * as MarkerAPIService from "./utils/api.queries";
 
@@ -12,6 +14,7 @@ export default class addApiController {
     */
     public async getAllMarker(req: IGetMarkerReq, res: Response) {
         try{
+            console.log(req.params)
             const markers = await MarkerAPIService.getAllData();
             res.status(200).json({
                 "data": markers,
@@ -57,6 +60,11 @@ export default class addApiController {
     * @param res Express Response
     */
     public async getMarkerByType(req: IGetMarkerReq, res: Response):Promise<void> {
+        console.log(req.query)
+        // "ip": "ip"
+        // "city": "Taipei",
+        // "region": "Taiwan",
+        // "country": "TW",
         try{
             let markerType:string = req.params.type
             const markers = await MarkerAPIService.getMarkerByType(markerType);

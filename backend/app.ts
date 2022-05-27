@@ -18,6 +18,8 @@ import handleError from './api/middlewares/error-handler.middleware';
 //testing
 import { payload } from './test.objects';
 
+import requestIp from "request-ip"
+
 
 
 //init express
@@ -40,6 +42,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 //add logger middleware
 app.use(logger);
+//get ip
+// app.use(requestIp.mw())
 
 
 console.log('NODE_ENV_TYPE :',process.env.NODE_ENV)
