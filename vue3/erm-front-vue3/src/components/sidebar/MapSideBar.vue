@@ -10,16 +10,18 @@
                     <i class="fa fa-angle-double-left"></i>
                 </span>
 
+                <div  v-if="collapsed" class="checkbox-container">
+                    <!-- <div class="position-container">
+                        <h1>hi</h1>
+                    </div> -->
 
-
-                <div v-if="collapsed" class="checkbox-container">
-                    
-                    <transition-group name="checkbox" appear>
+                    <div class="checkbox-container">
+                        <transition-group name="checkbox" appear>
                         <div :key="'location'">
                             <h>-地點-</h>
                         </div>
                         <div class="checkbox-item" :key="type.id" v-for="type in Locations">    
-                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
+                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
 
@@ -27,7 +29,7 @@
                             <h>-物品-</h>
                         </div>
                         <div class="checkbox-item" :key="type.id" v-for="type in Items">    
-                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
+                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
                         <div :key="'enemy'">
@@ -35,7 +37,7 @@
                         </div>
 
                         <div class="checkbox-item" :key="type.id" v-for="type in Enemy">    
-                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
+                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
 
@@ -43,7 +45,7 @@
                             <h>-裝備-</h>
                         </div>
                         <div class="checkbox-item" :key="type.id" v-for="type in Equipments">    
-                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
+                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
 
@@ -52,14 +54,14 @@
                             <h>-其他-</h>
                         </div>
                         <div class="checkbox-item" :key="type.id" v-for="type in Other">    
-                            <input type="checkbox" :id="type.id" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
+                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
-                        
+                        </transition-group>
+                    </div>
                     
-                    </transition-group>
                 </div>
-            
+           
             
     </div>
   
@@ -83,7 +85,7 @@ export default {
             checkedTypes:[],
             collapsed:null,
             collapedWidth:30,
-            openWidth:200,
+            openWidth:230,
         }
     },
     setup(){
@@ -116,7 +118,7 @@ export default {
 
 <style scoped>
     .checkbox-enter-active{
-        transition: opacity 1s 
+        transition: opacity 1.2s 
     }
     .checkbox-leave-active{
         transition: opacity 0.2s;
@@ -124,6 +126,11 @@ export default {
     .checkbox-enter-from,
     .checkbox-leave-to{
         opacity: 0;
+    }
+
+    .position-container{
+        width:100%;
+        height: 30px;
     }
 
 
@@ -139,9 +146,13 @@ export default {
     top:5vh;
     width: 7vw;
     height: 80vh;
-    border-end-end-radius: 20px;
-    
-    transition: 0.3s ease;
+    /* border-end-end-radius: 20px; */
+    border-image: url("@/assets/borderImage.png");
+    border-image-repeat:round;
+    border-image-slice:30 50 fill;
+    border-image-width:20px 40px;
+    transition: 0.2s ease;
+    padding:3px;
 
     display: flex;
     flex-direction: column
@@ -162,6 +173,14 @@ export default {
 
  }
  .checkbox-item{
-     float:left
+     float:left;
+     max-width: 50%;
+     margin:0.1px 1.5px;
+ }
+ .checkbox-item input{
+     margin-right:3px
+ }
+ .checkbox-item label{
+     font-size: 10px;
  }
 </style>
