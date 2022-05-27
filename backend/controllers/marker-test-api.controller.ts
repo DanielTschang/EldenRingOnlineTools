@@ -7,6 +7,7 @@ const data = require('../public/test/allMarkers.json');
 interface DataRow {
     id: number,
     type: string,
+    level: number,
     name: string,
     desc: string,
     lng: string,
@@ -15,15 +16,12 @@ interface DataRow {
     position: number,
     is_achivement: number,
     is_lock: number,
-    delete_request: number,
     likecount: number,
     dislikecount: number,
-    ip: string,
     is_deleted: number,
     create_date: string,
     update_date: string
 }
-
 
 export default class TestgetApiController {
     
@@ -35,10 +33,7 @@ export default class TestgetApiController {
     */
     public async getAllMarker(req: IGetMarkerReq, res: Response) {
         try{
-            res.status(200).json({
-                "type": 'all',
-                "data": data ,
-            })
+            res.status(200).json(data)
         }
         catch(error){
             console.error('[marker-test-api.controller][getAllMarker][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
