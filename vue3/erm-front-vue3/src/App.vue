@@ -70,7 +70,7 @@ export default {
   :root{
     --sidebar-bg-color:black;
     --sidebar-item-hover:grey;
-    --sidebar-item-active:green;
+    --sidebar-item-active:rgba(235, 233, 79, 0.339);
   }
   *{
     cursor: url('../public/cursor_resized.png') 5 5 ,pointer;
@@ -89,7 +89,7 @@ export default {
       color: #2c3e50;
 
       &.router-link-exact-active {
-        color: #42b983;
+        color: #989898;
       }
     }
   }
