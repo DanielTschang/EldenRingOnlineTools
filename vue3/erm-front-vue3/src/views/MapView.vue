@@ -2,7 +2,7 @@
 
 <template>
     <div id="map-container" >
-        <map-side-bar @changeTypes="changeTypes" :initfilterType="filterType"/>
+        <map-side-bar @changeTypes="changeTypes" :initfilterType="filterType" />
         
         <div id="mymap">
         </div>
@@ -67,6 +67,7 @@ export default {
             undergroundMapUrl:'',
             //https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png
             filterType: [],
+            markerIDs:[],
             MarkerTypes: {
                 "SiteOfGrace" : L.layerGroup(),
                 "ShortPath" : L.layerGroup(),
@@ -133,8 +134,6 @@ export default {
         let latCookie = getCookie('centerlat');
         let lngCookie = getCookie('centerlng');
         let TypeCookie = getCookie('filterType');
-        console.log(TypeCookie)
-        console.log(zoomCookie)
         
 
         this.zoom = zoomCookie == "" ? this.zoom : zoomCookie ;
@@ -157,7 +156,7 @@ export default {
         })
         //地上地圖 Ground map layer
         let ground = L.tileLayer(this.groundMapUrl, {
-            attribution: 'Elden Ring Map',
+            attribution: '<h style="color:white">Elden Ring Map</h>',
             maxZoom: this.maxZoom,
             id: 'ground',
             tileSize: this.tileSize,
@@ -213,7 +212,7 @@ export default {
 
         this.markers = await getMarkerByType("all")
         this.markers.forEach(marker=>{
-            let customPopup = marker.type + " : " + marker.name + "<input type='checkbox' id={title} value='title' v-model='checkedNames'> <label for='title'>{{title}}</label>";
+            let customPopup = marker.type + " : " + marker.name + "<hr><h4>"+marker.desc+"</h4><hr><input type='checkbox' id='" + marker.id + "'value='"+marker.id+ "'> <label for='"+marker.id+"'>已完成</label>";
             let customOptions =
                 {
                     'maxWidth': '400',
@@ -385,8 +384,8 @@ export default {
                     break;
             }
         })
-        console.log(this.filterType)
-        if(this.filterType[0]!==""){
+
+        if(this.filterType!==[]){
             this.filterType.forEach(type=>{
                 this.MarkerTypes[type].addTo(this.MainMap)
             })

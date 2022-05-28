@@ -30,7 +30,7 @@ const routes = [
     }
   },
   {
-    path: '/AR',
+    path: '/ARcalculator',
     name: 'ARcalculator',
     component: InfoView,
     meta:{

@@ -1,9 +1,9 @@
 <template>
     <div class="sidebar" style="width:100vw">
-        <side-bar-link to="/map" icon="map"> Map </side-bar-link>
-        <side-bar-link to="/AR" icon="ARR"> AR calculator </side-bar-link>
-        <side-bar-link to="/account" icon="ARR"> Account </side-bar-link>
-        <side-bar-link to="/info" icon="settings"> Info </side-bar-link>
+        <side-bar-link to="/map" icon="map">Map</side-bar-link>
+        <side-bar-link to="/ARcalculator" icon="AR">AR calculator</side-bar-link>
+        <side-bar-link to="/account" icon="ARR">Account</side-bar-link>
+        <side-bar-link to="/info" icon="settings">Info</side-bar-link>
     </div>
 </template>
 

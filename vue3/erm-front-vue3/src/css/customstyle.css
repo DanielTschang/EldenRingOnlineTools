@@ -4,6 +4,9 @@
     color: #234c5e;
     border-radius: 5px;
 }
+.leaflet-bottom ,.leaflet-right{
+    z-index: 99999;
+}
 /* 
 .leaflet-control-zoom{
     border-image: url("@/assets/borderImage.png");
