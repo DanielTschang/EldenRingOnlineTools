@@ -9,7 +9,7 @@ export default async function getMarkersByType(type){
         redirect: 'follow'
     };
 
-    return fetch(url+type, requestOptions)
+    return await fetch(url+type, requestOptions)
         .then(response => response.json())
         .then(result => result.data )
         .catch(error => console.log('error', error));

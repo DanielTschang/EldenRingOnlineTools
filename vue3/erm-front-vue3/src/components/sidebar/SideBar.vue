@@ -2,6 +2,7 @@
     <div class="sidebar" style="width:100vw">
         <side-bar-link to="/map" icon="map"> Map </side-bar-link>
         <side-bar-link to="/AR" icon="ARR"> AR calculator </side-bar-link>
+        <side-bar-link to="/account" icon="ARR"> Account </side-bar-link>
         <side-bar-link to="/info" icon="settings"> Info </side-bar-link>
     </div>
 </template>
@@ -27,12 +28,14 @@ export default {
 
 <style scoped>
   .sidebar {
-    color:white;
-    background-color: black;
+    color:rgb(34, 34, 34);
+    background-color: rgb(34, 34, 34);
+    box-shadow:  0 0 15px 0 rgb(171, 150, 111) ;
+    box-sizing: content-box;
 
     float:bottom;
     position:fixed;
-    z-index:10000;
+    z-index:1000;
     left:0;
     right:0;
     bottom:0;

@@ -45,6 +45,14 @@ const routes = [
       title:"EldenRing Map - Log in"
     }
   },
+  {
+    path: '/account',
+    name: 'account',
+    component: InfoView,
+    meta:{
+      title:"EldenRing Map - Account"
+    }
+  },
 
 ]
 

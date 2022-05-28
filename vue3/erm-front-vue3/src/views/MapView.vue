@@ -401,19 +401,20 @@ export default {
         /*
             Control Panel Setting Section [Start]
         */
-        L.control.zoom({ position: 'topright' }).addTo(this.MainMap);
         L.control.attribution({
             position: 'bottomright',
             prefix: prefix,
         }).addTo(this.MainMap);
+        L.control.zoom({ position: 'bottomright' }).addTo(this.MainMap);
 
-        var baseMaps = {
-            "UnderGround 地底世界": underground,
-            "Ground 地上世界": ground
-        };
 
-        // eslint-disable-next-line
-        var layerControl = L.control.layers(baseMaps).addTo(this.MainMap);
+        // var baseMaps = {
+        //     "UnderGround 地底世界": underground,
+        //     "Ground 地上世界": ground
+        // };
+
+        // // eslint-disable-next-line
+        // var layerControl = L.control.layers(baseMaps).addTo(this.MainMap);
 
         /*
             Control Panel Setting Section [End]
@@ -447,5 +448,12 @@ export default {
         text-align: justify;
         color: pink;
     }
+    .leaflet-control-zoom{
+        border-image: url("@/assets/borderImage.png");
+        border-image-repeat:round;
+        border-image-slice:30 50 fill;
+        border-image-width:25px 40px;
+    }
+
 
 </style>

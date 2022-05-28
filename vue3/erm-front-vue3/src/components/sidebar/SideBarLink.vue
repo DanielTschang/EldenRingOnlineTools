@@ -1,7 +1,8 @@
 <template>
   <router-link :to="to" class="link" :class="{active: isActive}">
-      <img :src="iconPath">
-      <slot/>
+        <img style="height:25px; width:25px" :src="iconPath">
+        <slot/>
+      
   </router-link>
 </template>
 
@@ -24,37 +25,42 @@ export default {
 </script>
 
 <style scoped>
-.link{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    
+.router-container{
 
-    position: relative;
-    font-weight: 400;
-    user-select: none;
-    cursor:url("../../../public/cursor_resized.png"),auto;
-    margin:0.1em 0.1em;
-    padding: 0.4em;
-    border-radius:0.25em;
-    height:1.5em;
+
+}
+.link{
     width:100%;
-    height: 90%;
-    color:white;
-    text-decoration: none;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    position: relative;
     opacity: 1;
     transition: 0.3s ease;
+    display:flex;
+    flex-direction: column;
+    padding:10px;
+    
+    font-weight: 400;
+    user-select: none;
+    padding: 0.2em;
+    border-radius:0.25em;
+
+    color:rgb(249, 246, 241);
+}
+.link *{
+
 }
 .link:hover{
     background-color:var(--sidebar-item-hover);
     opacity: 0.7;
 }
 .link.active{
-    background-color: var(--sidebar-item-active);
+    background-color: rgb(171, 150, 111);
 }
 .link .icon {
     flex-shrink:0;
-    width:25px;
-    margin-right:10px;
+    width:20px;
+
 }
 </style>

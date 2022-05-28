@@ -4,3 +4,41 @@
     color: #234c5e;
     border-radius: 5px;
 }
+/* 
+.leaflet-control-zoom{
+    border-image: url("@/assets/borderImage.png");
+    border-image-repeat:round;
+    border-image-slice:30 50 fill;
+    border-image-width:25px 40px;
+}
+.leaflet-bar .leaflet-control-zoom .leaflet-control{
+    border-image: url("@/assets/borderImage.png");
+    border-image-repeat:round;
+    border-image-slice:10 20 fill;
+    border-image-width:40px 40px;
+
+  }
+  .leaflet-control-zoom a{
+    box-shadow: 0 1px 5px rgba(221, 60, 60, 0.65); 
+  }
+  .leaflet-bar a{
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.70);
+    border: 1px solid rgba(0,0,0,.70);
+    color: #c7826b;
+  }
+  .leaflet-bar a:last-child{
+    border: 1px solid rgba(0,0,0,.70);
+  }
+  .leaflet-bar a:hover{
+    background-color: rgba(0,0,0,.70);
+    border: 1px solid rgba(0,0,0,.70);
+    color: #002244;
+  }
+  .leaflet-disabled a{
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.70);
+    border: 1px solid rgba(0,0,0,.70);
+    color: #c7826b;
+  } 
+*/

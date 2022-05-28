@@ -29,7 +29,7 @@
                             <h>-物品-</h>
                         </div>
                         <div class="checkbox-item" :key="type.id" v-for="type in Items">    
-                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()" checked="true">
+                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
                         <div :key="'enemy'">
