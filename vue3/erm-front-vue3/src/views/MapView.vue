@@ -2,7 +2,7 @@
 
 <template>
     <div id="map-container" >
-        <map-side-bar @changeTypes="changeTypes"/>
+        <map-side-bar @changeTypes="changeTypes" :initfilterType="filterType"/>
         
         <div id="mymap">
         </div>
@@ -10,13 +10,8 @@
 </template>
 
 
-
-
 <script>
-// @ is an alias to /src
 import * as L from "leaflet";
-// import "leaflet-sidebar-v2";
-// import "@/css/leaflet-sidebar.css"
 import { getCookie, setCookie } from '@/utils/Cookies';
 import prefix from '@/utils/control-prefix'
 import getMarkerByType from "@/utils/getMarker"
@@ -24,8 +19,9 @@ import MarkerIcon from "@/utils/markerIcon"
 import MapSideBar from "@/components/sidebar/MapSideBar.vue"
 import "leaflet/dist/leaflet.css"
 import "@/css/customstyle.css"
-import axios from 'axios';
 
+// eslint-disable-next-line
+import axios from 'axios';
 
 export default {
     name: 'MapView',
@@ -49,14 +45,11 @@ export default {
                     this.MainMap.removeLayer(this.MarkerTypes[type])
                 })
             }
+            setCookie("filterType", this.filterType)
         }
     },
     data(){
         return {
-            userIP:null,
-            userRegion:null,
-            userCity:null,
-            userCountry:null,
             MainMap:null,
             groundLayer:true,
             zoom:4,
@@ -71,7 +64,8 @@ export default {
             mapHeight:100,
             maxBounds:L.latLngBounds(L.latLng(-100, -200), L.latLng(100, 100)),
             groundMapUrl:'https://imgs.ali213.net/picfile/eldenring/{z}/{x}/{y}.jpg',
-            undergroundMapUrl:'https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png',
+            undergroundMapUrl:'',
+            //https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png
             filterType: [],
             MarkerTypes: {
                 "SiteOfGrace" : L.layerGroup(),
@@ -138,10 +132,16 @@ export default {
         let zoomCookie = getCookie('zoom');
         let latCookie = getCookie('centerlat');
         let lngCookie = getCookie('centerlng');
+        let TypeCookie = getCookie('filterType');
+        console.log(TypeCookie)
+        console.log(zoomCookie)
+        
 
         this.zoom = zoomCookie == "" ? this.zoom : zoomCookie ;
         this.initCenterLat = latCookie == "" ? this.initCenterLat : latCookie;
         this.initCenterLng = lngCookie == "" ? this.initCenterLng : lngCookie;
+        this.filterType = TypeCookie == "" ? this.filterType : TypeCookie.split(",")
+        
     },
     async mounted(){
         /*
@@ -177,6 +177,14 @@ export default {
             layers: [ground,underground]
         }).setView([this.initCenterLat,this.initCenterLng],this.zoom);
 
+        /**
+         * for testing
+         */
+
+        this.MainMap.on('click', (e)=>{
+            console.log(e.latlng);
+        })
+
         /*
             Map Init Section [End]
         */
@@ -194,13 +202,6 @@ export default {
             setCookie('centerlat', this.MainMap.getCenter().lat);
             setCookie('centerlng', this.MainMap.getCenter().lng);
         })
-        //baselayerchange
-        // this.MainMap.on('baselayerchange',(e)=>{
-        //     console.log(e)
-        //     this.groundLayer = !this.groundLayer
-        //     console.log(this.groundLayer)
-        // })
-
         /*
             Map Listeners Section [End]
         */
@@ -210,15 +211,7 @@ export default {
             Map marker Section [Start]
         */
 
-        axios.get("https://ipinfo.io/json")
-            .then(res=>{
-                this.ip = res.ip
-                this.city = res.city
-                this.region = res.region
-                this.country = res.country
-            })
-        // this.ip = ipinfo.ip
-        this.markers = await getMarkerByType("all",this.userIP, this.userCity, this.userRegion, this.userCountry)
+        this.markers = await getMarkerByType("all")
         this.markers.forEach(marker=>{
             let customPopup = marker.type + " : " + marker.name + "<input type='checkbox' id={title} value='title' v-model='checkedNames'> <label for='title'>{{title}}</label>";
             let customOptions =
@@ -248,7 +241,9 @@ export default {
                     this.MarkerTypes["NPC"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['NPC']}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "Location":
-                    this.MarkerTypes["Location"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Location']}).bindPopup(marker.type +" "+marker.name))
+                    // eslint-disable-next-line
+                    let level = marker.level             
+                    this.MarkerTypes["Location"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Location'](level)}).bindPopup(marker.type +" "+marker.name))
                     break
                 case "SummoningPool":
                     this.MarkerTypes["SummoningPool"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['SummoningPool']}).bindPopup(marker.type +" "+marker.name))
@@ -386,69 +381,18 @@ export default {
                     this.MarkerTypes["GraveGlovewort"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['GraveGlovewort']}).bindPopup(marker.type +" "+marker.name))
                     break
                 default:
-                    this.MarkerTypes["Other"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Taoke']}).bindPopup(marker.type +" "+marker.name))
+                    this.MarkerTypes["Other"].addLayer(L.marker([marker.lat, marker.lng],{icon:MarkerIcon['Other']}).bindPopup(marker.type +" "+marker.name))
                     break;
             }
         })
+        console.log(this.filterType)
+        if(this.filterType[0]!==""){
+            this.filterType.forEach(type=>{
+                this.MarkerTypes[type].addTo(this.MainMap)
+            })
+        }
+        
 
-        // var overlayMaps = {
-        //     "Site Of Grace 賜福點": this.MarkerTypes["SiteOfGrace"],
-        //     "Short Path 捷徑": this.MarkerTypes["ShortPath"],
-        //     "Way Gates 傳送點": this.MarkerTypes["Waygates"],
-        //     "Rune Farm 刷魂點": this.MarkerTypes["RuneFarm"],
-        //     "Shop 商店" : this.MarkerTypes["Shop"],
-        //     "NPC": this.MarkerTypes["NPC"],
-        //     "Location 地點":this.MarkerTypes["Location"], 
-        //     "SummoningPool":this.MarkerTypes["SummoningPool"],
-        //     "Cave":this.MarkerTypes["Cave"],
-        //     "HorseTorrent":this.MarkerTypes["HorseTorrent"],
-        //     "WalkingMausoleum":this.MarkerTypes["WalkingMausoleum"],
-        //     "BigBoss":this.MarkerTypes["BigBoss"],
-        //     "Boss":this.MarkerTypes["Boss"],
-        //     "LittleBoss":this.MarkerTypes["LittleBoss"],
-        //     "NPCInvaders":this.MarkerTypes["NPCInvaders"],
-        //     "GreatEnemy":this.MarkerTypes["GreatEnemy"],
-        //     "Item":this.MarkerTypes["Item"],
-        //     "Cartacombs":this.MarkerTypes["Cartacombs"],
-        //     "Evergaol":this.MarkerTypes["Evergaol"],
-        //     "GoldenSeed":this.MarkerTypes["GoldenSeed"],
-        //     "CrystalTears":this.MarkerTypes["CrystalTears"],
-        //     "KeyItems":this.MarkerTypes["KeyItems"],
-        //     "StoneSwordKey":this.MarkerTypes["StoneSwordKey"],
-        //     "DeathRoot":this.MarkerTypes["DeathRoot"],
-        //     "DragonHeart":this.MarkerTypes["DragonHeart"],
-        //     "LarvalTear":this.MarkerTypes["LarvalTear"],
-        //     "PickersBellBearing":this.MarkerTypes["PickersBellBearing"],
-        //     "SacredTear":this.MarkerTypes["SacredTear"],
-        //     "MinersBellBearing":this.MarkerTypes["MinersBellBearing"],
-        //     "Painting":this.MarkerTypes["Painting"],
-        //     "Gesture":this.MarkerTypes["Gesture"],
-        //     "Material":this.MarkerTypes["Material"],
-        //     "Sorceries":this.MarkerTypes["Sorceries"],
-        //     "Weapon":this.MarkerTypes["Weapon"],
-        //     "Cookbook":this.MarkerTypes["Cookbook"],
-        //     "Whetblade":this.MarkerTypes["Whetblade"],
-        //     "Other":this.MarkerTypes["Other"],
-        //     "Incantation":this.MarkerTypes["Incantation"],
-        //     "Tailsman":this.MarkerTypes["Tailsman"],
-        //     "AshOfWar":this.MarkerTypes["AshOfWar"],
-        //     "SpiritAsh":this.MarkerTypes["SpiritAsh"],
-        //     "Armor":this.MarkerTypes["Armor"],
-        //     "SomberSmithingStone":this.MarkerTypes["SomberSmithingStone"],
-        //     "MAP":this.MarkerTypes["MAP"],
-        //     "Text":this.MarkerTypes["Text"],
-        //     "Warn":this.MarkerTypes["Warn"],
-        //     "SmithingStone":this.MarkerTypes["SmithingStone"],
-        //     "Taoke":this.MarkerTypes["Taoke"],
-        //     "BellBearing":this.MarkerTypes["BellBearing"],
-        //     "SmithingBellBearing":this.MarkerTypes["SmithingBellBearing"],
-        //     "SomberBellBearing":this.MarkerTypes["SomberBellBearing"],
-        //     "GraveGlovewort":this.MarkerTypes["GraveGlovewort"],
-        //     "GravePickerBellBearing":this.MarkerTypes["GravePickerBellBearing"],
-        //     "GhostGlovewort":this.MarkerTypes["GhostGlovewort"],
-        //     "GhostPickerBellBearing":this.MarkerTypes["GhostPickerBellBearing"],
-            
-        // };
 
         /*
             Map marker Section [End]

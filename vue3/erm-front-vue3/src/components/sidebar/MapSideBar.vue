@@ -21,7 +21,7 @@
                             <h>-地點-</h>
                         </div>
                         <div class="checkbox-item" :key="type.id" v-for="type in Locations">    
-                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
+                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
 
@@ -29,7 +29,7 @@
                             <h>-物品-</h>
                         </div>
                         <div class="checkbox-item" :key="type.id" v-for="type in Items">    
-                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
+                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()" checked="true">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
                         <div :key="'enemy'">
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="checkbox-item" :key="type.id" v-for="type in Enemy">    
-                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
+                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
 
@@ -45,7 +45,7 @@
                             <h>-裝備-</h>
                         </div>
                         <div class="checkbox-item" :key="type.id" v-for="type in Equipments">    
-                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
+                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
 
@@ -54,7 +54,7 @@
                             <h>-其他-</h>
                         </div>
                         <div class="checkbox-item" :key="type.id" v-for="type in Other">    
-                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="checkedTypes" @change="changeTypes()">
+                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
                             <label :for="type.zhname">{{ type.zhname }}</label>
                         </div>
                         </transition-group>
@@ -75,24 +75,24 @@ import { setCookie, getCookie } from '@/utils/Cookies'
 
 export default {  
     name:"MapSideBar",
-    // components:{
-    //     MapSideBarCheckbox
-    // },
+    props:{
+        initfilterType:Array
+    },
 
     data(){
         return{
-            title:"hi",
-            checkedTypes:[],
+            filterType:[],
             collapsed:null,
             collapedWidth:30,
             openWidth:230,
         }
     },
     setup(){
-
         return { Locations, Enemy, Items, Equipments, Other}
     },
     created(){
+        this.filterType = this.initfilterType
+        this.$emit("changeTypes",this.filterType)
         let sidebarToggled = getCookie('sidebar');
         this.collapsed = sidebarToggled == "false" ? false : true;
     },
@@ -102,7 +102,7 @@ export default {
             setCookie('sidebar',this.collapsed)
         },
         changeTypes(){
-            this.$emit("changeTypes",this.checkedTypes)
+            this.$emit("changeTypes",this.filterType)
         }
         
     },
@@ -133,6 +133,9 @@ export default {
         height: 30px;
     }
 
+    .collapse-icon{
+        padding-top:3px;
+    }
 
   .sidebar {
     color:white;
@@ -150,7 +153,7 @@ export default {
     border-image: url("@/assets/borderImage.png");
     border-image-repeat:round;
     border-image-slice:30 50 fill;
-    border-image-width:20px 40px;
+    border-image-width:25px 40px;
     transition: 0.2s ease;
     padding:3px;
 
