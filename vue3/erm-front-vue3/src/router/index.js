@@ -30,6 +30,14 @@ const routes = [
     }
   },
   {
+    path: '/AR',
+    name: 'ARcalculator',
+    component: InfoView,
+    meta:{
+      title:"EldenRing Map - AR calculator"
+    }
+  },
+  {
     path: '/login',
     name: 'login',
     component: LogIn,

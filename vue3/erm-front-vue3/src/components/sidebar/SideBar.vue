@@ -1,8 +1,8 @@
 <template>
     <div class="sidebar" style="width:100vw">
-        <side-bar-link to="/" icon="fa fa-home"> Home </side-bar-link>
-        <side-bar-link to="/map" icon="fa fa-home"> Map </side-bar-link>
-        <side-bar-link to="/info" icon="fa fa-home"> Info </side-bar-link>
+        <side-bar-link to="/map" icon="map"> Map </side-bar-link>
+        <side-bar-link to="/AR" icon="ARR"> AR calculator </side-bar-link>
+        <side-bar-link to="/info" icon="settings"> Info </side-bar-link>
     </div>
 </template>
 
