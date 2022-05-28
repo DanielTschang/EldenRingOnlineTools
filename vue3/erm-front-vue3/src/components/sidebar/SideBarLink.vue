@@ -1,6 +1,6 @@
 <template>
   <router-link :to="to" class="link" :class="{active: isActive}">
-      <i class="icon" :class="icon"/>
+      <img :src="iconPath">
       <slot/>
   </router-link>
 </template>
@@ -8,7 +8,6 @@
 <script>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router'
-import { collapsed } from '@/utils/SidebarState';
 
 export default {
     props:{
@@ -18,7 +17,8 @@ export default {
     setup(props){
         const route = useRoute();
         const isActive = computed (() => route.path === props.to)
-        return {isActive, collapsed}
+        const iconPath = require("@/assets/"+props.icon + ".png")
+        return {isActive, iconPath }
     }
 }
 </script>

@@ -4,7 +4,7 @@ import iconurl from './IconUrl.json'
 // eslint-disable-next-line
 import locationMapper from "@/utils/LocationIcons"
 
-const size = 30
+const size = 40
 const IconsSize = [size,size]
 const IconArchor = [(size / 2), (size / 2)]
 export default {
