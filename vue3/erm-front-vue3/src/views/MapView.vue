@@ -37,12 +37,13 @@ export default {
             this.filterType = checkedType
             if(addType.length>0){
                 addType.forEach(type => {
-                    this.MarkerTypes[type].addTo(this.MainMap)
+                    this.showLayer.addLayer(this.MarkerTypes[type])
                 })
             }
             if(deletedType.length>0){
                 deletedType.forEach(type => {
-                    this.MainMap.removeLayer(this.MarkerTypes[type])
+                    this.showLayer.removeLayer(this.MarkerTypes[type])
+                    this.notshowLayer.addLayer(this.MarkerTypes[type])
                 })
             }
             setCookie("filterType", this.filterType)
@@ -68,6 +69,8 @@ export default {
             //https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png
             filterType: [],
             markerIDs:[],
+            showLayer:L.layerGroup(),
+            notshowLayer:L.layerGroup(),
             MarkerTypes: {
                 "SiteOfGrace" : L.layerGroup(),
                 "ShortPath" : L.layerGroup(),
@@ -490,10 +493,11 @@ export default {
 
         if(this.filterType!==[]){
             this.filterType.forEach(type=>{
-                this.MarkerTypes[type].addTo(this.MainMap)
+                this.MarkerTypes[type].addTo(this.showLayer)
             })
         }
         
+        this.showLayer.addTo(this.MainMap)
 
 
         /*
@@ -521,10 +525,6 @@ export default {
         /*
             Control Panel Setting Section [End]
         */
-       console.log(this.MainMap)
-       this.MainMap.eachLayer((layer)=>{
-           console.log(layer)
-        })
     },
 
 }
