@@ -17,7 +17,7 @@ import prefix from '@/utils/control-prefix'
 import getMarkerByType from "@/utils/getMarker"
 import MarkerIcon from "@/utils/markerIcon"
 import MapSideBar from "@/components/sidebar/MapSideBar.vue"
-import "leaflet/dist/leaflet.css"
+import "@/css/leaflet.css"
 import "@/css/customstyle.css"
 
 // eslint-disable-next-line
@@ -140,7 +140,7 @@ export default {
         this.zoom = zoomCookie == "" ? this.zoom : zoomCookie ;
         this.initCenterLat = latCookie == "" ? this.initCenterLat : latCookie;
         this.initCenterLng = lngCookie == "" ? this.initCenterLng : lngCookie;
-        this.filterType = TypeCookie == "" ? this.filterType : TypeCookie.split(",")
+        this.filterType = TypeCookie == "" ? ["Location"] : TypeCookie.split(",")
         
     },
     async mounted(){
