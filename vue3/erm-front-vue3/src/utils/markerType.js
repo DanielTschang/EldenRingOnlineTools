@@ -93,28 +93,7 @@ const Locations = [
         zhname:'菁英怪'
     },
  ]
-
- const Items = [
-    {
-        id:16,
-        enname:'Item',
-        zhname:'物品'
-    },
-    {
-        id:52,
-        enname:'MAP',
-        zhname:'地圖碎片'
-    },
-    {
-        id:34,
-        enname:'Cookbook',
-        zhname:'製作筆記'
-    },
-    {
-        id:35,
-        enname:'Whetblade',
-        zhname:'砥石刀'
-    },
+ const Upgrades = [
     {
         id:19,
         enname:'GoldenSeed',
@@ -126,48 +105,10 @@ const Locations = [
         zhname:'露滴'
     },
     {
-        id:21,
-        enname:'KeyItems',
-        zhname:'重要物品'
-    },
-    {
-        id:22,
-        enname:'StoneSwordKey',
-        zhname:'石劍鑰匙'
-    },
-    {
-        id:23,
-        enname:'DeathRoot',
-        zhname:'死根'
-    },
-    {
-        id:24,
-        enname:'DragonHeart',
-        zhname:'龍心臟'
-    },
-    {
-        id:25,
-        enname:'LarvalTear',
-        zhname:'淚滴幼體'
-    },
-
-    // {
-    //     id:26,
-    //     enname:'PickersBellBearing',
-    //     zhname:'墓地鈴蘭'
-    // },
-    {
         id:27,
         enname:'SacredTear',
         zhname:'聖杯露滴'
     },
-
-    {
-        id:31,
-        enname:'Material',
-        zhname:'資源'
-    },
-    //---------------
     {
         id:28,
         enname:'BellBearing',
@@ -213,6 +154,71 @@ const Locations = [
         enname:'SomberBellBearing',
         zhname:'失色石鈴珠'
     },
+ ]
+
+ const Items = [
+    {
+        id:16,
+        enname:'Item',
+        zhname:'物品'
+    },
+    {
+        id:52,
+        enname:'MAP',
+        zhname:'地圖碎片'
+    },
+    {
+        id:34,
+        enname:'Cookbook',
+        zhname:'製作筆記'
+    },
+    {
+        id:35,
+        enname:'Whetblade',
+        zhname:'砥石刀'
+    },
+
+
+    {
+        id:21,
+        enname:'KeyItems',
+        zhname:'重要物品'
+    },
+    {
+        id:22,
+        enname:'StoneSwordKey',
+        zhname:'石劍鑰匙'
+    },
+    {
+        id:23,
+        enname:'DeathRoot',
+        zhname:'死根'
+    },
+    {
+        id:24,
+        enname:'DragonHeart',
+        zhname:'龍心臟'
+    },
+    {
+        id:25,
+        enname:'LarvalTear',
+        zhname:'淚滴幼體'
+    },
+
+    // {
+    //     id:26,
+    //     enname:'PickersBellBearing',
+    //     zhname:'墓地鈴蘭'
+    // },
+
+
+    {
+        id:31,
+        enname:'Material',
+        zhname:'資源'
+    },
+    //---------------
+
 
  ]
  const Equipments = [
@@ -271,4 +277,4 @@ const Locations = [
 
 ]
 
-export { Locations, Enemy, Items, Equipments, Other }
+export { Locations, Enemy, Items, Equipments, Other, Upgrades }
