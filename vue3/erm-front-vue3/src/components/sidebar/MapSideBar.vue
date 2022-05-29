@@ -9,58 +9,86 @@
                 >
                     <i class="fa fa-angle-double-left"></i>
                 </span>
-
-                <div  v-if="collapsed" class="checkbox-container">
-                    <!-- <div class="position-container">
-                        <h1>hi</h1>
-                    </div> -->
-
-                    <div class="checkbox-container">
-                        <transition-group name="checkbox" appear>
+                
+                <div  v-if="collapsed" class="sidebar-content-container">
+                    <h1>{{filterType}}</h1>
+                    <transition-group name="checkbox" appear>
+                    <div :key="'position'" class="position-container">
+                        <div class="switch-container">
+                            <Toggle :key="'ground'" v-model="GroundorNot" onLabel="On" offLabel="Off"/>
+                        </div>
+                        <div class="switch-container">
+                            <Toggle :key="'show'" v-model="showAchieved" onLabel="On" offLabel="Off"/>
+                        </div>
+                    </div>
+                    
+                    <div :key="'checkbox-container'" class="checkbox-container">
+                        
                         <div :key="'location'">
                             <h>-地點-</h>
                         </div>
-                        <div class="checkbox-item" :key="type.id" v-for="type in Locations">    
-                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
-                            <label :for="type.zhname">{{ type.zhname }}</label>
+                        <div class="checkbox-content">
+                            <div class="checkbox-item" :key="type.id" v-for="type in Locations">    
+                                <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
+                                <label :for="type.zhname">{{ type.zhname }}</label>
+                            </div>
                         </div>
 
+                        
                         <div :key="'items'">
                             <h>-物品-</h>
                         </div>
-                        <div class="checkbox-item" :key="type.id" v-for="type in Items">    
-                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
-                            <label :for="type.zhname">{{ type.zhname }}</label>
-                        </div>
-                        <div :key="'enemy'">
-                            <h>-敵人-</h>
+                        <div class="checkbox-content">
+                            <div class="checkbox-item" :key="type.id" v-for="type in Items">    
+                                <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
+                                <label :for="type.zhname">{{ type.zhname }}</label>
+                            </div>
+
                         </div>
 
-                        <div class="checkbox-item" :key="type.id" v-for="type in Enemy">    
-                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
-                            <label :for="type.zhname">{{ type.zhname }}</label>
+                        
+
+                            <div :key="'enemy'">
+                                <h>-敵人-</h>
+                            </div>
+                        <div class="checkbox-content">
+                            <div class="checkbox-item" :key="type.id" v-for="type in Enemy">    
+                                <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
+                                <label :for="type.zhname">{{ type.zhname }}</label>
+                            </div>
                         </div>
+                        
+
 
                         <div :key="'equipment'">
                             <h>-裝備-</h>
                         </div>
-                        <div class="checkbox-item" :key="type.id" v-for="type in Equipments">    
-                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
-                            <label :for="type.zhname">{{ type.zhname }}</label>
+                        <div class="checkbox-content">
+                            <div class="checkbox-item" :key="type.id" v-for="type in Equipments">    
+                                <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
+                                <label :for="type.zhname">{{ type.zhname }}</label>
+                            </div>
+                        
                         </div>
+                    
 
 
+
+                        
                         <div :key="'other'">
                             <h>-其他-</h>
                         </div>
-                        <div class="checkbox-item" :key="type.id" v-for="type in Other">    
-                            <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
-                            <label :for="type.zhname">{{ type.zhname }}</label>
+                        <div class="checkbox-content">
+                            <div class="checkbox-item" :key="type.id" v-for="type in Other">    
+                                <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
+                                <label :for="type.zhname">{{ type.zhname }}</label>
+                            </div>
                         </div>
-                        </transition-group>
+                        
                     </div>
-                    
+                </transition-group> 
                 </div>
+                 
            
             
     </div>
@@ -72,19 +100,29 @@
 // import MapSideBarCheckbox from '@/components/sidebar/MapSideBarCheckbox.vue';
 import { Locations, Enemy, Items, Equipments, Other} from "@/utils/markerType"
 import { setCookie, getCookie } from '@/utils/Cookies'
+import Toggle from '@vueform/toggle'
+import "@/css/toggle.css"
 
 export default {  
     name:"MapSideBar",
     props:{
         initfilterType:Array
     },
+    components:{
+        Toggle
+    },
 
     data(){
         return{
             filterType:[],
+            GroundorNot:true,
+            showAchieved:true,
             collapsed:null,
             collapedWidth:30,
-            openWidth:230,
+            openWidth:300,
+            MobileopenWidth:'100%',
+            windowHeight: window.innerHeight,
+            windowWidth: window.innerWidth,
         }
     },
     setup(){
@@ -103,14 +141,28 @@ export default {
         },
         changeTypes(){
             this.$emit("changeTypes",this.filterType)
+        },
+        onResize(){
+            this.windowHeight = window.innerHeight;
+            this.windowWidth = window.innerWidth;
         }
         
     },
     computed:{
         sidebarWidth(){
-            return `${this.collapsed ? this.openWidth : this.collapedWidth}px`
+            if (!this.collapsed){
+                return `${this.collapedWidth}px`
+            }else{
+                return this.windowWidth>750 ? `${this.openWidth}px` : `100%`
+            }
+            // return `${this.collapsed ? this.openWidth : this.collapedWidth}px`
         }
-    }
+    },
+    mounted(){
+        this.$nextTick(()=>{
+            window.addEventListener('resize', this.onResize)
+        })
+    },
 }
   
 </script>
@@ -129,9 +181,22 @@ export default {
     }
 
     .position-container{
+        display: flex;
+        flex-direction: column;
         width:100%;
-        height: 30px;
+
+        margin:0 auto;
+        text-align: center;
+        color:white;
     }
+    .position-container *{
+        margin:2px;
+    }
+    .switch-container {
+        display: flex;
+        flex-direction: row;
+    }
+
 
     .collapse-icon{
         padding-top:3px;
@@ -146,9 +211,9 @@ export default {
     z-index:10000;
     left:0;
     bottom:0;
-    top:5vh;
-    width: 7vw;
-    height: 80vh;
+    top:3.5%;
+
+    height: 88vh;
     /* border-end-end-radius: 20px; */
     border-image: url("@/assets/borderImage.png");
     border-image-repeat:round;
@@ -157,28 +222,48 @@ export default {
     transition: 0.2s ease;
     padding:3px;
 
+
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    min-height: max-content;
  }
  .rotate-180{
      transition: 0.3s linear;
  }
+
+.sidebar-content-container{
+    display: flex;
+    flex-direction: column;
+
+    min-height: max-content;
+
+    padding:5px;
+}
+
  .checkbox-container{
-     /* transition: 0s linear; */
-     display: flex;
-     flex-direction: column;
-     width:100%;
-     height: 95%;
-     flex-wrap: wrap;
-     justify-content: flex-start;
-     align-items:flex-start;
-     padding:5px;
+    /* transition: 0s linear; */
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
 
  }
+
+ .checkbox-content{
+
+    gap:2px;
+
+    padding:5px;
+ }
+
  .checkbox-item{
-     float:left;
-     max-width: 50%;
-     margin:0.1px 1.5px;
+     display:flex;
+    float:left;
+    max-width: 100%;
+    width:80px;
+    margin:0.1px 1.5px;
+    justify-content: flex-start;
+    align-items:flex-start;
  }
  .checkbox-item input{
      margin-right:3px
@@ -186,4 +271,13 @@ export default {
  .checkbox-item label{
      font-size: 10px;
  }
+
+
+/* @media screen and (max-width: 800px){
+    .sidebar{
+        min-width: 100%;
+        
+    }
+} */
+
 </style>
