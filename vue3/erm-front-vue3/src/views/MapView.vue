@@ -2,7 +2,7 @@
 
 <template>
     <div id="map-container" >
-        <map-side-bar @changeTypes="changeTypes" :initfilterType="filterType" />
+        <map-side-bar @changeTypes="changeTypes" :initfilterType="filterType" :maplayer="maplayer" @ToggleMapChange="ToggleMapChange" />
         
         <div id="mymap">
         </div>
@@ -22,7 +22,7 @@ import "@/css/customstyle.css"
 
 // eslint-disable-next-line
 import axios from 'axios';
-
+/* eslint-disable */
 export default {
     name: 'MapView',
     components:{
@@ -35,7 +35,6 @@ export default {
             console.log('add', addType);
             console.log('delete', deletedType)
             this.filterType = checkedType
-            console.log(this.filterType)
             
             if(addType.length>0){
                 addType.forEach(type => {
@@ -49,7 +48,83 @@ export default {
                     this.notshowLayer.addLayer(this.MarkerTypes[type])
                 })
             }
+            this.updateMarkers()
             setCookie("filterType", this.filterType)
+        },
+        ToggleshowCollected(show){
+            //等會員用好再完成
+            if(this.showCollected!==show){
+                this.showCollected=show
+                if(this.showCollected){
+                    console.log('')
+                }
+                else{
+                    console.log('')
+                }
+            }
+        },
+        ToggleShowEndGame(show){
+            if(this.showEndGame!==show){
+                if(show){
+                    this.showLayer.eachLayer(layer=>{
+                        layer.eachLayer(layer_child=>{
+                        if(layer_child.position=2){
+                            layer_child._icon.style.display = '';
+                        }
+                    })
+            })
+                }
+            }
+            this.showEndGame = show;
+        },
+        ToggleMapChange(level){
+            this.maplayer = level
+            if(level==0){
+                this.MainMap.removeLayer(this.undergroundMap)
+                this.MainMap.addLayer(this.groundMap)
+            }
+            else{
+                this.MainMap.removeLayer(this.groundMap)
+                this.MainMap.addLayer(this.undergroundMap)
+            }
+            
+            this.updateMarkers()
+            setCookie("maplayer", level)
+            
+        },
+        updateMarkers(){
+            this.showLayer.eachLayer(layer=>{
+                layer.eachLayer(layer_child=>{
+                    //show End Game or not 灰城
+                    if(layer_child.position=2){
+                        if(this.showEndGame){
+                            layer_child._icon.style.display = '';
+                        }
+                        else{
+                            layer_child._icon.style.display = 'none';
+                        }
+                    }
+                    //show Collected
+                    if(this.collected.includes(layer_child.marker_id)){
+                        if(this.showCollected){
+                            layer_child._icon.style.display = '';
+                        }
+                        else{
+                            layer_child._icon.style.display = 'none';
+                        }
+                    }
+
+                    if(layer_child.is_underground==this.maplayer){
+                        layer_child._icon.style.display = '';
+                    }
+                    else{
+                        layer_child._icon.style.display = 'none';
+                    }
+                    
+                    
+
+                })
+            })
         }
     },
     data(){
@@ -66,12 +141,19 @@ export default {
             initCenterLng:-40,
             mapWidth:100,
             mapHeight:100,
+            showCollected:true,
+            showEndGame:false,
             maxBounds:L.latLngBounds(L.latLng(-100, -200), L.latLng(100, 100)),
+            //地上地圖 Ground map layer
             groundMapUrl:'https://imgs.ali213.net/picfile/eldenring/{z}/{x}/{y}.jpg',
-            undergroundMapUrl:'',
-            //https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png
+            groundMap:null,
+            //地底地圖 Underground map layer
+            undergroundMapUrl:'https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png',
+            undergroundMap:null,
+            collected:[],
             filterType: [],
             markerIDs:[],
+            maplayer:0,
             showLayer:L.layerGroup(),
             notshowLayer:L.layerGroup(),
             MarkerTypes: {
@@ -140,36 +222,35 @@ export default {
         let latCookie = getCookie('centerlat');
         let lngCookie = getCookie('centerlng');
         let TypeCookie = getCookie('filterType');
+        let mapLayerCookie = getCookie('maplayer')
         
 
         this.zoom = zoomCookie == "" ? this.zoom : zoomCookie ;
         this.initCenterLat = latCookie == "" ? this.initCenterLat : latCookie;
         this.initCenterLng = lngCookie == "" ? this.initCenterLng : lngCookie;
         this.filterType = TypeCookie == "" ? ["Location"] : TypeCookie.split(",")
-        console.log('create',this.filterType)
+        this.maplayer = mapLayerCookie == "" ? 0 : mapLayerCookie;
         
     },
     async mounted(){
         /*
             Map Init Section [Start]
         */
-        //地底地圖 Underground map layer
-        let underground = L.tileLayer(this.undergroundMapUrl, {
-            attribution: '',
-            maxZoom: this.maxZoom,
-            id: 'underground',
-            tileSize: this.tileSize,
-            zoomOffset: this.zoomOffset
-        })
-        //地上地圖 Ground map layer
-        let ground = L.tileLayer(this.groundMapUrl, {
-            attribution: '<h style="color:white">Elden Ring Map</h>',
-            maxZoom: this.maxZoom,
-            id: 'ground',
-            tileSize: this.tileSize,
-            zoomOffset: this.zoomOffset,
-            
-        })
+        this.groundMap = L.tileLayer(this.groundMapUrl, {
+                attribution: '<h style="color:white">Elden Ring Map - Ground</h>',
+                maxZoom: this.maxZoom,
+                id: 'ground',
+                tileSize: this.tileSize,
+                zoomOffset: this.zoomOffset,
+            }),
+        
+        this.undergroundMap = L.tileLayer(this.undergroundMapUrl, {
+                attribution: '<h style="color:white">Elden Ring Map - UnderGround</h>',
+                maxZoom: this.maxZoom,
+                id: 'underground',
+                tileSize: this.tileSize,
+                zoomOffset: this.zoomOffset
+            }),
 
         //init Map
         this.MainMap = L.map("mymap", {
@@ -180,8 +261,13 @@ export default {
             maxBounds: this.maxBounds,
             renderer: L.canvas(),
             preferCanvas: true,
-            layers: [ground,underground]
         }).setView([this.initCenterLat,this.initCenterLng],this.zoom);
+
+        if(this.maplayer==0){
+            this.groundMap.addTo(this.MainMap)
+        }else{
+            this.undergroundMap.addTo(this.MainMap)
+        }
 
         /**
          * for testing
@@ -227,7 +313,9 @@ export default {
                     'className' : 'popupCustom'
                 }
             let markerTmp = L.marker([marker.lat, marker.lng])
-            markerTmp.marker_id = marker.id
+            markerTmp.marker_id = marker.id;
+            markerTmp.position = marker.position;
+            markerTmp.is_underground = marker.is_underground;
             switch (marker.type) {
                 case "SiteOfGrace":
                     // eslint-disable-next-line 
@@ -465,15 +553,11 @@ export default {
             }
         })
 
-        console.log('new',this.filterType)
         if(this.filterType!==[]){
             this.filterType.forEach(type=>{
                 this.showLayer.addLayer(this.MarkerTypes[type])
             })
         }
-        console.log('old',this.filterType)
-        console.log(this.showLayer)
-        
         this.showLayer.addTo(this.MainMap)
 
 
@@ -490,33 +574,20 @@ export default {
         }).addTo(this.MainMap);
         L.control.zoom({ position: 'bottomright' }).addTo(this.MainMap);
 
-
-        // var baseMaps = {
-        //     "UnderGround 地底世界": underground,
-        //     "Ground 地上世界": ground
-        // };
-
-        // // eslint-disable-next-line
-        // var layerControl = L.control.layers(baseMaps).addTo(this.MainMap);
-
+        this.updateMarkers()
+       
         /*
             Control Panel Setting Section [End]
         */
 
-    //    this.MarkerTypes["SiteOfGrace"].eachLayer(layer=>{
-    //        console.log(layer)
-    //    })
     //    this.showLayer.eachLayer(layer=>{
-    //        layer.eachLayer(layer_child=>{
-    //            if(layer_child.marker_id==5537){
-    //                layer.removeLayer(layer_child)
-    //            }
-    //        })})
-        //    if(layer._leaflet_id==5537){
-        //        console.log(layer)
-        //    }
-    //    })
-    },
+    //             layer.eachLayer(layer_child=>{
+    //                 if (layer_child.marker_id!==5537){
+    //                     layer_child._icon.style.display = 'none';
+    //                 }
+    // })})
+
+    }
 
 }
 </script>

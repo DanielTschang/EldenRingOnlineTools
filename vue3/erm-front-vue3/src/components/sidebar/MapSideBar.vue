@@ -11,14 +11,21 @@
                 </span>
                 
                 <div  v-if="collapsed" class="sidebar-content-container">
-                    <h1>{{filterType}}</h1>
                     <transition-group name="checkbox" appear>
                     <div :key="'position'" class="position-container">
+                        <input type="checkbox" :id="'maplayer'" :true-value="0" :false-value="1" v-model="maplayer" @change="toggleChangeMap()">
+                        <label :for="'maplayer'">切換地圖</label>
+                    </div>
+                    <div :key="'position'" class="position-container">
                         <div class="switch-container">
+                            <h3>顯示已完成</h3>
                             <Toggle :key="'ground'" v-model="GroundorNot" onLabel="On" offLabel="Off"/>
+                            
                         </div>
                         <div class="switch-container">
+                            <h3>顯示灰城</h3>
                             <Toggle :key="'show'" v-model="showAchieved" onLabel="On" offLabel="Off"/>
+                            
                         </div>
                     </div>
                     
@@ -40,6 +47,17 @@
                         </div>
                         <div class="checkbox-content">
                             <div class="checkbox-item" :key="type.id" v-for="type in Items">    
+                                <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
+                                <label :for="type.zhname">{{ type.zhname }}</label>
+                            </div>
+
+                        </div>
+
+                        <div :key="'upgrades'">
+                            <h>-升級品-</h>
+                        </div>
+                        <div class="checkbox-content">
+                            <div class="checkbox-item" :key="type.id" v-for="type in Upgrades">    
                                 <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
                                 <label :for="type.zhname">{{ type.zhname }}</label>
                             </div>
@@ -98,7 +116,7 @@
 <script>
 // import {collapsed, toggleSidebar ,sidebarWidth } from "@/utils/SidebarState";
 // import MapSideBarCheckbox from '@/components/sidebar/MapSideBarCheckbox.vue';
-import { Locations, Enemy, Items, Equipments, Other} from "@/utils/markerType"
+import { Locations, Enemy, Items, Equipments, Other, Upgrades} from "@/utils/markerType"
 import { setCookie, getCookie } from '@/utils/Cookies'
 import Toggle from '@vueform/toggle'
 import "@/css/toggle.css"
@@ -114,6 +132,7 @@ export default {
 
     data(){
         return{
+            maplayer:0,
             filterType:[],
             GroundorNot:true,
             showAchieved:true,
@@ -126,11 +145,11 @@ export default {
         }
     },
     setup(){
-        return { Locations, Enemy, Items, Equipments, Other}
+        return { Locations, Enemy, Items, Equipments, Other, Upgrades}
     },
     created(){
         this.filterType = this.initfilterType
-        this.$emit("changeTypes",this.filterType)
+        // this.$emit("changeTypes",this.filterType)
         let sidebarToggled = getCookie('sidebar');
         this.collapsed = sidebarToggled == "false" ? false : true;
     },
@@ -145,6 +164,9 @@ export default {
         onResize(){
             this.windowHeight = window.innerHeight;
             this.windowWidth = window.innerWidth;
+        },
+        toggleChangeMap(){
+            this.$emit('ToggleMapChange',this.maplayer)
         }
         
     },
@@ -199,7 +221,7 @@ export default {
 
 
     .collapse-icon{
-        padding-top:3px;
+        padding-top:6px;
     }
 
   .sidebar {
@@ -220,8 +242,8 @@ export default {
     border-image-slice:30 50 fill;
     border-image-width:25px 40px;
     transition: 0.2s ease;
-    padding:3px;
-
+    padding:5px;
+    overflow: hidden;
 
     display: flex;
     flex-direction: column;
@@ -245,19 +267,18 @@ export default {
     display:flex;
     flex-direction: column;
     flex-wrap: wrap;
+    padding-bottom: 5px;
+    
 
 
  }
 
  .checkbox-content{
-
-    gap:2px;
-
     padding:5px;
  }
 
  .checkbox-item{
-     display:flex;
+    display:flex;
     float:left;
     max-width: 100%;
     width:80px;

@@ -1,6 +1,7 @@
 .toggle-container{
     display:inline-block;
-    width: 30%;
+    width: 55px;
+    padding-left: 2px;
 }
 .toggle-container:focus{
     outline:none;
