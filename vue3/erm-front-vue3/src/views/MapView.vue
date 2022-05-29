@@ -35,6 +35,8 @@ export default {
             console.log('add', addType);
             console.log('delete', deletedType)
             this.filterType = checkedType
+            console.log(this.filterType)
+            
             if(addType.length>0){
                 addType.forEach(type => {
                     this.showLayer.addLayer(this.MarkerTypes[type])
@@ -42,6 +44,7 @@ export default {
             }
             if(deletedType.length>0){
                 deletedType.forEach(type => {
+                    console.log(this.MarkerTypes[type])
                     this.showLayer.removeLayer(this.MarkerTypes[type])
                     this.notshowLayer.addLayer(this.MarkerTypes[type])
                 })
@@ -143,6 +146,7 @@ export default {
         this.initCenterLat = latCookie == "" ? this.initCenterLat : latCookie;
         this.initCenterLng = lngCookie == "" ? this.initCenterLng : lngCookie;
         this.filterType = TypeCookie == "" ? ["Location"] : TypeCookie.split(",")
+        console.log('create',this.filterType)
         
     },
     async mounted(){
@@ -223,17 +227,16 @@ export default {
                     'className' : 'popupCustom'
                 }
             let markerTmp = L.marker([marker.lat, marker.lng])
+            markerTmp.marker_id = marker.id
             switch (marker.type) {
                 case "SiteOfGrace":
                     // eslint-disable-next-line 
                     markerTmp.setIcon(MarkerIcon['SiteOfGrace'])
-                    this.MarkerTypes["SiteOfGrace"].addLayer(markerTmp.bindPopup(customPopup,customOptions));
-                    
+                    this.MarkerTypes["SiteOfGrace"].addLayer(markerTmp.bindPopup(customPopup,customOptions));  
                     break;
                 case "shortPath":
                     markerTmp.setIcon(MarkerIcon['ShortPath'])
                     this.MarkerTypes["ShortPath"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Waygates":
                     markerTmp.setIcon(MarkerIcon['Waygates'])
@@ -341,7 +344,6 @@ export default {
                 case "DeathRoot":
                     markerTmp.setIcon(MarkerIcon['DeathRoot'])
                     this.MarkerTypes["DeathRoot"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "DragonHeart":
                     markerTmp.setIcon(MarkerIcon['DragonHeart'])
@@ -351,132 +353,106 @@ export default {
                 case "LarvalTear":
                     markerTmp.setIcon(MarkerIcon['LarvalTear'])
                     this.MarkerTypes["LarvalTear"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "SacredTear":
                     markerTmp.setIcon(MarkerIcon['SacredTear'])
                     this.MarkerTypes["SacredTear"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Painting":
                     markerTmp.setIcon(MarkerIcon['Painting'])
                     this.MarkerTypes["Painting"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Gesture":
                     markerTmp.setIcon(MarkerIcon['Gesture'])
                     this.MarkerTypes["Gesture"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Material":
                     markerTmp.setIcon(MarkerIcon['Material'])
                     this.MarkerTypes["Material"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Sorceries":
                     markerTmp.setIcon(MarkerIcon['Sorceries'])
                     this.MarkerTypes["Sorceries"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Weapon":
                     markerTmp.setIcon(MarkerIcon['Weapon'])
                     this.MarkerTypes["Weapon"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Cookbook":
                     markerTmp.setIcon(MarkerIcon['Cookbook'])
                     this.MarkerTypes["Cookbook"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Whetblade":
                     markerTmp.setIcon(MarkerIcon['Whetblade'])
                     this.MarkerTypes["Whetblade"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Incantation":
                     markerTmp.setIcon(MarkerIcon['Incantation'])
                     this.MarkerTypes["Incantation"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Tailsman":
                     markerTmp.setIcon(MarkerIcon['Tailsman'])
                     this.MarkerTypes["Tailsman"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "AshOfWar":
                     markerTmp.setIcon(MarkerIcon['AshOfWar'])
                     this.MarkerTypes["AshOfWar"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "SpiritAsh":
                     markerTmp.setIcon(MarkerIcon['SpiritAsh'])
                     this.MarkerTypes["SpiritAsh"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Armor":
                     markerTmp.setIcon(MarkerIcon['Armor'])
                     this.MarkerTypes["Armor"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Warn":
                     markerTmp.setIcon(MarkerIcon['Warn'])
                     this.MarkerTypes["Warn"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Taoke":
                     markerTmp.setIcon(MarkerIcon['Taoke'])
                     this.MarkerTypes["Taoke"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "SmithingStone":
                     markerTmp.setIcon(MarkerIcon['SmithingStone'])
                     this.MarkerTypes["SmithingStone"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "SomberSmithingStone":
                     markerTmp.setIcon(MarkerIcon['SomberSmithingStone'])
                     this.MarkerTypes["SomberSmithingStone"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "Question":
                     markerTmp.setIcon(MarkerIcon['Question'])
                     this.MarkerTypes["Question"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "MAP":
                     markerTmp.setIcon(MarkerIcon['MAP'])
                     this.MarkerTypes["MAP"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "GravePickerBellBearing":
                     markerTmp.setIcon(MarkerIcon['GravePickerBellBearing'])
                     this.MarkerTypes["GravePickerBellBearing"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "GhostPickerBellBearing":
                     markerTmp.setIcon(MarkerIcon['GhostPickerBellBearing'])
                     this.MarkerTypes["GhostPickerBellBearing"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "BellBearing":
                     markerTmp.setIcon(MarkerIcon['BellBearing'])
                     this.MarkerTypes["BellBearing"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "SmithingBellBearing":
                     markerTmp.setIcon(MarkerIcon['SmithingBellBearing'])
                     this.MarkerTypes["SmithingBellBearing"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "SomberBellBearing":
                     markerTmp.setIcon(MarkerIcon['SomberBellBearing'])
                     this.MarkerTypes["SomberBellBearing"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "GhostGlovewort":
                     markerTmp.setIcon(MarkerIcon['GhostGlovewort'])
                     this.MarkerTypes["GhostGlovewort"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break
                 case "GraveGlovewort":
                     markerTmp.setIcon(MarkerIcon['GraveGlovewort'])
@@ -485,17 +461,18 @@ export default {
                 default:
                     markerTmp.setIcon(MarkerIcon['Other'])
                     this.MarkerTypes["Other"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
-                    
                     break;
             }
-            markerTmp._leaflet_id = marker.id
         })
 
+        console.log('new',this.filterType)
         if(this.filterType!==[]){
             this.filterType.forEach(type=>{
-                this.MarkerTypes[type].addTo(this.showLayer)
+                this.showLayer.addLayer(this.MarkerTypes[type])
             })
         }
+        console.log('old',this.filterType)
+        console.log(this.showLayer)
         
         this.showLayer.addTo(this.MainMap)
 
@@ -525,6 +502,20 @@ export default {
         /*
             Control Panel Setting Section [End]
         */
+
+    //    this.MarkerTypes["SiteOfGrace"].eachLayer(layer=>{
+    //        console.log(layer)
+    //    })
+    //    this.showLayer.eachLayer(layer=>{
+    //        layer.eachLayer(layer_child=>{
+    //            if(layer_child.marker_id==5537){
+    //                layer.removeLayer(layer_child)
+    //            }
+    //        })})
+        //    if(layer._leaflet_id==5537){
+        //        console.log(layer)
+        //    }
+    //    })
     },
 
 }
