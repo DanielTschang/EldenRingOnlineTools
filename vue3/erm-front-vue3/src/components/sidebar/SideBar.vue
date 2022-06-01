@@ -41,6 +41,7 @@ export default {
     bottom:0;
     height: 7vh;
     
+    
     transition: 0.3s ease;
 
     display: flex;

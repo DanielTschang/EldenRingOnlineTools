@@ -47,6 +47,7 @@ export default {
     border-radius:0.25em;
 
     color:rgb(249, 246, 241);
+    overflow: hidden;
 }
 .link *{
 
