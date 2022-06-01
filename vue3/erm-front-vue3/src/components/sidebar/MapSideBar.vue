@@ -12,98 +12,98 @@
                 
                 <div  v-if="collapsed" class="sidebar-content-container">
                     <transition-group name="checkbox" appear>
-                    <div :key="'position'" class="position-container">
-                        <input type="checkbox" :id="'maplayer'" :true-value="0" :false-value="1" v-model="maplayer" @change="toggleChangeMap()">
-                        <label :for="'maplayer'">切換地圖</label>
-                    </div>
-                    <div :key="'position'" class="position-container">
-                        <div class="switch-container">
-                            <h3>顯示已完成</h3>
-                            <Toggle :key="'ground'" v-model="GroundorNot" onLabel="On" offLabel="Off"/>
+                        <div :key="'position'" class="position-container">
+                            <input type="checkbox" :id="'maplayer'" :true-value="0" :false-value="1" v-model="maplayer" @change="toggleChangeMap()">
+                            <label :for="'maplayer'">切換地圖</label>
+                        </div>
+                        <div :key="'position'" class="position-container">
+                            <div class="switch-container">
+                                <h3>顯示已完成</h3>
+                                <Toggle :key="'ground'" v-model="GroundorNot" onLabel="On" offLabel="Off"/>
+                                
+                            </div>
+                            <div class="switch-container">
+                                <h3>顯示灰城</h3>
+                                <Toggle :key="'show'" v-model="showAchieved" onLabel="On" offLabel="Off"/>
+                                
+                            </div>
+                        </div>
+                        
+                        <div :key="'checkbox-container'" class="checkbox-container">
+                            
+                            <div :key="'location'">
+                                <h>-地點-</h>
+                            </div>
+                            <div class="checkbox-content">
+                                <div class="checkbox-item" :key="type.id" v-for="type in Locations">    
+                                    <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
+                                    <label :for="type.zhname">{{ type.zhname }}</label>
+                                </div>
+                            </div>
+
+                            
+                            <div :key="'items'">
+                                <h>-物品-</h>
+                            </div>
+                            <div class="checkbox-content">
+                                <div class="checkbox-item" :key="type.id" v-for="type in Items">    
+                                    <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
+                                    <label :for="type.zhname">{{ type.zhname }}</label>
+                                </div>
+
+                            </div>
+
+                            <div :key="'upgrades'">
+                                <h>-升級品-</h>
+                            </div>
+                            <div class="checkbox-content">
+                                <div class="checkbox-item" :key="type.id" v-for="type in Upgrades">    
+                                    <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
+                                    <label :for="type.zhname">{{ type.zhname }}</label>
+                                </div>
+
+                            </div>
+
+                            
+
+                                <div :key="'enemy'">
+                                    <h>-敵人-</h>
+                                </div>
+                            <div class="checkbox-content">
+                                <div class="checkbox-item" :key="type.id" v-for="type in Enemy">    
+                                    <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
+                                    <label :for="type.zhname">{{ type.zhname }}</label>
+                                </div>
+                            </div>
+                            
+
+
+                            <div :key="'equipment'">
+                                <h>-裝備-</h>
+                            </div>
+                            <div class="checkbox-content">
+                                <div class="checkbox-item" :key="type.id" v-for="type in Equipments">    
+                                    <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
+                                    <label :for="type.zhname">{{ type.zhname }}</label>
+                                </div>
+                            
+                            </div>
+                        
+
+
+
+                            
+                            <div :key="'other'">
+                                <h>-其他-</h>
+                            </div>
+                            <div class="checkbox-content">
+                                <div class="checkbox-item" :key="type.id" v-for="type in Other">    
+                                    <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
+                                    <label :for="type.zhname">{{ type.zhname }}</label>
+                                </div>
+                            </div>
                             
                         </div>
-                        <div class="switch-container">
-                            <h3>顯示灰城</h3>
-                            <Toggle :key="'show'" v-model="showAchieved" onLabel="On" offLabel="Off"/>
-                            
-                        </div>
-                    </div>
-                    
-                    <div :key="'checkbox-container'" class="checkbox-container">
-                        
-                        <div :key="'location'">
-                            <h>-地點-</h>
-                        </div>
-                        <div class="checkbox-content">
-                            <div class="checkbox-item" :key="type.id" v-for="type in Locations">    
-                                <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
-                                <label :for="type.zhname">{{ type.zhname }}</label>
-                            </div>
-                        </div>
-
-                        
-                        <div :key="'items'">
-                            <h>-物品-</h>
-                        </div>
-                        <div class="checkbox-content">
-                            <div class="checkbox-item" :key="type.id" v-for="type in Items">    
-                                <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
-                                <label :for="type.zhname">{{ type.zhname }}</label>
-                            </div>
-
-                        </div>
-
-                        <div :key="'upgrades'">
-                            <h>-升級品-</h>
-                        </div>
-                        <div class="checkbox-content">
-                            <div class="checkbox-item" :key="type.id" v-for="type in Upgrades">    
-                                <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
-                                <label :for="type.zhname">{{ type.zhname }}</label>
-                            </div>
-
-                        </div>
-
-                        
-
-                            <div :key="'enemy'">
-                                <h>-敵人-</h>
-                            </div>
-                        <div class="checkbox-content">
-                            <div class="checkbox-item" :key="type.id" v-for="type in Enemy">    
-                                <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
-                                <label :for="type.zhname">{{ type.zhname }}</label>
-                            </div>
-                        </div>
-                        
-
-
-                        <div :key="'equipment'">
-                            <h>-裝備-</h>
-                        </div>
-                        <div class="checkbox-content">
-                            <div class="checkbox-item" :key="type.id" v-for="type in Equipments">    
-                                <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
-                                <label :for="type.zhname">{{ type.zhname }}</label>
-                            </div>
-                        
-                        </div>
-                    
-
-
-
-                        
-                        <div :key="'other'">
-                            <h>-其他-</h>
-                        </div>
-                        <div class="checkbox-content">
-                            <div class="checkbox-item" :key="type.id" v-for="type in Other">    
-                                <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
-                                <label :for="type.zhname">{{ type.zhname }}</label>
-                            </div>
-                        </div>
-                        
-                    </div>
                 </transition-group> 
                 </div>
                  
@@ -200,6 +200,38 @@ export default {
 
 
 <style scoped>
+    input[type="checkbox"]{
+        appearance: none;
+        -webkit-appearance:none; 
+        height: 12px;
+        width: 12px;
+        background-color: #d5d5d5;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    label{
+        color:#c7c7c7;
+        font-size:20px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+    }
+    input[type="checkbox"]:after{
+        content:"\f00c";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 700;
+        font-size:2px;
+        display: none;
+        color:black;
+    }
+    input[type="checkbox"]:hover{
+        background-color:#868585;
+    }
+
+    input[type="checkbox"]:checked:after{
+        display:block;
+    }
     .checkbox-enter-active{
         transition: opacity 1.2s 
     }
@@ -252,17 +284,14 @@ export default {
     border-image-width:25px 40px;
     transition: 0.2s ease;
     padding:5px;
-    overflow: scroll;
+    
 
     display: flex;
     flex-direction: column;
     min-height: max-content;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+
  }
- .sidebar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
-}
+
  .rotate-180{
      transition: 0.3s linear;
  }
@@ -272,10 +301,14 @@ export default {
     flex-direction: column;
 
     min-height: max-content;
-
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    overflow: scroll;
     padding:5px;
 }
-
+.sidebar-content-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
  .checkbox-container{
     /* transition: 0s linear; */
     display:flex;
