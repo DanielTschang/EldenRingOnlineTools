@@ -3,7 +3,7 @@ const Locations = [
     {
         id:54,
         enname:'Location',
-        zhname:'地點'
+        zhname:'地標'
     },
     {
         id:2,
