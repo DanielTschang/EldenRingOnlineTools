@@ -30,7 +30,7 @@ export default {
   .sidebar {
     color:rgb(34, 34, 34);
     background-color: rgb(34, 34, 34);
-    box-shadow:  0 0 15px 0 rgb(171, 150, 111) ;
+    box-shadow:  0 0 40px 0 rgb(171, 150, 111) ;
     box-sizing: content-box;
 
     float:bottom;
