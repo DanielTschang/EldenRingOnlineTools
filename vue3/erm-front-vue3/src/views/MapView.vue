@@ -129,6 +129,7 @@ export default {
     },
     data(){
         return {
+            GameVersion: "1.04",
             MainMap:null,
             groundLayer:true,
             zoom:4,
@@ -237,7 +238,7 @@ export default {
             Map Init Section [Start]
         */
         this.groundMap = L.tileLayer(this.groundMapUrl, {
-                attribution: '<h style="color:white">Elden Ring Map - Ground</h>',
+                attribution: '<h style="color:white">Elden Ring Map | Game Version : '+this.GameVersion+'</h>',
                 maxZoom: this.maxZoom,
                 id: 'ground',
                 tileSize: this.tileSize,
@@ -245,7 +246,7 @@ export default {
             }),
         
         this.undergroundMap = L.tileLayer(this.undergroundMapUrl, {
-                attribution: '<h style="color:white">Elden Ring Map - UnderGround</h>',
+                attribution: '',
                 maxZoom: this.maxZoom,
                 id: 'underground',
                 tileSize: this.tileSize,
@@ -573,6 +574,7 @@ export default {
             prefix: prefix,
         }).addTo(this.MainMap);
         L.control.zoom({ position: 'bottomright' }).addTo(this.MainMap);
+
 
         this.updateMarkers()
        
