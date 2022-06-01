@@ -27,13 +27,13 @@
                         </div>
                         <div :key="'position'" class="position-container">
                             <div class="switch-container">
-                                <h3>顯示已完成</h3>
-                                <Toggle :key="'ground'" v-model="GroundorNot" onLabel="On" offLabel="Off"/>
+                                <h3>顯示已蒐集</h3>
+                                <Toggle :key="'ground'" v-model="showAchieved" onLabel="On" offLabel="Off"/>
                                 
                             </div>
                             <div class="switch-container">
                                 <h3>顯示灰城</h3>
-                                <Toggle :key="'show'" v-model="showAchieved" onLabel="On" offLabel="Off"/>
+                                <Toggle :key="'show'" v-model="showEndGame" onLabel="On" offLabel="Off"/>
                                 
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                             
                             <div :key="'location'">
                                 <h>-地點-</h>
-                                <button @click="toggleCheckType('Locations')">顯示全部</button>
+                                <button @click="toggleCheckType('Locations')">顯示/隱藏全部</button>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Locations">    
@@ -54,7 +54,7 @@
                             
                             <div :key="'items'">
                                 <h>-物品-</h>
-                                <button @click="toggleCheckType('Items')">顯示全部</button>
+                                <button @click="toggleCheckType('Items')">顯示/隱藏全部</button>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Items">    
@@ -66,7 +66,7 @@
 
                             <div :key="'upgrades'">
                                 <h>-升級品-</h>
-                                <button @click="toggleCheckType('Upgrades')">顯示全部</button>
+                                <button @click="toggleCheckType('Upgrades')">顯示/隱藏全部</button>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Upgrades">    
@@ -80,7 +80,7 @@
 
                                 <div :key="'enemy'">
                                     <h>-敵人-</h>
-                                    <button @click="toggleCheckType('Enemy')">顯示全部</button>
+                                    <button @click="toggleCheckType('Enemy')">顯示/隱藏全部</button>
                                 </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Enemy">    
@@ -93,7 +93,7 @@
 
                             <div :key="'equipment'">
                                 <h>-裝備-</h>
-                                <button @click="toggleCheckType('Equipments')">顯示全部</button>
+                                <button @click="toggleCheckType('Equipments')">顯示/隱藏全部</button>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Equipments">    
@@ -109,7 +109,7 @@
                             
                             <div :key="'other'">
                                 <h>-其他-</h>
-                                <button @click="toggleCheckType('Other')">顯示全部</button>
+                                <button @click="toggleCheckType('Other')">顯示/隱藏全部</button>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Other">    
@@ -150,7 +150,7 @@ export default {
         return{
             maplayer:0,
             filterType:[],
-            GroundorNot:true,
+            showEndGame:true,
             showAchieved:true,
             collapsed:null,
             collapedWidth:30,
@@ -158,13 +158,6 @@ export default {
             MobileopenWidth:'100%',
             windowHeight: window.innerHeight,
             windowWidth: window.innerWidth,
-            AllCheckedArr:[],
-            AllLocations:[],
-            AllEnemy:[],
-            AllItems:[],
-            AllEquipments:[],
-            AllUpgrades:[],
-            AllOther:[],
         }
     },
     setup(){
@@ -400,7 +393,7 @@ export default {
 
     .position-container{
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         width:100%;
 
         margin:0 auto;
