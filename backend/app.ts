@@ -45,7 +45,7 @@ app.use(logger);
 //get ip
 // app.use(requestIp.mw())
 
-
+require('dotenv').config();
 console.log('NODE_ENV_TYPE :',process.env.NODE_ENV)
 
 if (process.env.NODE_ENV !== 'production'){
