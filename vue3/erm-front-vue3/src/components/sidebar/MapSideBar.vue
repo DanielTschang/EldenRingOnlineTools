@@ -12,9 +12,18 @@
                 
                 <div  v-if="collapsed" class="sidebar-content-container">
                     <transition-group name="checkbox" appear>
-                        <div :key="'position'" class="position-container">
-                            <input type="checkbox" :id="'maplayer'" :true-value="0" :false-value="1" v-model="maplayer" @change="toggleChangeMap()">
-                            <label :for="'maplayer'">切換地圖</label>
+                        <div :key="'controller-container'" class="controller-container">
+                            <div :key="'controller-content'" class="controller-content">
+                                <input style="display:none;;" type="checkbox" :id="'maplayer'" :true-value="0" :false-value="1" v-model="maplayer" @change="toggleChangeMap()">
+                                <label :for="'maplayer'" style="cursor:pointer">
+                                    <p v-if="maplayer==0">切換地底地圖</p>
+                                    <p v-else>切換地表地圖</p>
+                                </label>
+                            </div>
+                            <div :key="'controller-content'" class="controller-content">
+                                <button @click="toggleAllNotChecked()">只顯示地標</button>
+                            </div>
+
                         </div>
                         <div :key="'position'" class="position-container">
                             <div class="switch-container">
@@ -33,6 +42,7 @@
                             
                             <div :key="'location'">
                                 <h>-地點-</h>
+                                <button @click="toggleCheckType('Locations')">顯示全部</button>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Locations">    
@@ -44,6 +54,7 @@
                             
                             <div :key="'items'">
                                 <h>-物品-</h>
+                                <button @click="toggleCheckType('Items')">顯示全部</button>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Items">    
@@ -55,6 +66,7 @@
 
                             <div :key="'upgrades'">
                                 <h>-升級品-</h>
+                                <button @click="toggleCheckType('Upgrades')">顯示全部</button>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Upgrades">    
@@ -68,6 +80,7 @@
 
                                 <div :key="'enemy'">
                                     <h>-敵人-</h>
+                                    <button @click="toggleCheckType('Enemy')">顯示全部</button>
                                 </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Enemy">    
@@ -80,6 +93,7 @@
 
                             <div :key="'equipment'">
                                 <h>-裝備-</h>
+                                <button @click="toggleCheckType('Equipments')">顯示全部</button>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Equipments">    
@@ -95,6 +109,7 @@
                             
                             <div :key="'other'">
                                 <h>-其他-</h>
+                                <button @click="toggleCheckType('Other')">顯示全部</button>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Other">    
@@ -124,7 +139,8 @@ import "@/css/toggle.css"
 export default {  
     name:"MapSideBar",
     props:{
-        initfilterType:Array
+        initfilterType:Array,
+        initMapLayer:Number
     },
     components:{
         Toggle
@@ -143,6 +159,12 @@ export default {
             windowHeight: window.innerHeight,
             windowWidth: window.innerWidth,
             AllCheckedArr:[],
+            AllLocations:[],
+            AllEnemy:[],
+            AllItems:[],
+            AllEquipments:[],
+            AllUpgrades:[],
+            AllOther:[],
         }
     },
     setup(){
@@ -150,17 +172,10 @@ export default {
     },
     created(){
         this.filterType = this.initfilterType
+        this.maplayer = this.initMapLayer
         // this.$emit("changeTypes",this.filterType)
         let sidebarToggled = getCookie('sidebar');
         this.collapsed = sidebarToggled == "false" ? false : true;
-
-        let eachType = [Locations, Enemy, Items, Equipments, Other, Upgrades]
-
-        eachType.forEach(type=>{
-            type.forEach(locate=>{
-                this.AllCheckedArr.push(locate.enname)
-            })
-        })
     },
     methods:{
         toggleSidebar(){
@@ -168,6 +183,7 @@ export default {
             setCookie('sidebar',this.collapsed)
         },
         changeTypes(){
+            setCookie("filterType", this.filterType)
             this.$emit("changeTypes",this.filterType)
         },
         onResize(){
@@ -175,8 +191,116 @@ export default {
             this.windowWidth = window.innerWidth;
         },
         toggleChangeMap(){
+            setCookie("maplayer",this.maplayer)
             this.$emit('ToggleMapChange',this.maplayer)
+        },
+        toggleAllNotChecked(){
+            this.filterType = ["Location"]
+            this.changeTypes();
+        },
+        toggleCheckType(type){
+            this.CheckType(type)
+            this.changeTypes()
+        },
+        CheckType(type){
+            let tmpArray = Array.from(this.filterType)
+            let num = 0
+            switch(type){
+                case("Locations"):
+                    Locations.forEach(locate => {
+                        if (tmpArray.indexOf(locate.enname) === -1){
+                            num+=1
+                            tmpArray = [...tmpArray, locate.enname]
+                        }
+                    })
+                    if (num ===0){
+                        Locations.forEach(locate=>{
+                            console.log(locate)
+                            tmpArray = tmpArray.filter(e=> e !== locate.enname)
+                        })
+                    }
+                    this.filterType = tmpArray;
+                    break;
+                case("Enemy"):
+                    Enemy.forEach(locate => {
+                        if (tmpArray.indexOf(locate.enname) === -1){
+                            num+=1
+                            tmpArray = [...tmpArray, locate.enname]
+                        }
+                    })
+                    if (num ===0){
+                        Enemy.forEach(locate=>{
+                            tmpArray = tmpArray.filter(e=> e !== locate.enname)
+                        })
+                    }
+                    this.filterType = tmpArray;
+                    break;
+                case("Items"):
+                    Items.forEach(locate => {
+                        if (tmpArray.indexOf(locate.enname) === -1){
+                            num+=1
+                            tmpArray = [...tmpArray, locate.enname]
+                        }
+                    })
+                    if (num ===0){
+                        Items.forEach(locate=>{
+                            console.log(locate)
+                            tmpArray = tmpArray.filter(e=> e !== locate.enname)
+                        })
+                    }
+                    this.filterType = tmpArray;
+                    break;
+                case("Equipments"):
+                    Equipments.forEach(locate => {
+                        if (tmpArray.indexOf(locate.enname) === -1){
+                            num+=1
+                            tmpArray = [...tmpArray, locate.enname]
+                        }
+                    })
+                    if (num ===0){
+                        Equipments.forEach(locate=>{
+                            console.log(locate)
+                            tmpArray = tmpArray.filter(e=> e !== locate.enname)
+                        })
+                    }
+                    this.filterType = tmpArray;
+                    break;
+                case("Other"):
+                    Other.forEach(locate => {
+                        if (tmpArray.indexOf(locate.enname) === -1){
+                            num+=1
+                            tmpArray = [...tmpArray, locate.enname]
+                        }
+                    })
+                    if (num ===0){
+                        Other.forEach(locate=>{
+                            console.log(locate)
+                            tmpArray = tmpArray.filter(e=> e !== locate.enname)
+                        })
+                    }
+                    this.filterType = tmpArray;
+                    break;
+                case("Upgrades"):
+                    Upgrades.forEach(locate => {
+                        if (tmpArray.indexOf(locate.enname) === -1){
+                            num+=1
+                            tmpArray = [...tmpArray, locate.enname]
+                        }
+                    })
+                    if (num ===0){
+                        Upgrades.forEach(locate=>{
+                            console.log(locate)
+                            tmpArray = tmpArray.filter(e=> e !== locate.enname)
+                        })
+                    }
+                    this.filterType = tmpArray;
+                    break;
+            }
         }
+
+            
+            
+
         
     },
     computed:{
@@ -200,7 +324,39 @@ export default {
 
 
 <style scoped>
-    input[type="checkbox"]{
+    .controller-container{
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+        
+        padding:3px 10px;
+        margin:0px 5px;
+    }
+    .controller-container button{
+        cursor: inherit;
+    }
+    .controller-container > :nth-child(1){
+        border: solid 3px rgb(171, 150, 111) ;
+    }
+    .controller-container > :nth-child(2){
+        border: solid 3px rgb(171, 150, 111) ;
+        border-left: none;
+    }
+    .controller-content{
+        display: flex;
+        width: 100%;
+        align-self: center;
+        justify-content: center;
+        padding:5px;
+        
+        box-sizing: content-box;
+    }
+    .controller-content:hover{
+        box-shadow: 0px 0px 10px 1px rgb(171, 150, 111);
+    }
+    .checkbox-container input[type="checkbox"]{
         appearance: none;
         -webkit-appearance:none; 
         height: 12px;
@@ -211,13 +367,12 @@ export default {
         align-items: center;
         justify-content: center;
     }
-    label{
+    .checkbox-container label{
         color:#c7c7c7;
-        font-size:20px;
         font-family: 'Poppins', sans-serif;
         font-weight: 600;
     }
-    input[type="checkbox"]:after{
+    .checkbox-container input[type="checkbox"]:after{
         content:"\f00c";
         font-family: "Font Awesome 5 Free";
         font-weight: 700;
@@ -225,11 +380,11 @@ export default {
         display: none;
         color:black;
     }
-    input[type="checkbox"]:hover{
+    .checkbox-container input[type="checkbox"]:hover{
         background-color:#868585;
     }
 
-    input[type="checkbox"]:checked:after{
+    .checkbox-container input[type="checkbox"]:checked:after{
         display:block;
     }
     .checkbox-enter-active{
@@ -262,7 +417,7 @@ export default {
 
 
     .collapse-icon{
-        padding-top:6px;
+        padding-top:8px;
     }
 
   .sidebar {
@@ -315,9 +470,7 @@ export default {
     flex-direction: column;
     flex-wrap: wrap;
     padding-bottom: 5px;
-    
-
-
+    margin-bottom:15px;
  }
 
  .checkbox-content{
