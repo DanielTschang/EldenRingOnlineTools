@@ -142,6 +142,7 @@ export default {
             MobileopenWidth:'100%',
             windowHeight: window.innerHeight,
             windowWidth: window.innerWidth,
+            AllCheckedArr:[],
         }
     },
     setup(){
@@ -152,6 +153,14 @@ export default {
         // this.$emit("changeTypes",this.filterType)
         let sidebarToggled = getCookie('sidebar');
         this.collapsed = sidebarToggled == "false" ? false : true;
+
+        let eachType = [Locations, Enemy, Items, Equipments, Other, Upgrades]
+
+        eachType.forEach(type=>{
+            type.forEach(locate=>{
+                this.AllCheckedArr.push(locate.enname)
+            })
+        })
     },
     methods:{
         toggleSidebar(){
@@ -243,12 +252,17 @@ export default {
     border-image-width:25px 40px;
     transition: 0.2s ease;
     padding:5px;
-    overflow: hidden;
+    overflow: scroll;
 
     display: flex;
     flex-direction: column;
     min-height: max-content;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
  }
+ .sidebar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
  .rotate-180{
      transition: 0.3s linear;
  }
