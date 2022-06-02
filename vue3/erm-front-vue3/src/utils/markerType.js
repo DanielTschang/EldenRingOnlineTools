@@ -10,11 +10,11 @@ const Locations = [
         enname:'SiteOfGrace',
         zhname:'賜福點'
     },
-    {
-        id:3,
-        enname:'ShortPath',
-        zhname:'捷徑'
-    },
+    // {
+    //     id:3,
+    //     enname:'ShortPath',
+    //     zhname:'捷徑'
+    // },
     {
         id:4,
         enname:'Waygates',
@@ -194,11 +194,11 @@ const Locations = [
         enname:'DeathRoot',
         zhname:'死根'
     },
-    {
-        id:24,
-        enname:'DragonHeart',
-        zhname:'龍心臟'
-    },
+    // {
+    //     id:24,
+    //     enname:'DragonHeart',
+    //     zhname:'龍心臟'
+    // },
     {
         id:25,
         enname:'LarvalTear',
