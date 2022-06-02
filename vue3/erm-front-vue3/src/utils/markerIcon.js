@@ -24,12 +24,12 @@ export default {
         iconAnchor: IconArchor
     }),
     "RuneFarm":L.icon({
-        iconUrl: require("@/assets/markerIcon/runefarmStroke.png"),
+        iconUrl: require("@/assets/markerIcon/runefarmStroke.webp"),
         iconSize:     IconsSize,
         iconAnchor: IconArchor
     }),
     "Shop":L.icon({
-        iconUrl: iconurl.Shop,
+        iconUrl: require("@/assets/markerIcon/shop.webp"),
         iconSize:     IconsSize,
         iconAnchor: IconArchor
     }),
@@ -55,9 +55,7 @@ export default {
                 iconAnchor: IconArchor
             })
         }
-    }
-    
-    ,
+    },
     "SummoningPool":L.icon({
         iconUrl: iconurl.SummoningPool,
         iconSize:     IconsSize,
@@ -74,22 +72,25 @@ export default {
         iconAnchor: IconArchor
     }),
     "WalkingMausoleum":L.icon({
-        iconUrl: iconurl.WalkingMausoleum,
+        iconUrl: require("@/assets/markerIcon/WalkingMausoleum.webp"),
         iconSize:     IconsSize,
         iconAnchor: IconArchor
     }),
-    "BigBoss":L.icon({
-        iconUrl: iconurl.BigBoss,
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
+    "BigBoss":(level)=>{
+        const imageName = level + ".webp"
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/bigboss/"+imageName),
+            iconSize:     [50,50],
+            iconAnchor: -[25,25]
+        })
+    },
     "Boss":L.icon({
-        iconUrl: iconurl.Boss,
+        iconUrl: require("@/assets/markerIcon/boss.png"),
         iconSize:     IconsSize,
         iconAnchor: IconArchor
     }),
     "LittleBoss":L.icon({
-        iconUrl: iconurl.LittleBoss,
+        iconUrl: require("@/assets/markerIcon/sword.png"),
         iconSize:     IconsSize,
         iconAnchor: IconArchor
     }),
@@ -99,7 +100,7 @@ export default {
         iconAnchor: IconArchor
     }),
     "GreatEnemy":L.icon({
-        iconUrl: iconurl.GreatEnemy,
+        iconUrl: require("@/assets/markerIcon/dog.png"),
         iconSize:     IconsSize,
         iconAnchor: IconArchor
     }),
@@ -129,15 +130,18 @@ export default {
         iconAnchor: IconArchor
     }),
     "KeyItems":L.icon({
-        iconUrl: require("@/assets/markerIcon/keyitemsStroke.png"),
+        iconUrl: require("@/assets/markerIcon/diamond.png"),
         iconSize:     IconsSize,
         iconAnchor: IconArchor
     }),
-    "StoneSwordKey":L.icon({
-        iconUrl: require("@/assets/markerIcon/stoneswordkeyStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
+    "StoneSwordKey":(level)=>{
+        const imageName = level + ".webp"
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/stoneswordkey/"+imageName),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor
+        })
+    },
     "DeathRoot":L.icon({
         iconUrl: require("@/assets/markerIcon/DeathRoot.png"),
         iconSize:     IconsSize,
@@ -175,7 +179,7 @@ export default {
         iconAnchor: IconArchor
     }),
     "Material":L.icon({
-        iconUrl: iconurl.Material,
+        iconUrl: require("@/assets/markerIcon/tree.png"),
         iconSize:     IconsSize,
         iconAnchor: IconArchor
     }),
@@ -194,11 +198,14 @@ export default {
         iconSize:     IconsSize,
         iconAnchor: IconArchor
     }),
-    "Whetblade":L.icon({
-        iconUrl: require("@/assets/markerIcon/whetstoneStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
+    "Whetblade":(level)=>{
+        const imageName = level + ".webp"
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/whetblade/"+ imageName),
+            iconSize:     [45,45],
+            iconAnchor: [22.5,22.5]
+        })
+    },
     "Incantation":L.icon({
         iconUrl: require("@/assets/markerIcon/incantationStroke.png"),
         iconSize:     IconsSize,
@@ -234,16 +241,47 @@ export default {
         iconSize:     IconsSize,
         iconAnchor: IconArchor
     }),
-    "SmithingStone":L.icon({
-        iconUrl: require("@/assets/markerIcon/smithing_stone_5Stroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "SomberSmithingStone":L.icon({
-        iconUrl: require("@/assets/markerIcon/somber_smithing_stone_5Stroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
+    "SmithingStone":(level)=>{
+        const imageName = level + ".webp"
+
+        if (level==9){
+            let newsize = 45
+            let ImportantIconsSize = [newsize,newsize]
+            let ImportantIconArchor = [(newsize / 2), (newsize / 2)]
+            return L.icon({
+                iconUrl: require("@/assets/markerIcon/smithingstone/"+ imageName),
+                iconSize:     ImportantIconsSize,
+                iconAnchor: ImportantIconArchor
+            })
+        }
+        // console.log(imageName)
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/smithingstone/"+ imageName),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor
+        })
+    },
+    "SomberSmithingStone":(level)=>{
+        //不知為啥一定要const才吃得到
+        const imageName = level + ".webp"
+
+        if (level==10){
+            let newsize = 45
+            let ImportantIconsSize = [newsize,newsize]
+            let ImportantIconArchor = [(newsize / 2), (newsize / 2)]
+            return L.icon({
+                iconUrl: require("@/assets/markerIcon/somberstone/"+ imageName),
+                iconSize:     ImportantIconsSize,
+                iconAnchor: ImportantIconArchor
+            })
+        }
+        // console.log(imageName)
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/somberstone/"+ imageName),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor
+        })
+    },
     "Question":L.icon({
         iconUrl: iconurl.Question,
         iconSize:     IconsSize,
@@ -290,7 +328,7 @@ export default {
         iconAnchor: IconArchor
     }),
     "Other":L.icon({
-        iconUrl: require("@/assets/markerIcon/other.png"),
+        iconUrl: require("@/assets/markerIcon/keyitemsStroke.png"),
         iconSize:     IconsSize,
         iconAnchor: IconArchor
     }),
