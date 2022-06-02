@@ -27,12 +27,12 @@
                         </div>
                         <div :key="'position'" class="position-container">
                             <div class="switch-container">
-                                <h3>顯示已蒐集</h3>
+                                <span>顯示已蒐集</span>
                                 <Toggle :key="'ground'" v-model="showAchieved" onLabel="On" offLabel="Off"/>
                                 
                             </div>
                             <div class="switch-container">
-                                <h3>顯示灰城</h3>
+                                <span>顯示灰城</span>
                                 <Toggle :key="'show'" v-model="showEndGame" onLabel="On" offLabel="Off"/>
                                 
                             </div>
@@ -41,8 +41,9 @@
                         <div :key="'checkbox-container'" class="checkbox-container">
                             
                             <div :key="'location'">
-                                <h>-地點-</h>
-                                <button @click="toggleCheckType('Locations')">顯示/隱藏全部</button>
+                                <button class="checkbox-button" @click="toggleCheckType('Locations')">
+                                    <p>—————地點—————</p>
+                                </button>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Locations">    
@@ -53,8 +54,9 @@
 
                             
                             <div :key="'items'">
-                                <h>-物品-</h>
-                                <button @click="toggleCheckType('Items')">顯示/隱藏全部</button>
+                                <button class="checkbox-button" @click="toggleCheckType('Items')">
+                                    <p>—————物品—————</p>
+                                </button>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Items">    
@@ -65,8 +67,9 @@
                             </div>
 
                             <div :key="'upgrades'">
-                                <h>-升級品-</h>
-                                <button @click="toggleCheckType('Upgrades')">顯示/隱藏全部</button>
+                                <button class="checkbox-button" @click="toggleCheckType('Upgrades')">
+                                    <p>—————升級—————</p>
+                                </button>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Upgrades">    
@@ -79,8 +82,9 @@
                             
 
                                 <div :key="'enemy'">
-                                    <h>-敵人-</h>
-                                    <button @click="toggleCheckType('Enemy')">顯示/隱藏全部</button>
+                                    <button class="checkbox-button" @click="toggleCheckType('Enemy')">
+                                        <p>—————敵人—————</p>
+                                    </button>
                                 </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Enemy">    
@@ -92,9 +96,10 @@
 
 
                             <div :key="'equipment'">
-                                <h>-裝備-</h>
-                                <button @click="toggleCheckType('Equipments')">顯示/隱藏全部</button>
-                            </div>
+                                <button class="checkbox-button" @click="toggleCheckType('Equipments')">
+                                    <p>—————裝備—————</p>
+                                </button>
+                                </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Equipments">    
                                     <input type="checkbox" :id="type.zhname" :value="type.enname" v-model="filterType" @change="changeTypes()">
@@ -108,8 +113,10 @@
 
                             
                             <div :key="'other'">
-                                <h>-其他-</h>
-                                <button @click="toggleCheckType('Other')">顯示/隱藏全部</button>
+                                <button class="checkbox-button" @click="toggleCheckType('Other')">
+                                    <p>—————其他—————</p>
+                                </button>
+
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-item" :key="type.id" v-for="type in Other">    
@@ -137,7 +144,6 @@ import Toggle from '@vueform/toggle'
 import "@/css/toggle.css"
 
 export default {  
-    name:"MapSideBar",
     props:{
         initfilterType:Array,
         initMapLayer:Number
@@ -208,7 +214,6 @@ export default {
                     })
                     if (num ===0){
                         Locations.forEach(locate=>{
-                            console.log(locate)
                             tmpArray = tmpArray.filter(e=> e !== locate.enname)
                         })
                     }
@@ -237,7 +242,6 @@ export default {
                     })
                     if (num ===0){
                         Items.forEach(locate=>{
-                            console.log(locate)
                             tmpArray = tmpArray.filter(e=> e !== locate.enname)
                         })
                     }
@@ -252,7 +256,6 @@ export default {
                     })
                     if (num ===0){
                         Equipments.forEach(locate=>{
-                            console.log(locate)
                             tmpArray = tmpArray.filter(e=> e !== locate.enname)
                         })
                     }
@@ -267,7 +270,6 @@ export default {
                     })
                     if (num ===0){
                         Other.forEach(locate=>{
-                            console.log(locate)
                             tmpArray = tmpArray.filter(e=> e !== locate.enname)
                         })
                     }
@@ -282,7 +284,6 @@ export default {
                     })
                     if (num ===0){
                         Upgrades.forEach(locate=>{
-                            console.log(locate)
                             tmpArray = tmpArray.filter(e=> e !== locate.enname)
                         })
                     }
@@ -317,6 +318,9 @@ export default {
 
 
 <style scoped>
+    *{
+        color:rgb(219, 200, 165) ;
+    }
     .controller-container{
         display:flex;
         flex-direction: row;
@@ -484,6 +488,10 @@ export default {
  }
  .checkbox-item label{
      font-size: 10px;
+ }
+ 
+ .checkbox-button p:hover{
+     text-shadow: 0px 0px 5px rgb(214, 172, 94);
  }
 
 
