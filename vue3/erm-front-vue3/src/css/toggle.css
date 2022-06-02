@@ -11,7 +11,8 @@
     display:flex;width:var(--toggle-width,3rem);
     height:var(--toggle-height,1.25rem);
     border-radius:999px;position:relative;
-    cursor:pointer;transition:all .3s;
+
+    transition:all .3s;
     align-items:center;box-sizing:content-box;
     border:var(--toggle-border,.125rem) solid;
     font-size:var(--toggle-font-size,.75rem);
