@@ -11,7 +11,10 @@
 
 
 <script>
-import * as L from "leaflet";
+import "leaflet/dist/leaflet-src";
+import "@/plugins/leafletplugins";
+// import "@/plugins/leafletplugins.js"
+// import "leaflet-canvas-markers"
 import { getCookie, setCookie } from '@/utils/Cookies';
 import prefix from '@/utils/control-prefix'
 import getMarkerByType from "@/utils/getMarker"
@@ -20,8 +23,7 @@ import MapSideBar from "@/components/sidebar/MapSideBar.vue"
 import "@/css/leaflet.css"
 import "@/css/customstyle.css"
 
-// eslint-disable-next-line
-import axios from 'axios';
+
 /* eslint-disable */
 export default {
 
@@ -234,6 +236,10 @@ export default {
         /*
             Map Init Section [Start]
         */
+
+            
+        
+
         this.groundMap = L.tileLayer(this.groundMapUrl, {
                 attribution: '<h style="color:white">Elden Ring Map | Game Version : '+this.GameVersion+'</h>',
                 maxZoom: this.maxZoom,
@@ -274,7 +280,20 @@ export default {
         this.MainMap.on('click', (e)=>{
             console.log(e.latlng);
         })
+        var ciLayer = L.canvasIconLayer({}).addTo(this.MainMap);
+        var icon = L.icon({
+            iconUrl: "https://eldenring.wiki.fextralife.com/file/Elden-Ring/map-d8dc59f2-67df-452e-a9ea-d2c00ddc3a2b/maps-icons/grace.png",
+            iconSize: [20, 18],
+            iconAnchor: [10, 9]
+        });
 
+        var markers = [];
+        for (var i = 0; i < 10000; i++) {
+            console.log('aa')
+            var marker = L.marker([58.5578 + Math.random()*1.8, 29.0087 + Math.random()*3.6], {icon: icon}).bindPopup("I Am "+i);
+            markers.push(marker);
+        }
+        ciLayer.addLayers(markers);
         /*
             Map Init Section [End]
         */
@@ -297,6 +316,17 @@ export default {
         */
 
 
+
+        // let tmp = L.canvasMarker(L.latLng(-18.20324744134828, 80.1046120046544), {
+        //     radius: 20,
+        //     img: {
+        //         url: "https://eldenring.wiki.fextralife.com/file/Elden-Ring/map-d8dc59f2-67df-452e-a9ea-d2c00ddc3a2b/maps-icons/grace.png",    //image link
+        //         size: [40, 40],     //image size ( default [40, 40] )
+        //         rotate: 10,         //image base rotate ( default 0 )
+        //         offset: { x: 0, y: 0 }, //image offset ( default { x: 0, y: 0 } )
+        //     },
+        // }).addTo(this.MainMap)
+
         /*
             Map marker Section [Start]
         */
@@ -310,7 +340,7 @@ export default {
                     'width': '200',
                     'className' : 'popupCustom'
                 }
-            let markerTmp = L.marker([marker.lat, marker.lng])
+            let markerTmp = L.marker([marker.lat, marker.lng],{renderer: L.canvas({padding:0.5})})
             markerTmp.marker_id = marker.id;
             markerTmp.position = marker.position;
             markerTmp.is_underground = marker.is_underground;
@@ -537,11 +567,11 @@ export default {
                     this.MarkerTypes["SomberBellBearing"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     break
                 case "GhostGlovewort":
-                    markerTmp.setIcon(MarkerIcon['GhostGlovewort'])
+                    markerTmp.setIcon(MarkerIcon['GhostGlovewort'](marker.level))
                     this.MarkerTypes["GhostGlovewort"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     break
                 case "GraveGlovewort":
-                    markerTmp.setIcon(MarkerIcon['GraveGlovewort'])
+                    markerTmp.setIcon(MarkerIcon['GraveGlovewort'](marker.level))
                     this.MarkerTypes["GraveGlovewort"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     break
                 default:
@@ -552,7 +582,6 @@ export default {
         })
 
         if(this.filterType!==[]){
-            console.log("haaaaaa")
             this.filterType.forEach(type=>{
                 
                 this.showLayer.addLayer(this.MarkerTypes[type])
