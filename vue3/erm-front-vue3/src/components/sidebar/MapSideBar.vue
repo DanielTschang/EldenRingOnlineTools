@@ -321,6 +321,36 @@ export default {
     *{
         color:rgb(219, 200, 165) ;
     }
+    .sidebar {
+        color:white;
+        background-color:rgba(0, 0, 0, 0.7);
+
+        float:right;
+        position:fixed;
+        z-index:10000;
+        left:0;
+        bottom:0;
+        top:3.5%;
+
+        height: 88vh;
+        /* border-end-end-radius: 20px; */
+        border-image: url("@/assets/borderImage.png");
+        border-image-repeat:round;
+        border-image-slice:30 50 fill;
+        border-image-width:25px 40px;
+        transition: 0.2s ease;
+        padding:5px;
+        
+
+        display: flex;
+        flex-direction: column;
+        min-height: max-content;
+
+    }
+
+ .rotate-180{
+     transition: 0.3s linear;
+ }
     .controller-container{
         display:flex;
         flex-direction: row;
@@ -417,36 +447,7 @@ export default {
         padding-top:8px;
     }
 
-  .sidebar {
-    color:white;
-    background-color:rgba(0, 0, 0, 0.7);
 
-    float:right;
-    position:fixed;
-    z-index:10000;
-    left:0;
-    bottom:0;
-    top:3.5%;
-
-    height: 88vh;
-    /* border-end-end-radius: 20px; */
-    border-image: url("@/assets/borderImage.png");
-    border-image-repeat:round;
-    border-image-slice:30 50 fill;
-    border-image-width:25px 40px;
-    transition: 0.2s ease;
-    padding:5px;
-    
-
-    display: flex;
-    flex-direction: column;
-    min-height: max-content;
-
- }
-
- .rotate-180{
-     transition: 0.3s linear;
- }
 
 .sidebar-content-container{
     display: flex;
