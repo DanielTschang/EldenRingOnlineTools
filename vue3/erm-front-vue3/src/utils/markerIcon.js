@@ -1,81 +1,161 @@
-
-import * as L from "leaflet";
+/* eslint-disable */
+import "leaflet";
+import "@/plugins/_full"
 import iconurl from './IconUrl.json'
-// eslint-disable-next-line
 import locationMapper from "@/utils/LocationIcons"
+import { icon } from "leaflet";
 
 const size = 40
 const IconsSize = [size,size]
 const IconArchor = [(size / 2), (size / 2)]
+const textAnchor = [-13, -5]
+
+L.icon({
+        iconUrl: "https://eldenring.wiki.fextralife.com/file/Elden-Ring/map-d8dc59f2-67df-452e-a9ea-d2c00ddc3a2b/maps-icons/grace.png",
+        iconSize: [20, 18],
+        iconAnchor: [10, 9],
+
+        text:'test',
+
+    });
 export default {
-    "SiteOfGrace":L.icon({
-        iconUrl: iconurl.SiteOfGrace,
-        iconSize:     IconsSize, // size of the icon
-        iconAnchor: IconArchor
-    }),
-    "ShortPath":L.icon({
-        iconUrl: iconurl.ShortPath,
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Waygates":L.icon({
-        iconUrl: iconurl.Waygates,
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "RuneFarm":L.icon({
-        iconUrl: require("@/assets/markerIcon/runefarmStroke.webp"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Shop":L.icon({
-        iconUrl: require("@/assets/markerIcon/shop.webp"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "NPC":L.icon({
-        iconUrl: iconurl.NPC,
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Location":(level)=>{
+    "SiteOfGrace":(showname)=>{
+        return L.icon({
+            iconUrl: iconurl.SiteOfGrace,
+            iconSize:     IconsSize, // size of the icon
+            iconAnchor: IconArchor,
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "ShortPath":(showname)=>{
+        return L.icon({
+            iconUrl: iconurl.ShortPath,
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Waygates":(showname)=>{
+        return L.icon({
+            iconUrl: iconurl.Waygates,
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "RuneFarm":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/runefarmStroke.webp"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Shop":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/shop.webp"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "NPC":(showname)=>{
+        return L.icon({
+            iconUrl: iconurl.NPC,
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Location":(showname,level)=>{
         if (level!==-1){
             //不知為啥一定要const才吃得到
             const imageName = locationMapper[level].enname + ".webp"
             return L.icon({
                 iconUrl: require("@/assets/markerIcon/location/"+ imageName),
-                iconSize:     [80,80],
-                iconAnchor: -[40,40]
+                iconSize:     [100,100],
+                iconAnchor: -[40,40],
+
+                text: showname,
+                textAnchor: textAnchor,         
+                textFont:'14px bold',       //设置字体大小和样式
+                textFillStyle:'#FFFFFF'
             })
         }
         else{
             return L.icon({
                 iconUrl: require("@/assets/markerIcon/runefarmStroke.png"),
                 iconSize:     IconsSize,
-                iconAnchor: IconArchor
+                iconAnchor: IconArchor,
+
+                text: showname,
+                textAnchor: textAnchor,         
+                textFont:'14px bold',       //设置字体大小和样式
+                textFillStyle:'#FFFFFF'
             })
         }
     },
-    "SummoningPool":L.icon({
-        iconUrl: iconurl.SummoningPool,
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Cave":L.icon({
-        iconUrl: iconurl.Cave,
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "HorseTorrent":L.icon({
-        iconUrl: require("@/assets/markerIcon/horsetorrentStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "WalkingMausoleum":L.icon({
-        iconUrl: require("@/assets/markerIcon/WalkingMausoleum.webp"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
+    "SummoningPool":(showname)=>{
+        return L.icon({
+            iconUrl: iconurl.SummoningPool,
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Cave":(showname)=>{
+        return L.icon({
+            iconUrl: iconurl.Cave,
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "HorseTorrent":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/horsetorrentStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "WalkingMausoleum":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/WalkingMausoleum.webp"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
     "BigBoss":(level)=>{
         const imageName = level + ".webp"
         return L.icon({
@@ -84,56 +164,116 @@ export default {
             iconAnchor: -[27,27]
         })
     },
-    "Boss":L.icon({
-        iconUrl: require("@/assets/markerIcon/boss.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "LittleBoss":L.icon({
-        iconUrl: require("@/assets/markerIcon/sword.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "NPCInvaders":L.icon({
-        iconUrl: iconurl.NPCInvaders,
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "GreatEnemy":L.icon({
-        iconUrl: require("@/assets/markerIcon/dog.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Item":L.icon({
-        iconUrl: require("@/assets/markerIcon/other.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Cartacombs":L.icon({
-        iconUrl: iconurl.Cartacombs,
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Evergaol":L.icon({
-        iconUrl: iconurl.Evergaol,
-        iconSize:     [50,50],
-        iconAnchor: IconArchor
-    }),
-    "GoldenSeed":L.icon({
-        iconUrl: require("@/assets/markerIcon/GoldenSeedStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "CrystalTears":L.icon({
-        iconUrl: require("@/assets/markerIcon/crystaltearsStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "KeyItems":L.icon({
-        iconUrl: require("@/assets/markerIcon/diamond.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
+    "Boss":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/boss.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "LittleBoss":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/sword.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "NPCInvaders":(showname)=>{
+        return L.icon({
+            iconUrl: iconurl.NPCInvaders,
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "GreatEnemy":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/dog.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Item":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/other.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Cartacombs":(showname)=>{
+        return L.icon({
+            iconUrl: iconurl.Cartacombs,
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Evergaol":(showname)=>{
+        return L.icon({
+            iconUrl: iconurl.Evergaol,
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "GoldenSeed":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/GoldenSeedStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "CrystalTears":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/crystaltearsStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "KeyItems":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/diamond.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
     "StoneSwordKey":(level)=>{
         const imageName = level + ".webp"
         return L.icon({
@@ -142,62 +282,127 @@ export default {
             iconAnchor: IconArchor
         })
     },
-    "DeathRoot":L.icon({
-        iconUrl: require("@/assets/markerIcon/DeathRoot.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "DragonHeart":L.icon({
-        iconUrl: iconurl.DragonHeart,
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "LarvalTear":L.icon({
-        iconUrl: require("@/assets/markerIcon/larvaltearStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
+    "DeathRoot":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/DeathRoot.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
 
-    "SacredTear":L.icon({
-        iconUrl: require("@/assets/markerIcon/SacredTearStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "SmithingBellBearing":L.icon({
-        iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Painting":L.icon({
-        iconUrl: require("@/assets/markerIcon/painting.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Gesture":L.icon({
-        iconUrl: require("@/assets/markerIcon/Gesture2.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Material":L.icon({
-        iconUrl: require("@/assets/markerIcon/tree.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Sorceries":L.icon({
-        iconUrl: require("@/assets/markerIcon/sorceryStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Weapon":L.icon({
-        iconUrl: require("@/assets/markerIcon/weaponStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Cookbook":L.icon({
-        iconUrl: require("@/assets/markerIcon/CookBookStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "DragonHeart":(showname)=>{
+        return L.icon({
+            iconUrl: iconurl.DragonHeart,
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "LarvalTear":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/larvaltearStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "SacredTear":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/SacredTearStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "SmithingBellBearing":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Painting":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/painting.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Gesture":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/Gesture2.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Material":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/tree.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Sorceries":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/sorceryStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Weapon":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/weaponStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Cookbook":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/CookBookStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
     "Whetblade":(level)=>{
         const imageName = level + ".webp"
         return L.icon({
@@ -206,42 +411,84 @@ export default {
             iconAnchor: [22.5,22.5]
         })
     },
-    "Incantation":L.icon({
-        iconUrl: require("@/assets/markerIcon/incantationStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Tailsman":L.icon({
-        iconUrl: require("@/assets/markerIcon/talismanStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "AshOfWar":L.icon({
-        iconUrl: require("@/assets/markerIcon/ash_of_warStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "SpiritAsh":L.icon({
-        iconUrl: require("@/assets/markerIcon/spiritashStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Armor":L.icon({
-        iconUrl: require("@/assets/markerIcon/armorStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Warn":L.icon({
-        iconUrl: iconurl.Warn,
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "Taoke":L.icon({
-        iconUrl: iconurl.Taoke,
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "SmithingStone":(level)=>{
+    "Incantation":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/incantationStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Tailsman":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/talismanStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "AshOfWar":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/ash_of_warStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "SpiritAsh":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/spiritashStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Armor":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/armorStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Warn":(showname)=>{
+        return L.icon({
+            iconUrl: iconurl.Warn,
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "Taoke":(showname)=>{
+        return L.icon({
+            iconUrl: iconurl.Taoke,
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "SmithingStone":(showname, level)=>{
         const imageName = level + ".webp"
 
         if (level==9){
@@ -251,14 +498,24 @@ export default {
             return L.icon({
                 iconUrl: require("@/assets/markerIcon/smithingstone/"+ imageName),
                 iconSize:     ImportantIconsSize,
-                iconAnchor: ImportantIconArchor
+                iconAnchor: ImportantIconArchor,
+
+                text: showname,
+                textAnchor: textAnchor,         
+                textFont:'14px bold',       //设置字体大小和样式
+                textFillStyle:'#FFFFFF'
             })
         }
         // console.log(imageName)
         return L.icon({
             iconUrl: require("@/assets/markerIcon/smithingstone/"+ imageName),
             iconSize:     IconsSize,
-            iconAnchor: IconArchor
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: [-15, -5],         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#222222'
         })
     },
     "SomberSmithingStone":(level)=>{
@@ -282,41 +539,77 @@ export default {
             iconAnchor: IconArchor
         })
     },
-    "Question":L.icon({
-        iconUrl: iconurl.Question,
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "MAP":L.icon({
-        iconUrl: require("@/assets/markerIcon/MapStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
+    "Question":(showname)=>{
+        return L.icon({
+            iconUrl: iconurl.Question,
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "MAP":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/MapStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
     "Text":L.icon({
         iconUrl: iconurl.Text,
         iconSize:     IconsSize,
         iconAnchor: IconArchor
     }),
-    "GravePickerBellBearing":L.icon({
-        iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "GhostPickerBellBearing":L.icon({
-        iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "BellBearing":L.icon({
-        iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "SomberBellBearing":L.icon({
-        iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
+    "GravePickerBellBearing":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "GhostPickerBellBearing":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "BellBearing":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
+    "SomberBellBearing":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/bellbearingStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
     "GraveGlovewort":(level)=>{
         const imageName = level + ".webp"
         return L.icon({
@@ -338,11 +631,17 @@ export default {
     //     cavnas.getContext
     // }
         
-    "Other":L.icon({
-        iconUrl: require("@/assets/markerIcon/keyitemsStroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
+    "Other":(showname)=>{
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/keyitemsStroke.png"),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor,
+
+            text: showname,
+            textAnchor: textAnchor,         
+            textFont:'14px bold',       //设置字体大小和样式
+            textFillStyle:'#FFFFFF'
+    })},
 
     
 
