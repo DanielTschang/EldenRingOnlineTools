@@ -2,7 +2,7 @@
 
 <template>
     <div id="map-container" >
-        <map-side-bar @changeTypes="changeTypes" :initfilterType="filterType" :maplayer="maplayer" @ToggleMapChange="ToggleMapChange" />
+        <map-side-bar @changeTypes="changeTypes" :initfilterType="filterType" :initMapLayer="maplayer" @ToggleMapChange="ToggleMapChange" />
         
         <div id="mymap">
         </div>
@@ -24,7 +24,7 @@ import "@/css/customstyle.css"
 import axios from 'axios';
 /* eslint-disable */
 export default {
-    name: 'MapView',
+
     components:{
         MapSideBar
     },
@@ -43,13 +43,10 @@ export default {
             }
             if(deletedType.length>0){
                 deletedType.forEach(type => {
-                    console.log(this.MarkerTypes[type])
                     this.showLayer.removeLayer(this.MarkerTypes[type])
-                    this.notshowLayer.addLayer(this.MarkerTypes[type])
                 })
             }
             this.updateMarkers()
-            setCookie("filterType", this.filterType)
         },
         ToggleshowCollected(show){
             //等會員用好再完成
@@ -230,7 +227,7 @@ export default {
         this.initCenterLat = latCookie == "" ? this.initCenterLat : latCookie;
         this.initCenterLng = lngCookie == "" ? this.initCenterLng : lngCookie;
         this.filterType = TypeCookie == "" ? ["Location"] : TypeCookie.split(",")
-        this.maplayer = mapLayerCookie == "" ? 0 : mapLayerCookie;
+        this.maplayer = mapLayerCookie == "" ? 0 : Number(mapLayerCookie);
         
     },
     async mounted(){
@@ -246,7 +243,7 @@ export default {
             }),
         
         this.undergroundMap = L.tileLayer(this.undergroundMapUrl, {
-                attribution: '',
+                attribution: '<h style="color:white">Elden Ring Map | Game Version : '+this.GameVersion+'</h>',
                 maxZoom: this.maxZoom,
                 id: 'underground',
                 tileSize: this.tileSize,
@@ -372,7 +369,7 @@ export default {
                     
                     break
                 case "BigBoss":
-                    markerTmp.setIcon(MarkerIcon['BigBoss'])
+                    markerTmp.setIcon(MarkerIcon['BigBoss'](marker.level))
                     this.MarkerTypes["BigBoss"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     
                     break
@@ -427,7 +424,7 @@ export default {
                     
                     break
                 case "StoneSwordKey":
-                    markerTmp.setIcon(MarkerIcon['StoneSwordKey'])
+                    markerTmp.setIcon(MarkerIcon['StoneSwordKey'](marker.level))
                     this.MarkerTypes["StoneSwordKey"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     break
                 case "DeathRoot":
@@ -472,7 +469,7 @@ export default {
                     this.MarkerTypes["Cookbook"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     break
                 case "Whetblade":
-                    markerTmp.setIcon(MarkerIcon['Whetblade'])
+                    markerTmp.setIcon(MarkerIcon['Whetblade'](marker.level))
                     this.MarkerTypes["Whetblade"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     break
                 case "Incantation":
@@ -504,11 +501,11 @@ export default {
                     this.MarkerTypes["Taoke"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     break
                 case "SmithingStone":
-                    markerTmp.setIcon(MarkerIcon['SmithingStone'])
+                    markerTmp.setIcon(MarkerIcon['SmithingStone'](marker.level))
                     this.MarkerTypes["SmithingStone"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     break
                 case "SomberSmithingStone":
-                    markerTmp.setIcon(MarkerIcon['SomberSmithingStone'])
+                    markerTmp.setIcon(MarkerIcon['SomberSmithingStone'](marker.level))
                     this.MarkerTypes["SomberSmithingStone"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     break
                 case "Question":
@@ -555,11 +552,14 @@ export default {
         })
 
         if(this.filterType!==[]){
+            console.log("haaaaaa")
             this.filterType.forEach(type=>{
+                
                 this.showLayer.addLayer(this.MarkerTypes[type])
             })
+            this.showLayer.addTo(this.MainMap)
         }
-        this.showLayer.addTo(this.MainMap)
+        
 
 
         /*
