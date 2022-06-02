@@ -70,7 +70,7 @@ const Locations = [
     {
         id:11,
         enname:'BigBoss',
-        zhname:'大Boss'
+        zhname:'追憶Boss'
     },
     {
         id:12,

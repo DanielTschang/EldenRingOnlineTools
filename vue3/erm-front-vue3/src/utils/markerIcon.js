@@ -80,8 +80,8 @@ export default {
         const imageName = level + ".webp"
         return L.icon({
             iconUrl: require("@/assets/markerIcon/bigboss/"+imageName),
-            iconSize:     [50,50],
-            iconAnchor: -[25,25]
+            iconSize:     [55,55],
+            iconAnchor: -[27,27]
         })
     },
     "Boss":L.icon({
@@ -317,16 +317,27 @@ export default {
         iconSize:     IconsSize,
         iconAnchor: IconArchor
     }),
-    "GraveGlovewort":L.icon({
-        iconUrl: require("@/assets/markerIcon/grave_glovewort_5Stroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
-    "GhostGlovewort":L.icon({
-        iconUrl: require("@/assets/markerIcon/ghost_glovewort_5Stroke.png"),
-        iconSize:     IconsSize,
-        iconAnchor: IconArchor
-    }),
+    "GraveGlovewort":(level)=>{
+        const imageName = level + ".webp"
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/GraveGlovewort/"+imageName),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor
+        })
+    },
+    "GhostGlovewort":(level)=>{
+        const imageName = level + ".webp"
+        return L.icon({
+            iconUrl: require("@/assets/markerIcon/GhostGlovewort/"+imageName),
+            iconSize:     IconsSize,
+            iconAnchor: IconArchor
+        })
+    },
+    // "Other":()=>{
+    //     let canvas = new L.Canvas
+    //     cavnas.getContext
+    // }
+        
     "Other":L.icon({
         iconUrl: require("@/assets/markerIcon/keyitemsStroke.png"),
         iconSize:     IconsSize,
