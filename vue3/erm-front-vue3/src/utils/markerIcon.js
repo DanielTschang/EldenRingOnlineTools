@@ -8,7 +8,8 @@ import { icon } from "leaflet";
 const size = 40
 const IconsSize = [size,size]
 const IconArchor = [(size / 2), (size / 2)]
-const textAnchor = [-13, -5]
+const textAnchor = [-18, -10]
+const textFont = 'Calibri'
 
 L.icon({
         iconUrl: "https://eldenring.wiki.fextralife.com/file/Elden-Ring/map-d8dc59f2-67df-452e-a9ea-d2c00ddc3a2b/maps-icons/grace.png",
@@ -26,7 +27,7 @@ export default {
             iconAnchor: IconArchor,
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "ShortPath":(showname)=>{
@@ -37,7 +38,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Waygates":(showname)=>{
@@ -48,7 +49,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "RuneFarm":(showname)=>{
@@ -59,7 +60,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Shop":(showname)=>{
@@ -70,7 +71,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "NPC":(showname)=>{
@@ -81,7 +82,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Location":(showname,level)=>{
@@ -95,7 +96,7 @@ export default {
 
                 text: showname,
                 textAnchor: textAnchor,         
-                textFont:'14px bold',       //设置字体大小和样式
+                textFont:textFont,       //设置字体大小和样式
                 textFillStyle:'#FFFFFF'
             })
         }
@@ -107,7 +108,7 @@ export default {
 
                 text: showname,
                 textAnchor: textAnchor,         
-                textFont:'14px bold',       //设置字体大小和样式
+                textFont:textFont,       //设置字体大小和样式
                 textFillStyle:'#FFFFFF'
             })
         }
@@ -120,7 +121,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Cave":(showname)=>{
@@ -131,7 +132,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "HorseTorrent":(showname)=>{
@@ -142,7 +143,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "WalkingMausoleum":(showname)=>{
@@ -153,7 +154,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "BigBoss":(level)=>{
@@ -172,7 +173,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "LittleBoss":(showname)=>{
@@ -183,7 +184,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "NPCInvaders":(showname)=>{
@@ -194,7 +195,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "GreatEnemy":(showname)=>{
@@ -205,7 +206,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Item":(showname)=>{
@@ -216,7 +217,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Cartacombs":(showname)=>{
@@ -227,7 +228,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Evergaol":(showname)=>{
@@ -238,7 +239,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "GoldenSeed":(showname)=>{
@@ -249,7 +250,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "CrystalTears":(showname)=>{
@@ -260,7 +261,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "KeyItems":(showname)=>{
@@ -271,7 +272,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "StoneSwordKey":(level)=>{
@@ -290,7 +291,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "DragonHeart":(showname)=>{
@@ -301,7 +302,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "LarvalTear":(showname)=>{
@@ -312,7 +313,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "SacredTear":(showname)=>{
@@ -323,7 +324,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "SmithingBellBearing":(showname)=>{
@@ -334,7 +335,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Painting":(showname)=>{
@@ -345,7 +346,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Gesture":(showname)=>{
@@ -356,7 +357,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Material":(showname)=>{
@@ -367,7 +368,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Sorceries":(showname)=>{
@@ -378,7 +379,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Weapon":(showname)=>{
@@ -389,7 +390,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Cookbook":(showname)=>{
@@ -400,7 +401,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Whetblade":(level)=>{
@@ -419,7 +420,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Tailsman":(showname)=>{
@@ -430,7 +431,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "AshOfWar":(showname)=>{
@@ -441,7 +442,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "SpiritAsh":(showname)=>{
@@ -452,7 +453,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Armor":(showname)=>{
@@ -463,7 +464,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Warn":(showname)=>{
@@ -474,7 +475,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Taoke":(showname)=>{
@@ -485,7 +486,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "SmithingStone":(showname, level)=>{
@@ -502,7 +503,7 @@ export default {
 
                 text: showname,
                 textAnchor: textAnchor,         
-                textFont:'14px bold',       //设置字体大小和样式
+                textFont:textFont,       //设置字体大小和样式
                 textFillStyle:'#FFFFFF'
             })
         }
@@ -514,7 +515,7 @@ export default {
 
             text: showname,
             textAnchor: [-15, -5],         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#222222'
         })
     },
@@ -547,7 +548,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "MAP":(showname)=>{
@@ -558,7 +559,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "Text":L.icon({
@@ -574,7 +575,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "GhostPickerBellBearing":(showname)=>{
@@ -585,7 +586,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "BellBearing":(showname)=>{
@@ -596,7 +597,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "SomberBellBearing":(showname)=>{
@@ -607,7 +608,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
     "GraveGlovewort":(level)=>{
@@ -639,7 +640,7 @@ export default {
 
             text: showname,
             textAnchor: textAnchor,         
-            textFont:'14px bold',       //设置字体大小和样式
+            textFont:textFont,       //设置字体大小和样式
             textFillStyle:'#FFFFFF'
     })},
 
