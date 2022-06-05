@@ -196,7 +196,7 @@ export default {
                 "NPCInvaders" : L.layerGroup(),
                 "GreatEnemy" : L.layerGroup(),
                 "Item" : L.layerGroup(),
-                "Cartacombs" : L.layerGroup(),
+                "Catacombs" : L.layerGroup(),
                 "Evergaol" : L.layerGroup(),
                 "GoldenSeed" : L.layerGroup(),
                 "CrystalTears" : L.layerGroup(),
@@ -433,9 +433,9 @@ export default {
                     this.MarkerTypes["Item"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     
                     break
-                case "Cartacombs":
-                    markerTmp.setIcon(MarkerIcon['Cartacombs'](marker.name))
-                    this.MarkerTypes["Cartacombs"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
+                case "Catacombs":
+                    markerTmp.setIcon(MarkerIcon['Catacombs'](marker.level,marker.name))
+                    this.MarkerTypes["Catacombs"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     
                     break
                 case "Evergaol":
@@ -540,7 +540,7 @@ export default {
                     this.MarkerTypes["SmithingStone"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     break
                 case "SomberSmithingStone":
-                    markerTmp.setIcon(MarkerIcon['SomberSmithingStone'](marker.level))
+                    markerTmp.setIcon(MarkerIcon['SomberSmithingStone'](marker.name,marker.level))
                     this.MarkerTypes["SomberSmithingStone"].addLayer(markerTmp.bindPopup(customPopup,customOptions))
                     break
                 case "Question":

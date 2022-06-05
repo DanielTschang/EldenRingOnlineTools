@@ -13,18 +13,13 @@
                 <div  v-if="collapsed" class="sidebar-content-container">
                     <transition-group name="checkbox" appear>
                         <div :key="'controller-container'" class="controller-container mainButtons">
-                            <div :key="'controller-content'" class="controller-content">
-                                <input style="display:none;;" type="checkbox" :id="'maplayer'" :true-value="0" :false-value="1" v-model="maplayer" @change="toggleChangeMap()">
-                                <label :for="'maplayer'" style="cursor:pointer">
+                            <div :key="'controller-content'" class="controller-content" @click="toggleChangeMap()" >
                                     <p v-if="maplayer==0">切換地底地圖</p>
                                     <p v-else>切換地表地圖</p>
-                                </label>
                             </div>
-                            <div :key="'controller-content'" class="controller-content">
-                                 <button @click="toggleAllNotChecked()">
+                            <div :key="'controller-content'" class="controller-content" @click="toggleAllNotChecked()">
                                      <p v-if="filterType.length!=typeCount">顯示全部</p>
                                      <p v-else>清空地圖</p>
-                                 </button>
                             </div>
 
 
@@ -224,6 +219,8 @@ export default {
             this.windowWidth = window.innerWidth;
         },
         toggleChangeMap(){
+            this.maplayer = this.maplayer == 0 ? 1 : 0
+            console.log(this.maplayer)
             setCookie("maplayer",this.maplayer)
             this.$emit('ToggleMapChange',this.maplayer)
         },

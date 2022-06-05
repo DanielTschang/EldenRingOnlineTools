@@ -32,7 +32,7 @@ const Locations = [
     },
     {
         id:17,
-        enname:'Cartacombs',
+        enname:'Catacombs',
         zhname:'地下墓地'
     },
     {
