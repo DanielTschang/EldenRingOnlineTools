@@ -13,16 +13,23 @@
              this._onHoverListeners = [];
          },
  
-         setOptions: function (options) {
+        setOptions: function (options) {
  
-             L.setOptions(this, options);
-             return this.redraw();
-         },
+            L.setOptions(this, options);
+            return this.redraw();
+        },
  
-         redraw: function (showText=true) {
+        redraw: function () {
+            this._redraw(true);
+        },
+        setShowText:function(showText){
             self.showText = showText
-             this._redraw(true);
-         },
+        },
+        setFontSize:function(fontSize){
+            self.fontSize = fontSize
+        },
+        
+        
  
          //Multiple layers at a time for rBush performance
          addMarkers: function (markers) {
@@ -288,8 +295,9 @@
                  options.iconSize[1]
              );
              if(options.text && self.showText==true){
-                this._context.font = options.textFont,
+                this._context.font = self.fontSize+ "px "+options.textFont,
                 this._context.fillStyle = options.textFillStyle,
+                this._context.textBaseline = 'bottom',
                 this._context.fillText(
                     options.text,
                     pointPos.x - options.textAnchor[0],
