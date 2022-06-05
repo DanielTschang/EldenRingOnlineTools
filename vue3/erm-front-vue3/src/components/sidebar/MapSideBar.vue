@@ -12,7 +12,7 @@
                 
                 <div  v-if="collapsed" class="sidebar-content-container">
                     <transition-group name="checkbox" appear>
-                        <div :key="'controller-container'" class="controller-container">
+                        <div :key="'controller-container'" class="controller-container mainButtons">
                             <div :key="'controller-content'" class="controller-content">
                                 <input style="display:none;;" type="checkbox" :id="'maplayer'" :true-value="0" :false-value="1" v-model="maplayer" @change="toggleChangeMap()">
                                 <label :for="'maplayer'" style="cursor:pointer">
@@ -21,13 +21,28 @@
                                 </label>
                             </div>
                             <div :key="'controller-content'" class="controller-content">
-                                <button @click="toggleAllNotChecked()">只顯示地標</button>
+                                 <button @click="toggleAllNotChecked()">
+                                     <p v-if="filterType.length!=typeCount">顯示全部</p>
+                                     <p v-else>清空地圖</p>
+                                 </button>
+                            </div>
+
+
+                        </div>
+                        <div :key="'controller-container'" class="position-container">
+                            <div :key="'slider-switch'" class="switch-container">
+                                <span>顯示文字</span>
+                                <Toggle :key="'ground'" @change="toggleShowText()" v-model="showText" onLabel="On" offLabel="Off"/>
+                            </div>
+                            <div :key="'controller-slider'" class="switch-container">
+                                <span>字體大小</span>
+                                <Slider :lazy="false" style="width:30%" @change="changeFontSize()" :showTooltip="'drag'" :min="10" :max="22" v-model="fontsize" />
                             </div>
 
                         </div>
                         <div :key="'position'" class="position-container">
                             <div class="switch-container">
-                                <span>顯示已蒐集</span>
+                                <span>顯示蒐集</span>
                                 <Toggle :key="'ground'" v-model="showAchieved" onLabel="On" offLabel="Off"/>
                                 
                             </div>
@@ -108,10 +123,6 @@
                             
                             </div>
                         
-
-
-
-                            
                             <div :key="'other'">
                                 <button class="checkbox-button" @click="toggleCheckType('Other')">
                                     <p>—————其他—————</p>
@@ -136,20 +147,27 @@
 </template>
 
 <script>
+ /* eslint-disable */ 
 // import {collapsed, toggleSidebar ,sidebarWidth } from "@/utils/SidebarState";
 // import MapSideBarCheckbox from '@/components/sidebar/MapSideBarCheckbox.vue';
 import { Locations, Enemy, Items, Equipments, Other, Upgrades} from "@/utils/markerType"
 import { setCookie, getCookie } from '@/utils/Cookies'
 import Toggle from '@vueform/toggle'
 import "@/css/toggle.css"
+import Slider from '@vueform/slider'
+import "@vueform/slider/themes/default.css"
 
 export default {  
     props:{
         initfilterType:Array,
-        initMapLayer:Number
+        initMapLayer:Number,
+        initFontSize:Number,
+        initShowText:Boolean,
+
     },
     components:{
-        Toggle
+        Toggle,
+        Slider
     },
 
     data(){
@@ -158,15 +176,21 @@ export default {
             filterType:[],
             showEndGame:true,
             showAchieved:true,
+            showText:true,
             collapsed:null,
             collapedWidth:30,
             openWidth:300,
             MobileopenWidth:'100%',
             windowHeight: window.innerHeight,
             windowWidth: window.innerWidth,
+            fontsize:12,
+            typeCount:0,
+            allTypes:[],
+            
         }
     },
     setup(){
+    
         return { Locations, Enemy, Items, Equipments, Other, Upgrades}
     },
     created(){
@@ -175,6 +199,16 @@ export default {
         // this.$emit("changeTypes",this.filterType)
         let sidebarToggled = getCookie('sidebar');
         this.collapsed = sidebarToggled == "false" ? false : true;
+
+        this.showText = this.initShowText
+        this.fontsize = this.initFontSize
+        this.typeCount = Locations.length+ Enemy.length+ Items.length+ Equipments.length+ Other.length+ Upgrades.length
+        let categories = [Locations, Enemy, Items, Equipments, Other, Upgrades]
+        categories.forEach(cat => {
+            cat.forEach(type=>{
+                this.allTypes.push(type.enname)
+            })
+        })
     },
     methods:{
         toggleSidebar(){
@@ -194,7 +228,12 @@ export default {
             this.$emit('ToggleMapChange',this.maplayer)
         },
         toggleAllNotChecked(){
-            this.filterType = ["Location"]
+            if(this.filterType.length!==this.typeCount){
+                this.filterType = this.allTypes
+            }else{
+                this.filterType = []
+            }
+            
             this.changeTypes();
         },
         toggleCheckType(type){
@@ -290,7 +329,16 @@ export default {
                     this.filterType = tmpArray;
                     break;
             }
-        }
+        },
+        toggleShowText(){
+            setCookie("showtext",this.showText)
+            this.$emit("ToggleShowTextChange", this.showText)
+        },
+        changeFontSize(){
+            setCookie("fontsize",this.fontsize)
+            this.$emit("ToggleFontSizeChange", this.fontsize)
+        },
+        
 
             
             
@@ -358,20 +406,29 @@ export default {
         justify-items: center;
         align-items: center;
         
+    }
+
+    /* .TextController {
+        margin:3px;
+    } */
+
+
+    .mainButtons{
         padding:3px 10px;
         margin:0px 5px;
     }
-    .controller-container button{
+    .mainButtons button{
         cursor: inherit;
     }
-    .controller-container > :nth-child(1){
+    .mainButtons > :nth-child(1){
         border: solid 3px rgb(171, 150, 111) ;
     }
-    .controller-container > :nth-child(2){
+    .mainButtons > :nth-child(2){
         border: solid 3px rgb(171, 150, 111) ;
         border-left: none;
     }
     .controller-content{
+        
         display: flex;
         width: 100%;
         align-self: center;
@@ -430,21 +487,53 @@ export default {
         flex-direction: row;
         width:100%;
 
-        margin:0 auto;
-        text-align: center;
+        margin: auto;
+
         color:white;
+        align-items: center;
+        justify-items: center;
+        align-content: center;
+        justify-content: center;
     }
     .position-container *{
-        margin:2px;
+        margin:3px;
     }
     .switch-container {
         display: flex;
         flex-direction: row;
+        flex:1;
+        align-items: center;
+        justify-items: center;
+        justify-content: space-evenly;
     }
+
+
+
 
 
     .collapse-icon{
         padding-top:8px;
+
+    }
+    .slider-container{
+        flex:1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-items: center;
+        justify-content: space-evenly;
+        
+    }
+    .slider-container *{
+        width:100%;
+    }
+
+    .controller-slider-switch{
+        flex:1; 
+        /* justify-self: flex-start;  */
+        /* text-align: left; */
+        display: flex;
+        flex-direction: row;
     }
 
 

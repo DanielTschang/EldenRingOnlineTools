@@ -2,7 +2,7 @@
 
 <template>
     <div id="map-container" >
-        <map-side-bar @changeTypes="changeTypes" :initfilterType="filterType" :initMapLayer="maplayer" @ToggleMapChange="ToggleMapChange" />
+        <map-side-bar @changeTypes="changeTypes" :initfilterType="filterType" :initShowText="showText" :initFontSize="fontSize" :initMapLayer="maplayer" @ToggleMapChange="ToggleMapChange" @ToggleShowTextChange="ToggleShowTextChange" @ToggleFontSizeChange="ToggleFontSizeChange" />
         
         <div id="mymap">
         </div>
@@ -51,6 +51,7 @@ export default {
                         this.DomShowLayer.removeLayer(this.MarkerTypes[type])
                     }else{
                         this.MarkerTypes[type].forEach(eachMarker=>{
+                            console.log(eachMarker)
                             this.CanvasShowLayer.removeMarker(eachMarker)
                         })
                     }
@@ -59,7 +60,7 @@ export default {
 
                 })
             }
-            this.CanvasShowLayer.redraw(this.showText)
+            this._redraw()
             this.updateMarkers()
         },
         ToggleshowCollected(show){
@@ -75,18 +76,25 @@ export default {
             }
         },
         ToggleShowEndGame(show){
-            if(this.showEndGame!==show){
-                if(show){
-                    this.showLayer.eachLayer(layer=>{
-                        layer.eachLayer(layer_child=>{
-                        if(layer_child.position=2){
-                            layer_child._icon.style.display = '';
-                        }
-                    })
-            })
-                }
-            }
             this.showEndGame = show;
+            // if(this.showEndGame!==show){
+            //     if(show){
+            //         this.DomShowLayer.eachLayer(layer=>{
+            //             layer.eachLayer(layer_child=>{
+            //                 if(layer_child.position=2){
+            //                     layer_child._icon.style.display = '';
+            //                 }
+            //             })
+            //         })
+            //         this.filterType.forEach()
+            //         this.MarkerTypes[type].forEach(eachMarker=>{
+            //             this.CanvasShowLayer.removeMarker(eachMarker)
+            //         })
+            //     }else{
+
+            //     }
+            // }
+
         },
         ToggleMapChange(level){
             this.maplayer = level
@@ -104,35 +112,51 @@ export default {
             
         },
         updateMarkers(){
-            this.showLayer.eachLayer(layer=>{
-                layer.eachLayer(layer_child=>{
-                    //show End Game or not 灰城
-                    if(layer_child.position=2){
-                        if(this.showEndGame){
-                            layer_child._icon.style.display = '';
-                        }
-                    }
-                    //show Collected
-                    if(this.collected.includes(layer_child.marker_id)){
-                        if(this.showCollected){
-                            layer_child._icon.style.display = '';
-                        }
-                        else{
-                            layer_child._icon.style.display = 'none';
-                        }
-                    }
+            this.MainMap.eachLayer(layer=>{
+                console.log()
 
-                    if(layer_child.is_underground==this.maplayer){
-                        layer_child._icon.style.display = '';
-                    }
-                    else{
-                        layer_child._icon.style.display = 'none';
-                    }
+                // layer.eachLayer(layer_child=>{
+                //     //show End Game or not 灰城
+                //     if(layer_child.position=2){
+                //         if(this.showEndGame){
+                //             layer_child._icon.style.display = '';
+                //         }
+                //     }
+                //     //show Collected
+                //     if(this.collected.includes(layer_child.marker_id)){
+                //         if(this.showCollected){
+                //             layer_child._icon.style.display = '';
+                //         }
+                //         else{
+                //             layer_child._icon.style.display = 'none';
+                //         }
+                //     }
+
+                //     if(layer_child.is_underground==this.maplayer){
+                //         layer_child._icon.style.display = '';
+                //     }
+                //     else{
+                //         layer_child._icon.style.display = 'none';
+                //     }
                     
                     
 
-                })
+                // })
             })
+        },
+        ToggleShowTextChange(showtext){
+            this.showText = showtext
+            this._redraw()
+        },
+        ToggleFontSizeChange(fontsize){
+            this.fontSize = fontsize
+            console.log(fontsize)
+            this._redraw()
+        },
+        _redraw(){
+            this.CanvasShowLayer.setShowText(this.showText)
+            this.CanvasShowLayer.setFontSize(this.fontSize)
+            this.CanvasShowLayer.redraw()
         }
     },
     data(){
@@ -153,6 +177,7 @@ export default {
             showCollected:true,
             showEndGame:false,
             showText:true,
+            fontSize:10,
             maxBounds:L.latLngBounds(L.latLng(-100, -200), L.latLng(100, 100)),
             //地上地圖 Ground map layer
             groundMapUrl:'https://imgs.ali213.net/picfile/eldenring/{z}/{x}/{y}.jpg',
@@ -233,15 +258,19 @@ export default {
         let latCookie = getCookie('centerlat');
         let lngCookie = getCookie('centerlng');
         let TypeCookie = getCookie('filterType');
-        let mapLayerCookie = getCookie('maplayer')
-        
+        let mapLayerCookie = getCookie('maplayer');
+        let fontSizeCookie = getCookie('fontsize');
+        let showTextCookie = getCookie('showtext');
+
 
         this.zoom = zoomCookie == "" ? this.zoom : zoomCookie ;
         this.initCenterLat = latCookie == "" ? this.initCenterLat : latCookie;
         this.initCenterLng = lngCookie == "" ? this.initCenterLng : lngCookie;
         this.filterType = TypeCookie == "" ? ["Location"] : TypeCookie.split(",")
         this.maplayer = mapLayerCookie == "" ? 0 : Number(mapLayerCookie);
-        
+        this.fontSize = fontSizeCookie == "" ? 12 : Number(fontSizeCookie);
+        this.showText = showTextCookie == "true" ? true : false
+
     },
     async mounted(){
         /*
@@ -570,7 +599,8 @@ export default {
                     break;
             }
         })
-        
+        this.CanvasShowLayer.setShowText(this.showText)
+        this.CanvasShowLayer.setFontSize(this.fontSize)
         if(this.filterType!==[]){
             this.filterType.forEach(type=>{
                 if (this.DOMShowTypes.includes(type)){
