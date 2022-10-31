@@ -4,6 +4,7 @@ import compression from 'compression';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
 //generateToken for dev
 import { generateToken } from './api/utils/jwt.utils';
@@ -45,7 +46,7 @@ app.use(logger);
 //get ip
 // app.use(requestIp.mw())
 
-require('dotenv').config();
+dotenv.config();
 console.log('NODE_ENV_TYPE :',process.env.NODE_ENV)
 
 if (process.env.NODE_ENV !== 'production'){

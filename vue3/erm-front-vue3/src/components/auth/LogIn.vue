@@ -81,27 +81,42 @@ export default {
         background-color: rgb(222, 220, 217,0.5);
     }
     .popupLogin{
-        opacity: 1;
         position:absolute;
-        top:50%;
+        top:40%;
         left:50%;
         transform:translate(-50%,-50%);
         width:380px;
         padding:20px 30px;
-        background: rgb(217, 207, 191);
         box-shadow: 2px 2px 5px 5px rgba(0,0,0,0.15);
         border-radius: 10px;
+
+        color:black;
+        background-color:rgba(0, 0, 0, 0.7);
+
+
+
+        /* border-end-end-radius: 20px; */
+        border-image: url("@/assets/borderImage.png");
+        border-image-repeat:round;
+        border-image-slice:30 50 fill;
+        border-image-width:25px 40px;
+        transition: 0.2s ease;
+
+        display: flex;
+        flex-direction: column;
+        min-height: max-content;
+
     }
     .popupLogin form h2{
         text-align: center;
-        color: #222;
+        color: rgb(219, 200, 165) ;
         margin: 10px 0px 20px;
         font-size:25px;
     }
     .popupLogin .close-btn{
         position: absolute;
-        top:10px;
-        right:10px;
+        top:15px;
+        right:15px;
         height: 15px;
         width: 15px;
         background:#888;
@@ -115,7 +130,7 @@ export default {
     }
     .popupLogin form .form-group label {
         font-size:14px;
-        color:#222;
+        color:rgb(219, 200, 165) ;
     }
     .popupLogin form .form-group input[type="email"],
     .popupLogin form .form-group input[type="password"]{
@@ -137,6 +152,9 @@ export default {
         color:#1a79ca;
         text-decoration: none;
         font-weight: 600;
+    }
+    .Login{
+        color:white
     }
 
 </style>

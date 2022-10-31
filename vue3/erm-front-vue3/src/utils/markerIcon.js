@@ -3,7 +3,6 @@ import "leaflet";
 import "@/plugins/_full"
 import iconurl from './IconUrl.json'
 import locationMapper from "@/utils/LocationIcons"
-import { icon } from "leaflet";
 
 const size = 40
 const IconsSize = [size,size]
