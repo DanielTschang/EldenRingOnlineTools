@@ -1,4 +1,4 @@
-import { AttackType, Attribute, PassiveEffect } from "./temp";
+import { AttackType, Attribute, PassiveEffect } from "./utils";
 
 export interface Weapon{
     /*
