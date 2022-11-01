@@ -1,3 +1,4 @@
+import { Weapon } from './weapon';
 export const allAttackTypes = ["physical", "magic", "fire", "lightning", "holy"] as const;
 
 export const allPassiveEffects = [
@@ -86,8 +87,50 @@ export const maxCharacterLevel = 713 as const;
 
 
 export type Attribute = typeof allAttributes[number];
+export type Attributes = Record<Attribute, number>;
 export type Affinitie = typeof allAffinities[number];
 export type AttackType = typeof allAttackTypes[number];
-export type PassiveEffect = typeof allPassiveEffects[number];
+
+export type weaponType = typeof allWeaponTypes[number];
+export type PassiveEffectsType = typeof allPassiveEffects[number];
 
 
+export const twoHandingAdjust = ({
+    twoHanding = false,
+    weapon,
+    characterAttributes
+}:{
+    twoHanding ?: boolean;
+    weapon : Weapon;
+    characterAttributes : Attributes;
+}) : Attributes => {
+    let twoHandingBonus = twoHanding;
+
+    /*
+    paried weapons don't get two-handing bonus
+    */
+    if(weapon.paired) { 
+        twoHandingBonus = false;
+    }
+
+    /*
+    weapons that can only be two-handed
+    */
+    if (
+        weapon.info.weaponType === "Light Bow" ||
+        weapon.info.weaponType === "Bow" ||
+        weapon.info.weaponType === "Greatbow" ||
+        weapon.info.weaponType === "Ballista"
+    ) {
+        twoHandingBonus = true;
+    }  
+    
+    if (twoHandingBonus) {
+        return {
+            ...characterAttributes,
+            str: Math.floor(characterAttributes.str * 1.5),
+        };
+    }
+
+    return characterAttributes;
+}
