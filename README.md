@@ -1,4 +1,4 @@
-# zh-TW.EldenRingMap - In process
+# zh-TW.EldenRingMap
 
 - MySQL Schema 在 databaseSchema.sql
 - eldenringMarker_en2zhtw.xlsx 可以找到marker type中英對照表
@@ -9,10 +9,9 @@
 - Backend : Express.js (via Typescript) + MySQL + redis(for rate limiting)
 - Infra : Nginx
 
-## 預計開發內容
-1. 艾爾登法環地圖 登入可標記已收集
-2. 裝備配點計算機 (AR Calculator)
-3. 中英對照的資訊網 （可查裝備 戰灰等等）
+## 功能
+1. 艾爾登法環地圖：與現有其他Online Map不同，透過Canvas取代直接在DOM上的操作，大大提昇效能。//TODO:登入可標記已收集。 
+2. 裝備配點計算機 (AR Calculator) // TODO:Frontend
 
 <hr/>
 
@@ -87,7 +86,7 @@ Body :
 {
     "email":"yoyddoyo@gmail.com",
     "username":"test123",
-    "password":"To26292661@"
+    "password":"test"
 }
 ```
 註冊成功：
