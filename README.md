@@ -14,6 +14,14 @@
 2. 裝備配點計算機 (AR Calculator) // TODO:Frontend
 
 <hr/>
+## PC截圖
+
+![alt screenshot](./images/pc1.png)
+
+## Mobile截圖
+![alt screenshot](./images/mobile.png)
+
+<hr/>
 
 ## APIs for Frontend Testing
 ### Markers - 都是GET （測試階段先用.json充當db）
