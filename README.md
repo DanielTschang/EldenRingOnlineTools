@@ -1,9 +1,5 @@
 # zh-TW.EldenRingMap
 
-- MySQL Schema 在 databaseSchema.sql
-- eldenringMarker_en2zhtw.xlsx 可以找到marker type中英對照表
-
-
 ## Tech Stack
 - Front : Vue3 + leaflet.js
 - Backend : Express.js (Typescript) + MySQL
@@ -105,3 +101,8 @@ status:201
     "status": 201
 }
 ```
+
+
+## 備註
+- MySQL Schema 在 databaseSchema.sql
+- eldenringMarker_en2zhtw.xlsx 可以找到marker type中英對照表
