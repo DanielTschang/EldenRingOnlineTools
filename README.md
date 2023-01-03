@@ -6,7 +6,7 @@
 
 ## Tech Stack
 - Front : Vue3 + leaflet.js
-- Backend : Express.js (via Typescript) + MySQL + redis(for rate limiting)
+- Backend : Express.js (Typescript) + MySQL
 - Infra : Nginx
 
 ## 功能
