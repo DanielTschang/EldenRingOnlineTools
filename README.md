@@ -16,7 +16,7 @@
 ![alt screenshot](./images/pc.png)
 
 ## Mobile截圖
-![alt screenshot](./images/mobile.png)
+![alt screenshot](./images/mobile1.png)
 
 <hr/>
 
