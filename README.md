@@ -1,5 +1,5 @@
 # EldenRingOnlineTools
-
+Elden Ring Online Map and Attack Rating(AR) calculator / 艾爾登法環成就地圖&攻擊分數計算幾
 ## Tech Stack
 - Front : Vue3 + leaflet.js
 - Backend : Express.js (Typescript) + MySQL
