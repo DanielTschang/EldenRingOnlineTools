@@ -52,6 +52,12 @@ if (process.env.NODE_ENV !== 'production'){
   console.log('JWT :', generateToken(payload))
 }
 
+import { DATA_SOURCES } from './config/mysql.config';
+const dataSource = DATA_SOURCES.mySqlDataSource;
+
+
+
+
 //get routers
 for (const route of router) {
   app.use(route.getPrefix(),route.getRouter());
