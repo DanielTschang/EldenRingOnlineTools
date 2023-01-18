@@ -1,9 +1,9 @@
 <template>
-  <router-link :to="to" class="link" :class="{active: isActive}">
-        <img style="height:25px; width:25px" :src="iconPath">
-        <slot/>
-      
-  </router-link>
+    <router-link :to="to" class="link" :class="{active: isActive}">
+            <img style="height:25px; width:25px" :src="iconPath">
+            <slot/>
+        
+    </router-link>
 </template>
 
 <script>

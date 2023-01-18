@@ -11,7 +11,8 @@ const routes = [
     name: 'home',
     component: EmptyView,
     meta:{
-      title:"EldenRing Map"
+      keepAlive: true, 
+      title:"EldenRing Online Tools"
     }
   },
   {
@@ -19,7 +20,8 @@ const routes = [
     name: 'map',
     component: MapView,
     meta:{
-      title:"EldenRing Map - Map"
+      keepAlive: true, 
+      title:"EldenRing Online Tools - Map"
     }
   },
   {
@@ -27,7 +29,8 @@ const routes = [
     name: 'info',
     component: InfoView,
     meta:{
-      title:"EldenRing Map - Info"
+      keepAlive: true, 
+      title:"EldenRing Online Tools - Info"
     }
   },
   {
@@ -35,7 +38,8 @@ const routes = [
     name: 'ARcalculator',
     component: InfoView,
     meta:{
-      title:"EldenRing Map - AR calculator"
+      keepAlive: true, 
+      title:"EldenRing Online Tools - AR calculator"
     }
   },
   {
@@ -43,7 +47,8 @@ const routes = [
     name: 'login',
     component: LogIn,
     meta:{
-      title:"EldenRing Map - Log in"
+      keepAlive: true, 
+      title:"EldenRing Online Tools - Log in"
     }
   },
   {
@@ -51,7 +56,8 @@ const routes = [
     name: 'account',
     component: InfoView,
     meta:{
-      title:"EldenRing Map - Account"
+      keepAlive: true, 
+      title:"EldenRing Online Tools - Account"
     }
   },
 

@@ -32,7 +32,17 @@ export default {
         MapSideBar,
         LoadingCircle
     },
+    
     methods:{
+        destroyed() {
+            console.warn('[component About] destroyed', this.user)
+        },
+        activated() {
+            console.warn('[component About] activated', this.user)
+        },
+        deactivated() {
+            console.warn('[component About] deactivated', this.user)
+        },
         changeTypes(checkedType){
             let deletedType = this.filterType.filter(type => !checkedType.includes(type));
             let addType = checkedType.filter(type=>!this.filterType.includes(type))
@@ -261,6 +271,8 @@ export default {
         this.fontSize = fontSizeCookie == "" ? 12 : Number(fontSizeCookie);
         this.showText = showTextCookie == "true" ? true : false
 
+
+
     },
     async mounted(){
         /*
@@ -339,10 +351,7 @@ export default {
         /*
             Map marker Section [Start]
         */
-        // setTimeout(()=>{}, 3000)
-        
         this.markers = await getMarkerByType("all")
-
         this.markersLoaded = true;
         
         this.markers.forEach(marker=>{

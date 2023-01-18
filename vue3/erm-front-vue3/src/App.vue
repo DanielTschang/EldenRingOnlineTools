@@ -2,7 +2,18 @@
 <template>
   <div class="MainContainer">
     <div class="routerview" style="margin-bottom: 7vh">
-      <router-view  @LogInTrigger="LogInTrigger"/>
+
+    <router-view v-slot="{ Component }" include="markers" @LogInTrigger="LogInTrigger" v-if="$route.meta.keepAlive" :key="key">
+      <keep-alive>
+        <component :is="Component" :key="$route.name" v-if="$route.meta.keepAlive" />
+      </keep-alive>
+      <component :is="Component" :key="$route.name" v-if="!$route.meta.keepAlive" />
+    </router-view>
+
+      <!-- <keep-alive>
+      <router-view  include="markers" @LogInTrigger="LogInTrigger" v-if="$route.meta.keepAlive" :key="key"></router-view> 
+      </keep-alive> -->
+      <!-- <router-view  @LogInTrigger="LogInTrigger" v-if="!$route.meta.keepAlive" :key="key"></router-view> -->
     </div>
     <transition name="login">
       <log-in v-if="LogInTriggered" @LogInTrigger="LogInTrigger"/>
