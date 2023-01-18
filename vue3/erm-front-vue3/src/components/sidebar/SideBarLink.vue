@@ -30,6 +30,7 @@ export default {
 
 }
 .link{
+    z-index: 100000000;
     width:100%;
     height: 100%;
     align-items: center;

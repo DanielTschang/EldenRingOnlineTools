@@ -2,10 +2,12 @@
 
 <template>
     <div id="map-container" >
-        <map-side-bar @changeTypes="changeTypes" :initfilterType="filterType" :initShowText="showText" :initFontSize="fontSize" :initMapLayer="maplayer" @ToggleMapChange="ToggleMapChange" @ToggleShowTextChange="ToggleShowTextChange" @ToggleFontSizeChange="ToggleFontSizeChange" />
+        <MapSideBar @changeTypes="changeTypes" :initfilterType="filterType" :initShowText="showText" :initFontSize="fontSize" :initMapLayer="maplayer" @ToggleMapChange="ToggleMapChange" @ToggleShowTextChange="ToggleShowTextChange" @ToggleFontSizeChange="ToggleFontSizeChange" />
+        <LoadingCircle v-if="!markersLoaded"/>
+            <div id="mymap">
+            </div>
         
-        <div id="mymap">
-        </div>
+        
     </div>
 </template>
 
@@ -21,19 +23,19 @@ import MarkerIcon from "@/utils/markerIcon"
 import MapSideBar from "@/components/sidebar/MapSideBar.vue"
 import "@/css/leaflet.css"
 import "@/css/customstyle.css"
+import LoadingCircle from "@/components/LoadingCircle.vue"
 
 
 export default {
 
     components:{
-        MapSideBar
+        MapSideBar,
+        LoadingCircle
     },
     methods:{
         changeTypes(checkedType){
             let deletedType = this.filterType.filter(type => !checkedType.includes(type));
             let addType = checkedType.filter(type=>!this.filterType.includes(type))
-            console.log('add', addType);
-            console.log('delete', deletedType)
             this.filterType = checkedType
             
             if(addType.length>0){
@@ -59,7 +61,7 @@ export default {
             this._redraw()
         },
         ToggleshowCollected(show){
-            //等會員用好再完成
+            // TODO : 等會員用好再完成
             if(this.showCollected!==show){
                 this.showCollected=show
                 if(this.showCollected){
@@ -151,6 +153,7 @@ export default {
             groundLayer:true,
             zoom:4,
             markers:[],
+            markersLoaded:false,
             maxZoom:7,
             minZoom:2,
             tileSize:200,
@@ -170,6 +173,7 @@ export default {
             //地底地圖 Underground map layer
             undergroundMapUrl:'https://imgs.ali213.net/picfile/eldenring_dx/{z}/{x}/{y}.png',
             undergroundMap:null,
+
             collected:[],
             filterType: [],
             markerIDs:[],
@@ -335,8 +339,12 @@ export default {
         /*
             Map marker Section [Start]
         */
-
+        // setTimeout(()=>{}, 3000)
+        
         this.markers = await getMarkerByType("all")
+
+        this.markersLoaded = true;
+        
         this.markers.forEach(marker=>{
             let customPopup = marker.type + " : " + marker.name + "<hr><h4>"+marker.desc+"</h4><hr><input type='checkbox' id='" + marker.id + "'value='"+marker.id+ "'> <label for='"+marker.id+"'>已完成</label>";
             let customOptions =
@@ -655,6 +663,9 @@ export default {
 </script>
 
 <style scoped>
+    .Log{
+        z-index: 9999999;
+    }
     .leaflet-container{
         background-color: #222222;
     }
@@ -667,6 +678,7 @@ export default {
         width:100%;
         height:100%; 
         font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+        background:#222222;
     }
     
 
