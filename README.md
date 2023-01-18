@@ -1,33 +1,34 @@
 # EldenRingOnlineTools
-
+Elden Ring Online Map and Attack Rating(AR) calculator / 艾爾登法環成就地圖&攻擊分數計算幾
 ## Tech Stack
 - Front : Vue3 + leaflet.js
 - Backend : Express.js (Typescript) + MySQL
 - Infra : Nginx
 
-## 功能
-1. 艾爾登法環地圖：與現有其他Online Map不同，透過Canvas取代直接在DOM上的操作，大大提昇效能。//TODO:登入可標記已收集。 
-2. 裝備配點計算機 (AR Calculator) // TODO:Frontend
+## Features
+1. Elden Ring Map : Different from other online map, I render all the markers with HTML5 Canvas instead of rendering each markers on DOM. It gives the application huge performance improved. **TODO : Collection and award system**
+2. Attack Rating Calculator : It calculates all the attack rating states such as physical attack, magic attack and etc, by the STR, INT and etc of the player. It let user to see how the stats change with attributes in real time. **TODO : Frontend**
+
 
 <hr/>
 
-## PC截圖
+## Desktop Screenshot
 
 ![alt screenshot](./images/pc.png)
 
-## Mobile截圖
-![alt screenshot](./images/mobile.png)
+## Mobile Screenshot
+![alt screenshot](./images/mobile1.png)
 
 <hr/>
 
 ## APIs for Frontend Testing
-### Markers - 都是GET （測試階段先用.json充當db）
-##### 取得所有markers
+### Markers
+##### get all markers
 ```
 127.0.0.1:3150/test/api/all
 ```
 
-##### 取得特定type markers
+##### get specific type of markers
 ```
 127.0.0.1:3150/test/api/:type
 ```
@@ -37,7 +38,7 @@
     ```
 
 
-- Marker的interface
+- The interface of marker
 ```
 interface DataRow {
     id: number,
@@ -60,8 +61,8 @@ interface DataRow {
 }
 ```
 
-### User - POST - 登入註冊等等
-登入：
+### User - POST - Login and Register
+Login：
 ```
 127.0.0.1:3150/auth/login
 ```
@@ -72,7 +73,7 @@ Body :
     "password":"testtest"
 }
 ```
-登入成功：
+Login sucessfully response：
 ```
 status:200
 {
@@ -80,9 +81,9 @@ status:200
     "message": "Logged in successfully"
 }
 ```
-token為 JWT
+token is JWT
 --------------------
-註冊：
+Register：
 ```
 127.0.0.1:3150/auth/register
 ```
@@ -94,7 +95,7 @@ Body :
     "password":"test"
 }
 ```
-註冊成功：
+Register sucessfully：
 ```
 status:201
 {
@@ -104,6 +105,10 @@ status:201
 ```
 
 
-## 備註
-- MySQL Schema 在 databaseSchema.sql
-- eldenringMarker_en2zhtw.xlsx 可以找到marker type中英對照表
+
+## Notes
+- the schema of MySQL is in databaseSchema.sql
+- You can find the english-chinese in eldenringMarker_en2zhtw.xlsx 
+
+## Copyright
+Copyright (c) 2022-2023 Daniel Tschang <danchang11.95@gmail.com>. All rights reserved.
