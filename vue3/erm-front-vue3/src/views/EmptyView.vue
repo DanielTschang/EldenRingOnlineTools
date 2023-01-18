@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="emptyView">
   </div>
 </template>
 
@@ -10,9 +10,9 @@ export default {
 </script>
 
 <style>
-    #main{
+    #emptyView{
         width:100vw;
         height:93vh;
         background:#222222;
-    }   
+    }
 </style>

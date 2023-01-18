@@ -1,14 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+// import HomeView from '../views/HomeView.vue'
 import MapView from '../views/MapView.vue'
 import InfoView from '../views/InfoView'
 import LogIn from '@/components/auth/LogIn'
+import EmptyView from '../views/EmptyView'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
+    component: EmptyView,
     meta:{
       title:"EldenRing Map"
     }

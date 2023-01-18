@@ -78,6 +78,11 @@ export default {
   .MainContainer{
     display: flex;
     flex-direction: column;
+    background-color: #222222;
+  }
+
+  .routerview{
+    background-color: #222222;
   }
 
 

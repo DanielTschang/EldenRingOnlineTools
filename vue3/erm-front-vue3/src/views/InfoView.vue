@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="main">
       <h1>yo</h1>
       <button @click="LogIn">yoyo</button>
   </div>
@@ -23,4 +23,9 @@ export default {
 
 <style>
 
+    #main{
+        width:100vw;
+        height:93vh;
+        background:#222222;
+    }   
 </style>

@@ -74,8 +74,8 @@ export default {
 
 <style scoped>
     .popup{
-        z-index: 100000;
-        position: absolute;
+        z-index: 1000000;
+        position: fixed;
         width:100%;
         height: 100%;
         background-color: rgb(222, 220, 217,0.5);
