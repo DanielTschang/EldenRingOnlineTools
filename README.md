@@ -12,12 +12,12 @@ Elden Ring Online Map and Attack Rating(AR) calculator / 艾爾登法環成就�
 
 <hr/>
 
+## Mobile Screenshot
+![alt screenshot](./images/mobile1.png)
+
 ## Desktop Screenshot
 
 ![alt screenshot](./images/pc.png)
-
-## Mobile Screenshot
-![alt screenshot](./images/mobile1.png)
 
 <hr/>
 
